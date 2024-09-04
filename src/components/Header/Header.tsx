@@ -26,6 +26,10 @@ export function Header() {
                     <NavItem label="Business" link="/business" />
                     <NavItem label="Campaign" link="/campaign" />
                 </Group>
+                <Group gap={5} visibleFrom="xs">
+                    <NavItem label="Login" link="/" />
+                    <NavItem label="Signup" link="/" />
+                </Group>
             </Container>
         </header>
     );
