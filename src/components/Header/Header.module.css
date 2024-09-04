@@ -1,0 +1,36 @@
+.header {
+  height: 56px;
+  background-color: var(--mantine-color-body);
+  border-bottom: 1px solid;
+  border-color: black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navItem {
+  font-size: 16px;
+  font-weight: 500;
+  color: White;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: green;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navItem:hover {
+  background-color: mediumseagreen;
+  color: white;
+}
+
+[data-mantine-color-scheme] .nav-item[data-active] {
+  background-color: mediumseagreen;
+  color: White;
+}
