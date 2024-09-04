@@ -1,8 +1,7 @@
-
 export default function Home() {
-  return (
-    <main>
-      <div>Hello</div>
-    </main>
-  );
+    return (
+        <main>
+            <div>Work in process Index page</div>
+        </main>
+    );
 }
