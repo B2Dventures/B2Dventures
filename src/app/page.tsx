@@ -1,4 +1,5 @@
 import {Header} from "@/components/Header/Header";
+import {Stats} from "@/components/Homepage/Stats";
 import {ImageHolder} from "@/components/ImageHolder/ImageHolder";
 import {Container} from "@mantine/core";
 import classes from "./index.module.css";
@@ -13,6 +14,7 @@ export default function Home() {
             <div>Work in process Index page</div>
             <ImageHolder imgSrc={"/logo.ico"} imgAlt={"test investor pic"} linkUrl={"/investor/1"} />
             </Container>
+            <Stats />
         </main>
 
     );
