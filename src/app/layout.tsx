@@ -1,12 +1,17 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import {ColorSchemeScript, createTheme, MantineProvider, rem} from '@mantine/core';
 
-export const metadata = {
-  title: 'My Mantine app',
-  description: 'I have followed setup instructions carefully',
-};
+// const theme = createTheme({
+//     headings: {
+//         sizes: {
+//          h1:{
+//              fontSize: rem(60)     // Custom size for h1
+//          }
+//         }
+//     }
+// });
 
 export default function RootLayout({
                                      children,
