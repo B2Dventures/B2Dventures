@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <main>
             <Header/>
-            <div>Work in process Campaigns page</div>
+            <div>Work in process investor page</div>
         </main>
     );
 }

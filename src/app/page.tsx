@@ -11,7 +11,7 @@ export default function Home() {
                 <h1 className={classes.bigtext}>B2D Ventures</h1>
                 <h2>Become a part of world’s ventures</h2>
             <div>Work in process Index page</div>
-            <ImageHolder imgSrc={"/logo.ico"} imgAlt={"test business pic"} linkUrl={"/business/1"} />
+            <ImageHolder imgSrc={"/logo.ico"} imgAlt={"test investor pic"} linkUrl={"/investor/1"} />
             </Container>
         </main>
 

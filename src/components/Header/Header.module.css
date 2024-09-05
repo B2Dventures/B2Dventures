@@ -22,4 +22,7 @@
 .logo {
   display: flex;
   align-items: start;
+  text-decoration: none;
+  font-size: 75px;
+  color: darkgoldenrod;
 }

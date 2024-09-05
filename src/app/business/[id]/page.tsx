@@ -1,5 +1,5 @@
 const CampaignPage = ({ params }: { params: { id: string } }) => {
-    const { id } = params;  // params = campaign/{id}
+    const { id } = params;  // params = business/{id}
 
     return (
         <div>
