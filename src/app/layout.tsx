@@ -1,7 +1,7 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
-import {ColorSchemeScript, createTheme, MantineProvider, rem} from '@mantine/core';
+import {ColorSchemeScript, MantineProvider} from '@mantine/core';
 
 // const theme = createTheme({
 //     headings: {
