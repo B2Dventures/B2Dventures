@@ -1,5 +1,5 @@
 .header {
-  height: 56px;
+  height: 72px;
   background-color: var(--mantine-color-body);
   border-bottom: 1px solid;
   border-color: black;
@@ -35,4 +35,9 @@
 [data-mantine-color-scheme] .nav-item[data-active] {
   background-color: mediumseagreen;
   color: White;
+}
+
+.logo {
+  display: flex;
+  align-items: start;
 }

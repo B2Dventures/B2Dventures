@@ -3,30 +3,19 @@
 import React from 'react';
 import { Container, Group } from '@mantine/core';
 import classes from './Header.module.css';
-
-interface NavItemProps {
-    label: string;
-    link: string;
-}
-
-export const NavItem: React.FC<NavItemProps> = ({ label, link }) => {
-    return (
-        <a href={link} className={classes.navItem}>
-            {label}
-        </a>
-    );
-};
+import {NavItem} from "@/components/Header/NavItem/NavItem";
+import {Logo} from "@/components/Header/Logo/Logo";
 
 export function Header() {
     return (
         <header className={classes.header}>
-            <Container size="md" className={classes.inner}>
-                <NavItem label="B2D" link="/" />
-                <Group gap={5} visibleFrom="xs">
+            <Container className={classes.inner} >
+                <Group gap={40} visibleFrom="xs">
+                    <Logo />
                     <NavItem label="Business" link="/business" />
                     <NavItem label="Campaign" link="/campaign" />
                 </Group>
-                <Group gap={5} visibleFrom="xs">
+                <Group gap={10} visibleFrom="xs">
                     <NavItem label="Login" link="/" />
                     <NavItem label="Signup" link="/" />
                 </Group>
