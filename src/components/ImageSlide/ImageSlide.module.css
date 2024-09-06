@@ -1,0 +1,35 @@
+.indicator {
+  width: 12px;
+  height: 4px;
+  transition: width 500ms ease;
+  background-color: #B2B2B2;
+
+
+  &[data-active] {
+    width: 40px;
+    background-color: #7F7F7F;
+  }
+}
+
+.control {
+  background-color: #7F7F7F;
+  color: #FFFFFF;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  transform: translateY(-100%);
+}
+
+.controls {
+  transition: opacity 150ms ease;
+  opacity: 0;
+}
+
+.root {
+  &:hover {
+    .controls {
+      opacity: 1;
+
+    }
+  }
+}

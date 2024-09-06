@@ -1,21 +1,31 @@
-import {Header} from "@/components/Header/Header";
+'use client';
+
+import Image from 'next/image';
+import React from 'react';
+import { Header } from '@/components/Header/Header';
 import {Stats} from "@/components/Homepage/Stats";
-import {ImageHolder} from "@/components/ImageHolder/ImageHolder";
-import {Container} from "@mantine/core";
-import classes from "./index.module.css";
+import { ImageSlide } from '@/components/ImageSlide/ImageSlide'
+import { Container, Text, Box } from '@mantine/core';
+import classes from './index.module.css';
 
 export default function Home() {
-    return (
-        <main>
-            <Header />
-            <Container>
-                <h1 className={classes.bigtext}>B2D Ventures</h1>
-                <h2>Become a part of world’s ventures</h2>
-            <div>Work in process Index page</div>
-            <ImageHolder imgSrc={"/logo.ico"} imgAlt={"test investor pic"} linkUrl={"/investor/1"} />
-            </Container>
-            <Stats />
-        </main>
-
-    );
+  return (
+    <main>
+      <Header />
+      <Box p="xl">
+        <Text
+          variant="gradient"
+          gradient={{ from: '#000000', to: '#00E2D2', deg: 90 }}
+          fw={1000}
+          component="span"
+          style={{ fontSize: '95px' }}
+        >
+          B2D Ventures
+        </Text>
+        <Text style={{ fontSize: '20px' }}>Become a part of world’s ventures</Text>
+        <ImageSlide />
+      </Box>
+      <Stats />
+    </main>
+  );
 }
