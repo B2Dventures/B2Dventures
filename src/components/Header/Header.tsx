@@ -13,10 +13,10 @@ export function Header() {
             <Container className={classes.inner} fluid>
                 <Group gap={30} visibleFrom="xs" justify="center">
                     <Logo />
-                    <Button size='sm' leftSection={<BsPerson size={20} color='black'/>} variant="outline" color='white'>
+                    <Button size='md' leftSection={<BsPerson size={20} color='black'/>} variant="outline" color='white'>
                     <NavItem label="Investor" link="/investor" />
                     </Button>
-                    <Button size='sm' leftSection={<BsSuitcaseLg size={20} color='black'/>} variant="outline" color='white'>
+                    <Button size='md' leftSection={<BsSuitcaseLg size={20} color='black'/>} variant="outline" color='white'>
                     <NavItem label="Business" link="/business" />
                     </Button>
                 </Group>

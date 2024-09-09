@@ -10,19 +10,33 @@ export function Stats() {
     return (
         <footer className={classes.footer}>
             <Container className={classes.inner} fluid>
-                <Grid className={classes.grid}>
-                    <Grid.Col span={4}>
-                        <LuDollarSign/>
-                    </Grid.Col>
-                    <Grid.Col span={4}>
-                        <LuUsers/>
-                    </Grid.Col>
-                    <Grid.Col span={4}>
-                        <LuCheckCircle/>
-                    </Grid.Col>
-                </Grid>
+                <Group>
+                    <Grid>
+                        <Grid.Col span={4}>
+                            <div className={classes.box}>
+                                <LuDollarSign size={50} />
+                                <Text className={classes.name}>Total Investment</Text>
+                                <Text className={classes.number}>$ 8M+</Text>
+                            </div>
+                        </Grid.Col>
+                        <Grid.Col span={4}>
+                            <div className={classes.box}>
+                                <LuUsers size={50} />
+                                <Text className={classes.name}>Total Investors</Text>
+                                <Text className={classes.number}>100K+</Text>
+                            </div>
+                        </Grid.Col>
+                        <Grid.Col span={4}>
+                            <div className={classes.box}>
+                                <LuCheckCircle size={50} />
+                                <Text className={classes.name}>Ventures Supported</Text>
+                                <Text className={classes.number}>1200+</Text>
+                            </div>
+                        </Grid.Col>
+                    </Grid>
+                </Group>
                 <Group gap={20} visibleFrom="xs">
-                    <Button size='sm' rightSection={<LuChevronRightCircle size={20} color='black' />} variant="gradient"
+                    <Button size='lg' rightSection={<LuChevronRightCircle size={25} color='black' />} variant="gradient"
                             gradient={{ from: 'yellow', to: 'gold', deg: 90 }}>
                         <NavItem label="Start Investing" link="/investor" />
                     </Button>
