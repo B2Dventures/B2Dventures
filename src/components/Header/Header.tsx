@@ -5,7 +5,7 @@ import { Container, Group, Button } from '@mantine/core';
 import classes from './Header.module.css';
 import {NavItem} from "@/components/Header/NavItem/NavItem";
 import {Logo} from "@/components/Header/Logo/Logo";
-import { BsPerson, BsSuitcaseLg } from "react-icons/bs";
+import { LuUser, LuBriefcase } from "react-icons/lu";
 
 export function Header() {
     return (
@@ -13,11 +13,17 @@ export function Header() {
             <Container className={classes.inner} fluid>
                 <Group gap={30} visibleFrom="xs" justify="center">
                     <Logo />
-                    <Button size='md' leftSection={<BsPerson size={20} color='black'/>} variant="outline" color='white'>
-                    <NavItem label="Investor" link="/investor" />
+                    <Button size='md' variant="outline" color='white'>
+                        <div className={classes.box}>
+                            <LuUser size={50} color='black'/>
+                            <NavItem label="Investor" link="/investor" />
+                        </div>
                     </Button>
-                    <Button size='md' leftSection={<BsSuitcaseLg size={20} color='black'/>} variant="outline" color='white'>
-                    <NavItem label="Business" link="/business" />
+                    <Button size='md' variant="outline" color='white'>
+                        <div className={classes.box}>
+                            <LuBriefcase size={50} color='black'/>
+                            <NavItem label="Business" link="/business" />
+                        </div>
                     </Button>
                 </Group>
                 <Group gap={20} visibleFrom="xs">
