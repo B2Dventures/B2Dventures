@@ -10,7 +10,7 @@ import { LuUser, LuBriefcase } from "react-icons/lu";
 export function Header() {
     return (
         <header className={classes.header}>
-            <Container className={classes.inner} fluid>
+            <Container className={classes.inner} size={"1440"}>
                 <Group gap={30} visibleFrom="xs" justify="center">
                     <Logo />
                     <Button size='md' variant="outline" color='white'>

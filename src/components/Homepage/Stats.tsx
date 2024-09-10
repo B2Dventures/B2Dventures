@@ -9,7 +9,7 @@ import React from "react";
 export function Stats() {
     return (
         <footer className={classes.footer}>
-            <Container className={classes.inner} fluid>
+            <Container className={classes.inner} size={1440}>
                 <Group>
                     <Grid>
                         <Grid.Col span={4}>

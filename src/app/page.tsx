@@ -11,8 +11,9 @@ import classes from './index.module.css';
 export default function Home() {
   return (
     <main>
+        <Header />
         <Container size={1440} >
-      <Header />
+
       <Box p="xl">
         <Text
           variant="gradient"
@@ -26,8 +27,8 @@ export default function Home() {
         <Text style={{ fontSize: '20px' }}>Become a part of world’s ventures</Text>
         <ImageSlide />
       </Box>
-      <Stats />
         </Container>
+        <Stats />
     </main>
   );
 }
