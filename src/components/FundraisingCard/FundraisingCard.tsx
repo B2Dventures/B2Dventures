@@ -19,7 +19,7 @@ export const FundraisingCard: React.FC<CardProps> = ({ title, description, image
             <a href={`/investor/${id}`} style={{ textDecoration: 'none' }}> {/* Ensures the card doesn't show link underlines */}
                 <Card shadow="sm" padding="lg" radius="md" className={classes.card}>
                     <Card.Section>
-                        <Image src={imageUrl} height={160} alt={title} />
+                        <Image src={imageUrl} height={160} alt={title}/>
                     </Card.Section>
 
                     <Group mt="md" mb="xs">
@@ -30,7 +30,7 @@ export const FundraisingCard: React.FC<CardProps> = ({ title, description, image
                         {description}
                     </Text>
 
-                    <Group mt="md">
+                    <Group mt="md" className={classes.stat}>
                         <Text size="sm">{raisedAmount} raised</Text>
                         <Text size="sm">{investors} Investors</Text>
                     </Group>

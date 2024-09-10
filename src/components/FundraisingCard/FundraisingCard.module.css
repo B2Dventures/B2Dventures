@@ -9,3 +9,8 @@
 .card:hover {
   transform: scale(1.05);
 }
+
+.stat{
+  display: flex;
+  justify-content: space-between;
+}
