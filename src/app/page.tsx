@@ -15,7 +15,7 @@ export default function Home() {
       <Box p="xl">
         <Text
           variant="gradient"
-          gradient={{ from: '#000000', to: '#00E2D2', deg: 90 }}
+          gradient={{ from: '#000000', to: 'goldenrod', deg: 90 }}
           fw={1000}
           component="span"
           style={{ fontSize: '95px' }}

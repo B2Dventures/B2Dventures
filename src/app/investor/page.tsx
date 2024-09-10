@@ -4,12 +4,17 @@ import {Header} from "@/components/Header/Header";
 import {FundraisingCard} from "@/components/FundraisingCard/FundraisingCard";
 import { Grid, Text, Container } from '@mantine/core';
 import classes from './investor.module.css';
+import { SearchBar } from "@/components/Search/SearchBar";
+
 
 export default function Home() {
-    return (
+
+      return (
         <main>
             <Header/>
-            <Text>Live Opportunities</Text>
+            <SearchBar/>
+            <Text style={{ marginTop: '50px',
+            marginLeft: '50px', marginBottom: '50px', fontSize: '35px'}}>Live Opportunities</Text>
             <Container fluid className={classes.campaign}>
                 <Grid gutter={100}>
                     <Grid.Col span={4}>
@@ -42,5 +47,5 @@ export default function Home() {
                 </Grid>
             </Container>
         </main>
-    );
+  );
 }
