@@ -7,11 +7,11 @@ import { ImageHolder } from '@/components/ImageSlide/ImageHolder/ImageHolder';
 import classes from './ImageSlide.module.css';
 
 const images = [
-  { imgSrc: '/1.ico', imgAlt: 'Business 1', linkUrl: '/campaign/[id]' },
-  { imgSrc: '/2.ico', imgAlt: 'Business 2', linkUrl: '/campaign/[id]' },
-  { imgSrc: '/3.ico', imgAlt: 'Business 3', linkUrl: '/campaign/[id]' },
-  { imgSrc: '/4.ico', imgAlt: 'Business 4', linkUrl: '/campaign/[id]' },
-  { imgSrc: '/5.ico', imgAlt: 'Business 5', linkUrl: '/campaign/[id]' },
+  { imgSrc: '/1.ico', imgAlt: 'Business 1', linkUrl: '/investor/1' },
+  { imgSrc: '/2.ico', imgAlt: 'Business 2', linkUrl: '/investor/2' },
+  { imgSrc: '/3.ico', imgAlt: 'Business 3', linkUrl: '/investor/3' },
+  { imgSrc: '/4.ico', imgAlt: 'Business 4', linkUrl: '/investor/4' },
+  { imgSrc: '/5.ico', imgAlt: 'Business 5', linkUrl: '/investor/5' },
 ];
 
 export const ImageSlide: React.FC = () => {

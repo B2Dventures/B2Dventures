@@ -11,6 +11,7 @@ import classes from './index.module.css';
 export default function Home() {
   return (
     <main>
+        <Container size={1440} >
       <Header />
       <Box p="xl">
         <Text
@@ -26,6 +27,7 @@ export default function Home() {
         <ImageSlide />
       </Box>
       <Stats />
+        </Container>
     </main>
   );
 }

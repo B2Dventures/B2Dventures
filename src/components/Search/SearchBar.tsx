@@ -2,7 +2,7 @@
 
 import { TextInput } from '@mantine/core';
 
-export const SearchBar: React.FC<SearchBarProps> = () => {
+export const SearchBar: React.FC = () => {
 
   return (
     <div style={{marginLeft: '50px', marginTop: '35px'}}>

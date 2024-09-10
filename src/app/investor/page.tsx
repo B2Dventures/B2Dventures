@@ -9,43 +9,48 @@ import { SearchBar } from "@/components/Search/SearchBar";
 
 export default function Home() {
 
-      return (
+    return (
         <main>
-            <Header/>
-            <SearchBar/>
-            <Text style={{ marginTop: '50px',
-            marginLeft: '50px', marginBottom: '50px', fontSize: '35px'}}>Live Opportunities</Text>
-            <Container fluid className={classes.campaign}>
-                <Grid gutter={100}>
-                    <Grid.Col span={4}>
-                        <FundraisingCard
-                            title="B2D Ventures"
-                            description="Become a part of world's ventures"
-                            imageUrl="/1.ico"
-                            raisedAmount="123,456$"
-                            investors="123"
-                        />
-                    </Grid.Col>
-                    <Grid.Col span={4}>
-                        <FundraisingCard
-                            title="B2D Ventures"
-                            description="Become a part of world's ventures"
-                            imageUrl="/1.ico"
-                            raisedAmount="123,456$"
-                            investors="123"
-                        />
-                    </Grid.Col>
-                    <Grid.Col span={4}>
-                        <FundraisingCard
-                            title="B2D Ventures"
-                            description="Become a part of world's ventures"
-                            imageUrl="/1.ico"
-                            raisedAmount="123,456$"
-                            investors="123"
-                        />
-                    </Grid.Col>
-                </Grid>
+            <Container size={1440}>
+                <Header/>
+                <SearchBar/>
+                <Text style={{ marginTop: '50px',
+                    marginLeft: '50px', marginBottom: '50px', fontSize: '35px'}}>Live Opportunities</Text>
+                <Container fluid className={classes.campaign}>
+                    <Grid gutter={100}>
+                        <Grid.Col span={4}>
+                            <FundraisingCard
+                                title="B2D Ventures"
+                                description="Become a part of world's ventures"
+                                imageUrl="/1.ico"
+                                raisedAmount="123,456$"
+                                investors="123"
+                                id={1}
+                            />
+                        </Grid.Col>
+                        <Grid.Col span={4}>
+                            <FundraisingCard
+                                title="B2D Ventures"
+                                description="Become a part of world's ventures"
+                                imageUrl="/1.ico"
+                                raisedAmount="123,456$"
+                                investors="123"
+                                id={2}
+                            />
+                        </Grid.Col>
+                        <Grid.Col span={4}>
+                            <FundraisingCard
+                                title="B2D Ventures"
+                                description="Become a part of world's ventures"
+                                imageUrl="/1.ico"
+                                raisedAmount="123,456$"
+                                investors="123"
+                                id={3}
+                            />
+                        </Grid.Col>
+                    </Grid>
+                </Container>
             </Container>
         </main>
-  );
+    );
 }
