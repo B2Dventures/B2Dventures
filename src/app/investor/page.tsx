@@ -5,7 +5,7 @@ import {FundraisingCard} from "@/components/FundraisingCard/FundraisingCard";
 import { Grid, Text, Container } from '@mantine/core';
 import classes from './investor.module.css';
 import { SearchBar } from "@/components/Search/SearchBar";
-
+import { baiSemiBold } from '@/app/styles/fonts'
 
 export default function Home() {
 
@@ -14,8 +14,12 @@ export default function Home() {
             <Container size={1440}>
                 <Header/>
                 <SearchBar/>
-                <Text style={{ marginTop: '50px',
-                    marginLeft: '50px', marginBottom: '50px', fontSize: '35px'}}>Live Opportunities</Text>
+                <main className={baiSemiBold.className}>
+                    <Text className={classes.font} style = {{ marginTop: '50px',marginLeft: '50px', marginBottom: '50px'}}>
+                        Live Opportunities
+                    </Text>
+                </main>
+
                 <Container fluid className={classes.campaign}>
                     <Grid gutter={100}>
                         <Grid.Col span={4}>
