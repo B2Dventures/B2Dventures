@@ -26,9 +26,9 @@ export function Header() {
                         </div>
                     </Button>
                 </Group>
-                <Group gap={20} visibleFrom="xs">
-                    <NavItem label="Login" link="/" />
-                    <NavItem label="Signup" link="/" />
+                <Group gap={20} visibleFrom="xs" className={classes.access}>
+                    <NavItem label="Login" link="/login" />
+                    <NavItem label="Signup" link="/signup" />
                 </Group>
             </Container>
         </header>
