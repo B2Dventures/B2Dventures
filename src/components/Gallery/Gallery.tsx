@@ -7,7 +7,6 @@ interface GalleryProps {
 }
 
 export const Gallery: React.FC<GalleryProps> = ({ images }) => {
-    // State to keep track of which image is currently selected
     const [selectedImage, setSelectedImage] = useState<string>(images[0]);
 
     return (

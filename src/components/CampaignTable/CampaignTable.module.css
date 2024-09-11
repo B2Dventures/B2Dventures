@@ -1,0 +1,22 @@
+.head{
+  background-color: goldenrod;
+  color: white;
+}
+
+.body{
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+
+.name{
+  font-weight: bold;
+}
+
+.table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
