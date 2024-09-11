@@ -14,16 +14,20 @@ export function Header() {
                 <Group gap={30} visibleFrom="xs" justify="center">
                     <Logo />
                     <Button size='md' variant="outline" color='white'>
-                        <div className={classes.box}>
-                            <LuUser size={50} color='black'/>
-                            <NavItem label="Investor" link="/investor" />
-                        </div>
+                        <a href='/investor' className={classes.fullButtonLink}>
+                            <div className={classes.box}>
+                                <LuUser size={50} color='black'/>
+                                <div>Investor</div>
+                            </div>
+                        </a>
                     </Button>
                     <Button size='md' variant="outline" color='white'>
-                        <div className={classes.box}>
-                            <LuBriefcase size={50} color='black'/>
-                            <NavItem label="Business" link="/business" />
-                        </div>
+                        <a href='/business' className={classes.fullButtonLink}>
+                            <div className={classes.box}>
+                                <LuBriefcase size={25} color='black' />
+                                <div>Business</div>
+                            </div>
+                        </a>
                     </Button>
                 </Group>
                 <Group gap={20} visibleFrom="xs" className={classes.access}>

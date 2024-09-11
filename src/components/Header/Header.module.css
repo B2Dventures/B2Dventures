@@ -37,3 +37,20 @@
 .access {
   font-weight: 500;
 }
+
+.fullButtonLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.fullButtonLink:focus, .fullButtonLink:active {
+  outline: none;
+  text-decoration: none;
+}
+
+.fullButtonLink div {
+  color: black;
+}
