@@ -1,13 +1,18 @@
+// src/pages/Home.tsx
 "use client";
 
-import { Header } from "@/components/Header/Header";
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Container, TextInput, Textarea, NumberInput, Select, Button, Group, Text } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import { Container, TextInput, Textarea, NumberInput, Select, FileInput, Button, Group, Text } from '@mantine/core';
+import { Header } from '@/components/Header/Header';
+import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
 
 export default function Home() {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [value, setValue] = useState<Date | null>(null);
+
+  const handleDrop = (files: File[]) => {
+    console.log('Files dropped:', files);
+  };
 
   return (
     <main>
@@ -41,26 +46,19 @@ export default function Home() {
         />
         <Group mt="md" grow>
           <DateInput
-            value={startDate}
-            onChange={setStartDate}
+            value={value}
+            onChange={setValue}
             label="Start date"
             placeholder="Enter your start date"
-            required
           />
           <DateInput
-            value={endDate}
-            onChange={setEndDate}
+            value={value}
+            onChange={setValue}
             label="End date"
             placeholder="Enter your end date"
-            required
           />
         </Group>
-        <FileInput
-          label="Upload an Image"
-          placeholder="Upload your Campaign Image"
-          accept="image/*"
-          mt="md"
-        />
+        <ImageDrop onDrop={handleDrop} />
         <Group position="center" mt="xl">
           <Button color="green">Submit</Button>
         </Group>
