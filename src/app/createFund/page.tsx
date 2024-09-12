@@ -8,7 +8,8 @@ import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
 
 export default function Home() {
-  const [value, setValue] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   const handleDrop = (files: File[]) => {
     console.log('Files dropped:', files);
@@ -46,14 +47,14 @@ export default function Home() {
         />
         <Group mt="md" grow>
           <DateInput
-            value={value}
-            onChange={setValue}
+            value={startDate}
+            onChange={setStartDate}
             label="Start date"
             placeholder="Enter your start date"
           />
           <DateInput
-            value={value}
-            onChange={setValue}
+            value={endDate}
+            onChange={setEndDate}
             label="End date"
             placeholder="Enter your end date"
           />
