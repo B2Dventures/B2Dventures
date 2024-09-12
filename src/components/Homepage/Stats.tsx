@@ -36,8 +36,8 @@ export function Stats() {
                     </Grid>
                 </Group>
                 <Group gap={20} visibleFrom="xs">
-                    <Button size='lg' rightSection={<LuChevronRightCircle size={25} color='black' />} variant="gradient"
-                            gradient={{ from: 'yellow', to: 'gold', deg: 90 }}>
+                    <Button size='lg' rightSection={<LuChevronRightCircle size={25} color='white' />} variant="gradient"
+                            gradient={{ from: 'goldenrod', to: 'yellow', deg: 90 }}>
                         <NavItem label="Start Investing" link="/investor" />
                     </Button>
                 </Group>
