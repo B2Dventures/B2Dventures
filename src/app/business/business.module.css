@@ -1,6 +1,13 @@
 .container {
-  flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 235px;
+  margin-top: -50px;
 }
 

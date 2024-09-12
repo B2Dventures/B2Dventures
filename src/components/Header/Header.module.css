@@ -13,7 +13,7 @@
 }
 
 .navItem {
-  color: black;
+  color: White;
   text-decoration: none;
 }
 
@@ -36,6 +36,8 @@
 
 .access {
   font-weight: 500;
+  text-decoration: none;
+  color: black;
 }
 
 .fullButtonLink {

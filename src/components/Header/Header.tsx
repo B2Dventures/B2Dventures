@@ -30,11 +30,11 @@ export function Header() {
                         </a>
                     </Button>
                 </Group>
-                <Group gap={20} visibleFrom="xs" className={classes.access}>
-                    <NavItem label="Login" link="/login" />
-                    <NavItem label="Signup" link="/signup" />
+                <Group gap={20} visibleFrom="xs">
+                    <a href='/login'  className={classes.access}>Login</a>
+                    <a href='/signup'  className={classes.access}>Signup</a>
                 </Group>
             </Container>
         </header>
-    );
+);
 }

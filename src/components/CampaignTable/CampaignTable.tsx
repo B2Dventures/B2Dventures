@@ -25,7 +25,7 @@ export function CampaignTable() {
 
     return (
         <Container className={classes.table}>
-            <Table striped highlightOnHover withTableBorder>
+            <Table striped highlightOnHover withTableBorder verticalSpacing="md" horizontalSpacing="md">
                 <Table.Thead className={classes.head}>
                     <Table.Tr>
                         <Table.Th className={classes.body}>Campaign Name</Table.Th>

@@ -14,9 +14,11 @@ export default function Home() {
             <Header/>
             <Container size={1440} className={classes.container}>
                 <CampaignTable/>
-                <Button size='xs' variant="gradient" gradient={{ from: 'yellow', to: 'gold', deg: 90 }}>
-                    <NavItem label="Create Fundraising" link="/createFund" />
-                </Button>
+                <div className={classes.button}>
+                    <Button size='md' variant="gradient" gradient={{ from: 'yellow', to: 'gold', deg: 90 }}>
+                        <NavItem label="Create Fundraising" link="/createFund" />
+                    </Button>
+                </div>
             </Container>
         </main>
     );
