@@ -37,6 +37,12 @@ export default function Home() {
           required
           mt="md"
         />
+        <NumberInput
+          label="Minimum Investment"
+          placeholder="Enter the minimum amount of your campaign"
+          required
+          mt="md"
+        />
         <Select
           label="Category"
           placeholder="Select a category"
