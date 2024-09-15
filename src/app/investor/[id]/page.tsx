@@ -7,7 +7,7 @@ import {Container, Flex, Grid} from "@mantine/core";
 
 
 const CampaignPage = ({ params }: { params: { id: string } }) => {
-    const { id } = params;  // params = business/{id}
+    const { id } = params;
 
     const images = [
         '/1.ico',
@@ -33,7 +33,7 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
 
             </div>
             <div>
-                <h1>Campaign ID: {id}</h1>
+                <h1>Description</h1>
             </div>
             </Container>
         </main>

@@ -8,7 +8,11 @@ const elements = [
     { name: 'B2D', goal: 120000, raised: 50000,investors: 2345, status: 'OnGoing' },
     { name: 'D2B', goal: 100000, raised: 123456, investors: 3456, status: 'Finished' },
     { name: 'ABC', goal: 200000, raised: 121231, investors: 1234, status: 'OnGoing' },
-    { name: 'ACDC', goal: 50, raised: 21, investors: 1, status: 'OnGoing' },
+    { name: 'ACDC', goal: 5000, raised: 120, investors: 1, status: 'OnGoing' },
+    { name: 'A Campaign', goal: 180000, raised: 100000, investors: 112, status: 'OnGoing' },
+    { name: 'A Fundraising', goal: 145000, raised: 162000, investors: 452, status: 'Finished' },
+    { name: 'XYZ', goal: 10000, raised: 13200, investors: 191, status: 'OnGoing' },
+    { name: '123Company', goal: 50000, raised: 32600, investors: 326, status: 'OnGoing' },
 
 ];
 
