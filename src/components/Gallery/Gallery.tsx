@@ -1,37 +1,62 @@
 "use client";
+
 import React, { useState } from 'react';
-import { Image, Group, Card } from '@mantine/core';
+import { Image, Card } from '@mantine/core';
+import { Carousel } from '@mantine/carousel';
 
 interface GalleryProps {
-    images: string[];
+  images: string[];
 }
 
 export const Gallery: React.FC<GalleryProps> = ({ images }) => {
-    // State to keep track of which image is currently selected
+  const [selectedImage, setSelectedImage] = useState<string>(images[0]);
 
-    const [selectedImage, setSelectedImage] = useState<string>(images[0]);
+  return (
+    <div>
+      <Card withBorder shadow="sm" p="lg" radius="md" style={{ marginBottom: 20, marginTop: 50 }}>
+        <Card.Section>
+          <Image src={selectedImage} alt="Selected Investment" height={500} fit="cover" style={{borderRadius:'5px'}} />
+        </Card.Section>
+      </Card>
 
-    return (
-        <div>
-            {/* Main selected image */}
-                <Card withBorder shadow="sm" p="lg" radius="md" style={{ marginBottom: 20 }}>
-                    <Image src={selectedImage} alt="Selected Investment" height={400} fit="cover" />
-                </Card>
-
-                {/* Thumbnails */}
-                <Group>
-                    {images.map((img, idx) => (
-                        <Card
-                            key={idx}
-                            onClick={() => setSelectedImage(img)} // Click to change the large image
-                            shadow={img === selectedImage ? 'xl' : 'sm'} // Highlight the selected thumbnail
-                            withBorder
-                            radius="md"
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <Image src={img} alt={`Thumbnail ${idx}`} width={100} height={70} fit="cover" />
-                        </Card>))}
-                </Group>
-        </div>
-    );
+      <Carousel
+        withIndicators
+        height={200}
+        slideSize="25%"
+        slideGap='lg'
+        loop
+        align="start"
+        onSlideChange={index => setSelectedImage(images[index])}
+      >
+        {images.map((img, idx) => (
+          <Carousel.Slide key={idx}>
+            <Card
+              onClick={() => setSelectedImage(img)}
+              shadow={img === selectedImage ? 'xl' : 'sm'}
+              withBorder
+              radius="md"
+              p="lg"
+              style={{ cursor: 'pointer', height: '200', width: '200' }}
+            >
+              <Card.Section
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  height: '200',
+                  width: '200'
+                }}
+              >
+                <Image
+                  src={img}
+                  alt={`Thumbnail ${idx}`}
+                  height="170"
+                  width="170"
+                />
+              </Card.Section>
+            </Card>
+          </Carousel.Slide>
+        ))}
+      </Carousel>
+    </div>
+  );
 };
