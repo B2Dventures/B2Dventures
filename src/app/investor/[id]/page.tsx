@@ -3,6 +3,7 @@ import {Header} from '@/components/Header/Header';
 import { InvestmentInfo } from '@/components/InvestmentInfo/InvestmentInfo';
 import {Gallery} from '@/components/Gallery/Gallery';
 import {Container, Flex, Grid} from "@mantine/core";
+import Description from "@/components/Description/Description";
 
 
 
@@ -32,9 +33,9 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
                 </Flex>
 
             </div>
-            <div>
-                <h1>Description</h1>
-            </div>
+            <Flex>
+            <Description  id={id}/>
+            </Flex>
             </Container>
         </main>
     );
