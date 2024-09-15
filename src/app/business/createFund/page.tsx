@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 "use client";
 
 import React, { useState } from 'react';

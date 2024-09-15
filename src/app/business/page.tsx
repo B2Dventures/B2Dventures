@@ -6,6 +6,7 @@ import {Button, Container} from '@mantine/core';
 import classes from "./business.module.css";
 import React from "react";
 import {NavItem} from "@/components/Header/NavItem/NavItem";
+import {Stats} from "@/components/Homepage/Stats";
 
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
                 <CampaignTable/>
                 <div className={classes.button}>
                     <Button size='md' variant="gradient" gradient={{ from: 'yellow', to: 'gold', deg: 90 }}>
-                        <NavItem label="Create Fundraising" link="/createFund" />
+                        <NavItem label="Create Fundraising" link="/business/createFund" />
                     </Button>
                 </div>
             </Container>

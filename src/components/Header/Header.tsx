@@ -8,20 +8,29 @@ import {Logo} from "@/components/Header/Logo/Logo";
 import { LuUser, LuBriefcase } from "react-icons/lu";
 
 export function Header() {
+
+    const investorPage= () => {
+        window.location.href = '/investor'; // Redirect to the new URL
+    };
+
+    const businessPage= () => {
+        window.location.href = '/business'; // Redirect to the new URL
+    };
+
     return (
         <header className={classes.header}>
             <Container className={classes.inner} size={"1440"}>
                 <Group gap={30} visibleFrom="xs" justify="center">
                     <Logo />
-                    <Button size='md' variant="outline" color='white'>
-                        <a href='/investor' className={classes.fullButtonLink}>
+                    <Button size='md' variant="outline" color='white' onClick={investorPage}>
+                        <a className={classes.fullButtonLink}>
                             <div className={classes.box}>
                                 <LuUser size={50} color='black'/>
                                 <div>Investor</div>
                             </div>
                         </a>
                     </Button>
-                    <Button size='md' variant="outline" color='white'>
+                    <Button size='md' variant="outline" color='white' onClick={businessPage}>
                         <a href='/business' className={classes.fullButtonLink}>
                             <div className={classes.box}>
                                 <LuBriefcase size={25} color='black' />

@@ -1,36 +1,65 @@
 "use client";
 import React, { useState } from 'react';
-import { Image, Group, Card } from '@mantine/core';
+import {Image, Group, Card, Container} from '@mantine/core';
+import {Carousel} from "@mantine/carousel";
+import {ImageBig} from "@/components/Gallery/ImageBig/ImageBig";
+import {ImageSmall} from "@/components/Gallery/ImageSmall/ImageSmall";
 
 interface GalleryProps {
     images: string[];
 }
 
 export const Gallery: React.FC<GalleryProps> = ({ images }) => {
-    const [selectedImage, setSelectedImage] = useState<string>(images[0]);
+    // State to keep track of which image is currently selected
+
+
+    const [selectedImage, setSelectedImage] = useState(0);
+
+    const handleSlideChange = (index: number) => {
+        setSelectedImage(index);
+    }
 
     return (
         <div>
             {/* Main selected image */}
-            <Card withBorder shadow="sm" p="lg" radius="md" style={{ marginBottom: 20 }}>
-                <Image src={selectedImage} alt="Selected Investment" height={400} fit="cover" />
-            </Card>
+            <Container size={408}>
+            <Carousel
+                initialSlide = {0}
+                onSlideChange={handleSlideChange}
+            >
+                {images.map((image, index) => (
+                    <Carousel.Slide key={index}>
+                        <ImageBig
+                            imgSrc={image}
+                        />
+                        {index}
+                    </Carousel.Slide>
+                ))}
+            </Carousel>
+
+            <Carousel
+                withIndicators
+                slideSize="33.333333%"
+                slideGap="md"
+                loop
+                align="start"
+                slidesToScroll={3}
+                onSlideChange={handleSlideChange}
+            >
+                {images.map((image, index) => (
+                    <Carousel.Slide key={index}>
+                        <ImageSmall
+                            imgSrc={image}
+                        />
+                        {index}
+                    </Carousel.Slide>
+                ))}
+            </Carousel>
+            </Container>
+
 
             {/* Thumbnails */}
-            <Group>
-                {images.map((img, idx) => (
-                    <Card
-                        key={idx}
-                        onClick={() => setSelectedImage(img)} // Click to change the large image
-                        shadow={img === selectedImage ? 'xl' : 'sm'} // Highlight the selected thumbnail
-                        withBorder
-                        radius="md"
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <Image src={img} alt={`Thumbnail ${idx}`} width={100} height={70} fit="cover" />
-                    </Card>
-                ))}
-            </Group>
+
         </div>
     );
 };
