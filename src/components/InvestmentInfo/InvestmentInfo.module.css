@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  margin-top: 100px;
+  margin-top: 64px;
   align-items: start;
   justify-content: center;
   width: 100%;
@@ -31,13 +31,14 @@
 
 .badge{
   display: flex;
-  padding: 16px 0 30px 0;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0 16px 0;
 }
 
 .box {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px 0 30px 0;
-  border-bottom: rgba(0, 0, 0, 0.3) solid 1px;
+  padding: 16px 0 16px 0;
 }
