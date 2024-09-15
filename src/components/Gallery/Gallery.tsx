@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Image, Card } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+import classes from './Gallery.module.css';
 
 interface GalleryProps {
   images: string[];
@@ -20,13 +21,13 @@ export const Gallery: React.FC<GalleryProps> = ({ images }) => {
       </Card>
 
       <Carousel
-        withIndicators
-        height={200}
+        height={250}
         slideSize="25%"
-        slideGap='lg'
+        slideGap='xs'
         loop
         align="start"
         onSlideChange={index => setSelectedImage(images[index])}
+        classNames={classes}
       >
         {images.map((img, idx) => (
           <Carousel.Slide key={idx}>

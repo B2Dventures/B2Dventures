@@ -1,0 +1,22 @@
+.control {
+  background-color: #7F7F7F;
+  color: #FFFFFF;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  transform: translateY(-100%);
+}
+
+.controls {
+  transition: opacity 150ms ease;
+  opacity: 0;
+}
+
+.root {
+  &:hover {
+    .controls {
+      opacity: 1;
+
+    }
+  }
+}
