@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Text, Group, Badge, Stack, Button} from '@mantine/core';
+import {Container, Text, Progress, Badge, Stack, Button} from '@mantine/core';
 import classes from './InvestmentInfo.module.css';
 import {LuChevronRightCircle} from "react-icons/lu";
 import {NavItem} from "@/components/Header/NavItem/NavItem";
@@ -19,6 +19,7 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({ raisedAmount, go
                 <div className={classes.box}>
                     <Text className={classes.amount}>${raisedAmount.toLocaleString()}</Text>
                     <Text className={classes.goal}>of ${goalAmount.toLocaleString()}</Text>
+                    <Progress color="yellow" radius="md" size="md" value={70} animated />
                 </div>
                 <div className={classes.box}>
                     <Text className={classes.investors}>{totalInvestors.toLocaleString()}</Text>
