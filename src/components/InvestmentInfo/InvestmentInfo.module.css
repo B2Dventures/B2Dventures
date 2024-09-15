@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  margin-top: 100px;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+}
+
+.amount{
+  display: flex;
+  font-size: 36px;
+  font-weight: bold;
+}
+.goal{
+  display: flex;
+  font-size: 18px;
+  font-weight: 250;
+}
+
+.investors{
+  display: flex;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.normalText{
+  display: flex;
+  font-size: 18px;
+  font-weight: 250;
+}
+
+.badge{
+  display: flex;
+  padding: 16px 0 30px 0;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px 0 30px 0;
+  border-bottom: rgba(0, 0, 0, 0.3) solid 1px;
+}

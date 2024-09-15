@@ -29,7 +29,7 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
             <div>
                 <Flex>
                     <Gallery images={images}/>
-                    <InvestmentInfo raisedAmount={772172} totalInvestors={331} daysLeft={50}/>
+                    <InvestmentInfo raisedAmount={123456} goalAmount={200000} totalInvestors={1234} daysLeft={50} campaignName={"B2D Ventures"}/>
                 </Flex>
 
             </div>
