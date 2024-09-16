@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  margin-top: 64px;
+  margin-top: 240px;
   align-items: start;
   justify-content: center;
   width: 100%;
@@ -33,12 +33,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 0 16px 0;
+  margin-bottom: 36px;
 }
 
 .box {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px 0 16px 0;
 }
