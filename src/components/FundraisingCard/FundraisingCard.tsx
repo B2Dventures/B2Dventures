@@ -16,21 +16,21 @@ interface CardProps {
 
 export const FundraisingCard: React.FC<CardProps> = ({ title, description, imageUrl, raisedAmount, investors, id }) => {
     return (
-            <a href={`/investor/${id}`} style={{ textDecoration: 'none' }}> {/* Ensures the card doesn't show link underlines */}
+            <a href={`/investor/${id}`} style={{ textDecoration: 'none' }}>
                 <Card shadow="sm" padding="lg" radius="md" className={classes.card}>
                     <Card.Section>
-                        <Image src={imageUrl} height={160} alt={title} />
+                        <Image src={imageUrl} height={180} alt={title}/>
                     </Card.Section>
 
                     <Group mt="md" mb="xs">
-                        <Text size="lg">{title}</Text>
+                        <Text size="lg" fw='bold'>{title}</Text>
+                        <Text size="sm">
+                            {description}
+                        </Text>
                     </Group>
 
-                    <Text size="sm">
-                        {description}
-                    </Text>
 
-                    <Group mt="md">
+                    <Group mt="md" className={classes.footer}>
                         <Text size="sm">{raisedAmount} raised</Text>
                         <Text size="sm">{investors} Investors</Text>
                     </Group>
