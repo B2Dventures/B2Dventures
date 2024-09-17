@@ -7,14 +7,22 @@ import classes from "./business.module.css";
 import React from "react";
 import {NavItem} from "@/components/Header/NavItem/NavItem";
 import {LuCheckCircle, LuDollarSign, LuUsers} from "react-icons/lu";
+import { baiSemiBold } from '@/app/styles/fonts'
+
 
 
 export default function Home() {
     return (
         <main>
             <Header/>
-            <Container size={1440} className={classes.table}>
-                <CampaignTable/>
+            <Container size={1440}>
+                <main className={baiSemiBold.className}>
+                    <h1 className={classes.topic}>All Campaigns list</h1>
+                </main>
+                <main className={classes.table}>
+                    <CampaignTable/>
+                </main>
+
             </Container>
             <footer className={classes.footer}>
                 <Container className={classes.inner} size={1440}>
@@ -39,7 +47,7 @@ export default function Home() {
                         <Divider orientation="vertical" />
                     </Group>
                     <Group gap={20} visibleFrom="xs">
-                        <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}>
+                        <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}} onClick={() => window.location.href="/business/createFund"}>
                             <NavItem label="Create Fundraising" link="/business/createFund"/>
                         </Button>
                     </Group>
