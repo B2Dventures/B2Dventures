@@ -5,6 +5,8 @@ import '@mantine/carousel/styles.css';
 import '@mantine/dropzone/styles.css';
 
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
+import Head from 'next/head';
+
 
 // const theme = createTheme({
 //     headings: {
@@ -16,21 +18,16 @@ import {ColorSchemeScript, MantineProvider} from '@mantine/core';
 //     }
 // });
 
-export default function RootLayout({
-                                     children,
-                                   }: {
-  children: React.ReactNode;
-}) {
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-      <html lang="en">
-      <head>
+    <html lang="en">
+      <Head>
         <ColorSchemeScript />
-      </head>
+      </Head>
       <body>
-      <MantineProvider>
-          {children}
-      </MantineProvider>
+        <MantineProvider>{children}</MantineProvider>
       </body>
-      </html>
+    </html>
   );
 }
