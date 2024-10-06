@@ -64,7 +64,11 @@ export default function Home() {
             placeholder="Enter your end date"
           />
         </Group>
-        <ImageDrop onDrop={handleDrop} />
+        <ImageDrop
+          onDrop={handleDrop}
+          dropText='Drag images here or click to select files'
+          descriptionText='Attach as many files as you like, each file should not exceed 5mb'
+          />
         <Group position="center" mt="xl">
           <Button color="green">Submit</Button>
         </Group>

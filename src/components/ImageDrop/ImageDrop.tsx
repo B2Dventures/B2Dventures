@@ -6,7 +6,12 @@ import { Text, Group } from '@mantine/core';
 import { IconUpload, IconX, IconPhoto } from '@tabler/icons-react';
 import { rem } from '@mantine/core';
 
-export const ImageDrop: React.FC<DropzoneProps> = ({ onDrop }) => {
+interface ImageDropProps extends DropzoneProps {
+  dropText?: string;
+  descriptionText?: string;
+}
+
+export const ImageDrop: React.FC<ImageDropProps> = ({ onDrop, dropText, descriptionText }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleDrop = (files: File[]) => {
@@ -49,16 +54,16 @@ export const ImageDrop: React.FC<DropzoneProps> = ({ onDrop }) => {
 
           <div>
             <Text size="xl" inline>
-              Drag images here or click to select files
+              {dropText}
             </Text>
             <Text size="sm" color="dimmed" inline mt={7}>
-              Attach as many files as you like, each file should not exceed 5mb
+              {descriptionText}
             </Text>
           </div>
         </Group>
       </Dropzone>
       {imagePreview && (
-        <img src={imagePreview} alt="Preview" style={{ width: '450', height: '450', marginTop: '35px' }} />
+        <img src={imagePreview} alt="Preview" style={{ width: '450px', height: '450px', marginTop: '35px' }} />
       )}
     </div>
   );
