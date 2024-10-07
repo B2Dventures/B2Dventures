@@ -1,11 +1,15 @@
 import {Container, Text, Image, Anchor, Grid, Group, Button} from "@mantine/core";
+import { notifications } from '@mantine/notifications';
+import {useRouter} from "next/navigation";
 import React from "react";
+import {Router} from "next/router";
 
 interface Details {
     info: { id:number, label: string; value: string }[];
     link: { id:number, label: string; value: string }[];
     picture: string;
 }
+
 
 const DetailItem = ({ label, value }: { label: string; value: string }) => (
     <Container mb="sm">
@@ -50,7 +54,35 @@ const DetailsSection = ({ info }: { info: { id: number, label: string; value: st
             <DetailItem key={item.id.toString()} label={item.label} value={item.value} />
         ))}
     </Container>
-);
+)
+
+const handleClickApprove = () => {
+    notifications.show({
+        title: 'Request Approved',
+        autoClose: false,
+        message: 'User request has been successfully approved.',
+        position: 'top-right'
+    });
+
+    setTimeout(() => {
+        window.location.href = '/admin'
+    }, 2000); // Optional delay (1 second) before redirecting
+}
+
+const handleClickReject = () => {
+    notifications.show({
+        color:"red",
+        autoClose: false,
+        title: 'Request Rejected',
+        message: 'User request has been rejected.',
+        position: 'top-right'
+    });
+
+    setTimeout(() => {
+        window.location.href = '/admin'
+    }, 2000); // Optional delay (1 second) before redirecting
+}
+
 
 export const InvestorDetailsPage: React.FC<Details> = ({ info, link, picture }) => {
     return (
@@ -71,8 +103,12 @@ export const InvestorDetailsPage: React.FC<Details> = ({ info, link, picture }) 
 
             {/* Approval and Reject Buttons */}
             <Group align={"end"} mt="xl" justify={'center'}>
-                <Button color="green">Approval</Button>
-                <Button color="red">Reject</Button>
+                <Button color="green" onClick={handleClickApprove}>
+                    Approval
+                </Button>
+                <Button color="red" onClick={handleClickReject}>
+                    Reject
+                </Button>
             </Group>
         </Container>
     );
