@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Container, TextInput, Textarea, NumberInput, Select, Button, Group, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
+import { useRouter } from 'next/navigation';
 import { DateInput } from '@mantine/dates';
 import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
@@ -11,7 +12,7 @@ import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
 export default function Home() {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-
+  const router = useRouter();
   const handleDrop = (files: File[]) => {
     console.log('Files dropped:', files);
   };
@@ -83,12 +84,18 @@ export default function Home() {
           descriptionText="Your certification must contain number and the started date"
         />
         <Group position="center" mt="xl">
-          <Button  onClick={() =>
-              notifications.show({
-                  title: 'Registration Sent!',
-                  message: "Your registration has been submitted. Please wait for approval.",
-              })
-          } color="green">Submit</Button>
+            <Button  color="green" onClick={() => {
+                notifications.show({
+                    title: 'Registration Sent!',
+                    message: "Your registration has been submitted. Please wait for approval.",
+                });
+
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000); // Optional delay (2 seconds) before redirecting
+            }}>
+                Submit
+            </Button>
         </Group>
       </Container>
     </main>

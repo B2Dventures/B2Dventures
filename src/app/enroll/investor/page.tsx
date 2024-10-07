@@ -6,11 +6,13 @@ import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
 import { notifications } from "@mantine/notifications";
 import '@mantine/notifications/styles.css';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const handleDrop = (files: File[]) => {
     console.log('Files dropped:', files);
   };
+  const router = useRouter();
 
   return (
     <main>
@@ -88,12 +90,18 @@ export default function Home() {
           descriptionText='Each file should not exceed 5mb'
         />
         <Group position="center" mt="xl">
-            <Button  onClick={() =>
+            <Button  color="green" onClick={() => {
                 notifications.show({
                     title: 'Registration Sent!',
                     message: "Your registration has been submitted. Please wait for approval.",
-                })
-            } color="green">Submit</Button>
+                });
+
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000); // Optional delay (2 seconds) before redirecting
+            }}>
+                Submit
+            </Button>
         </Group>
       </Container>
     </main>
