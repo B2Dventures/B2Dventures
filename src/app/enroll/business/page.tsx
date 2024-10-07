@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { Container, TextInput, Textarea, NumberInput, Select, Button, Group, Text } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
 import { DateInput } from '@mantine/dates';
 import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
@@ -81,7 +83,12 @@ export default function Home() {
           descriptionText="Your certification must contain number and the started date"
         />
         <Group position="center" mt="xl">
-          <Button color="green">Submit</Button>
+          <Button  onClick={() =>
+              notifications.show({
+                  title: 'Registration Sent!',
+                  message: "Your registration has been submitted. Please wait for approval.",
+              })
+          } color="green">Submit</Button>
         </Group>
       </Container>
     </main>

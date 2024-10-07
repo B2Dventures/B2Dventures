@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Container, Group, TextInput, Textarea, Button, Text, Select } from '@mantine/core';
 import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
+import { notifications } from "@mantine/notifications";
+import '@mantine/notifications/styles.css';
 
 export default function Home() {
   const handleDrop = (files: File[]) => {
@@ -86,7 +88,12 @@ export default function Home() {
           descriptionText='Each file should not exceed 5mb'
         />
         <Group position="center" mt="xl">
-          <Button color="green">Submit</Button>
+            <Button  onClick={() =>
+                notifications.show({
+                    title: 'Registration Sent!',
+                    message: "Your registration has been submitted. Please wait for approval.",
+                })
+            } color="green">Submit</Button>
         </Group>
       </Container>
     </main>

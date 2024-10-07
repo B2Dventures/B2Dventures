@@ -4,6 +4,7 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/dropzone/styles.css';
 
+import { Notifications } from '@mantine/notifications';
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
 import Head from 'next/head';
 
@@ -26,7 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ColorSchemeScript />
       </Head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+            <Notifications />
+            {children}
+        </MantineProvider>
       </body>
     </html>
   );
