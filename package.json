@@ -30,7 +30,7 @@
     "dayjs": "^1.11.13",
     "embla-carousel-autoplay": "^7.1.0",
     "embla-carousel-react": "^8.2.1",
-    "next": "^14.2.7",
+    "next": "^14.2.10",
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
