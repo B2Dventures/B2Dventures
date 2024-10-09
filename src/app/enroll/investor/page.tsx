@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Container, Group, TextInput, Textarea, Button, Text, Select } from '@mantine/core';
+import { Container, Group, TextInput, NumberInput, Textarea, Button, Text, Select } from '@mantine/core';
 import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
 import { notifications } from "@mantine/notifications";
@@ -73,13 +73,15 @@ export default function Home() {
           required
           mt="md"
         />
-        <TextInput
+        <NumberInput
           label="Income"
-          placeholder="Enter your monthly income"
+          placeholder="Enter your annually income"
+          required
+          mt="md"
         />
        <Select
-          label="Category"
-          placeholder="Select a category"
+          label="Investment Preference"
+          placeholder="Select the industry which you are interested for investment"
           data={['Technology', 'Health', 'Education', 'Entertainment', 'Sport', 'Game']}
           required
           mt="md"

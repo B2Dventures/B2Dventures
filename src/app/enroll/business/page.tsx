@@ -29,14 +29,14 @@ export default function Home() {
           mt="md"
         />
         <TextInput
-          label="Firstname"
-          placeholder="Enter your firstname"
+          label="Founder Firstname"
+          placeholder="Enter firstname of business founder"
           required
           mt="md"
         />
         <TextInput
-          label="Lastname"
-          placeholder="Enter your lastname"
+          label="Founder Lastname"
+          placeholder="Enter lastname of business founder"
           required
           mt="md"
         />
@@ -46,23 +46,24 @@ export default function Home() {
           required
           mt="md"
         />
-        <NumberInput
+        <TextInput
           label="Phone number"
           placeholder="Enter your phone number"
           required
           mt="md"
         />
-        <TextInput
+        <NumberInput
           label="Market capitalization"
           placeholder="Enter the market capitalization of your business "
           required
           mt="md"
         />
-        <TextInput
+        <Textarea
           label="Company address"
           placeholder="Enter the address of your company"
           required
           mt="md"
+          minRows={4}
         />
         <Textarea
           label="Business detail"
@@ -80,8 +81,9 @@ export default function Home() {
         />
         <ImageDrop
           onDrop={handleDrop}
-          dropText="Drop your business certification here"
-          descriptionText="Your certification must contain number and the started date"
+          dropText="Drop your certification of business registration here"
+          descriptionText="Your certification must contain number and the started date.
+          Each file should not exceed 5mb"
         />
         <Group position="center" mt="xl">
             <Button  color="green" onClick={() => {
