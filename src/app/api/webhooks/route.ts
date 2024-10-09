@@ -60,8 +60,12 @@ export async function POST(req: Request) {
         prisma.user.create({
             data: {
                 clerkId: evt.data.id,
+                role: null,
+                email: evt.data.email_addresses[0].email_address,
             }
         })
     }
     return new Response('', { status: 200 })
 }
+
+

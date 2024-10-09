@@ -17,6 +17,7 @@ model User {
   id       Int       @id @default(autoincrement())
   clerkId  String    @unique
   role     Role? // discriminator
+  email    String    @unique
   // child class
   investor Investor? // model-specific 1-1 relation
   business Business? // model-specific 1-1 relation
@@ -31,19 +32,37 @@ enum Role {
 }
 
 model Investor {
-  id         Int           @id @default(autoincrement())
-  userId     Int           @unique
-  user       User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
-  investment Investments[] //  can have multiple Investments
+  id            Int           @id @default(autoincrement())
+  userId        Int           @unique
+  user          User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
+  first_name    String
+  last_name     String
+  nationality   String
+  passport_num  String
+  birth_date    DateTime
+  address       String
+  occupation    String
+  income        Int
+  passport_img  String //URL IMG LINK
+  investment    Investment[] //  can have multiple Investments
   // Investor-specific fields
 }
 
 model Business {
-  id         Int           @id @default(autoincrement())
-  userId     Int           @unique
-  user       User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
-  campaign   Campaigns[] //  can have multiple Campagins
-  investment Investments[] //  can have multiple Investments
+  id                  Int           @id @default(autoincrement())
+  userId              Int           @unique
+  user                User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
+  business_name       String        @unique
+  founder_first_name  String
+  founder_last_name   String
+  market_cap          Int
+  company_address     String
+  business_detail     String
+  industry            String
+  logo                String //URL IMG LINK
+  license             String //URL IMG LINK
+  registration_cer    String //URL IMG LINK
+  campaign            Campaign[] //  can have multiple Campagins
   // Business-specific fields
 }
 
@@ -54,18 +73,30 @@ model Admin {
   // Admin-specific fields
 }
 
-model Investments {
-  id         Int      @id @default(autoincrement())
-  businessId Int
-  investorId Int
-  business   Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from Business.id
-  investor   Investor @relation(fields: [investorId], references: [id]) //  investorId is a FK from investor.id
-  // Investments-specific fields
+
+model Campaign {
+  id            Int      @id @default(autoincrement())
+  businessId    Int //  1 business can have multiple fundrasing
+  investmentId  Int //  1 business can have multiple investment
+  description   String
+  content       String
+  goal          Decimal
+  min_invest    Decimal
+  start_date    DateTime
+  end_date      DateTime
+  status        String
+  investment    Investment[] //  can have multiple Investments
+  business      Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from business.id
+  // Campaigns-specific fields
 }
 
-model Campaigns {
+model Investment {
   id         Int      @id @default(autoincrement())
-  businessId Int //  1 business can have multiple fundrasing
-  business   Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from business.id
-  // Campaigns-specific fields
+  campaignId Int
+  investorId Int
+  amount     Decimal
+  timestamp  DateTime @default(now()) @db.Timestamptz(2)
+  campaign   Campaign @relation(fields: [campaignId], references: [id]) //  campaignId is a FK from campaogn.id
+  investor   Investor @relation(fields: [investorId], references: [id]) //  investorId is a FK from investor.id
+  // Investments-specific fields
 }
