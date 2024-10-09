@@ -13,9 +13,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model TestDB {
-  id  String @id @default(cuid())
-  content String
-
+model User {
+  id       Int       @id @default(autoincrement())
+  role     Role // discriminator
+  // child class
+  investor Investor? // model-specific 1-1 relation
+  business Business? // model-specific 1-1 relation
+  admin    Admin? // model-specific 1-1 relation
+  // common field
 }
 
+enum Role {
+  Investor
+  Business
+  Admin
+}
+
+model Investor {
+  id         Int           @id @default(autoincrement())
+  userId     Int           @unique
+  user       User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
+  investment Investments[] //  can have multiple Investments
+  // Investor-specific fields
+}
+
+model Business {
+  id         Int           @id @default(autoincrement())
+  userId     Int           @unique
+  user       User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
+  // Business-specific fields
+  campaign   Campaigns[] //  can have multiple Campagins
+  investment Investments[] //  can have multiple Investments
+}
+
+model Admin {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
+  // Admin-specific fields
+}
+
+model Investments {
+  id         Int      @id @default(autoincrement())
+  businessId Int
+  investorId Int
+  business   Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from Business.id
+  investor   Investor @relation(fields: [investorId], references: [id]) //  investorId is a FK from investor.id
+}
+
+model Campaigns {
+  id         Int      @id @default(autoincrement())
+  businessId Int //  1 business can have multiple fundrasing
+  business   Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from business.id
+}
