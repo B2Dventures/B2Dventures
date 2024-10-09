@@ -5,7 +5,15 @@ import { Container, Group, Button } from '@mantine/core';
 import classes from './Header.module.css';
 import {NavItem} from "@/components/Header/NavItem/NavItem";
 import {Logo} from "@/components/Header/Logo/Logo";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { LuUser, LuBriefcase } from "react-icons/lu";
+import {
+    ClerkProvider,
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
+} from '@clerk/nextjs';
 
 export function Header() {
 
@@ -40,8 +48,21 @@ export function Header() {
                     </Button>
                 </Group>
                 <Group gap={20} visibleFrom="xs">
-                    <a href='/login'  className={classes.access}>Login</a>
-                    <a href='/signup'  className={classes.access}>Signup</a>
+                    <ClerkProvider>
+                        <SignedOut>
+                            {/* Replace old login/signup links with Clerk buttons */}
+                            <SignInButton>
+                                <Button size='md' variant="outline" color="white">
+                                    <FaSignInAlt style={{ marginRight: 8 }} size={15} color='black' />
+                                    <div className={classes.access}>Login</div>
+                                </Button>
+                            </SignInButton>
+                        </SignedOut>
+                        <SignedIn>
+                            {/* If the user is signed in, show a user button */}
+                            <UserButton />
+                        </SignedIn>
+                    </ClerkProvider>
                 </Group>
             </Container>
         </header>
