@@ -1,0 +1,33 @@
+.head{
+  background-color: goldenrod;
+  color: white;
+  font-size: 17px;
+}
+
+.body{
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+
+.name{
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.table {
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.info {
+  font-size: 16px;
+}

@@ -1,0 +1,58 @@
+.header {
+  height: 72px;
+  border-color: black;
+  border-bottom: rgba(0, 0, 0, 0.4) 1px solid;
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navItem {
+  color: White;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: start;
+  text-decoration: none;
+  font-size: 75px;
+  color: darkgoldenrod;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.access {
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+}
+
+.fullButtonLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.fullButtonLink:focus, .fullButtonLink:active {
+  outline: none;
+  text-decoration: none;
+}
+
+.fullButtonLink div {
+  color: black;
+}
