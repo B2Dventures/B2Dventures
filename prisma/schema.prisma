@@ -15,7 +15,8 @@ datasource db {
 
 model User {
   id       Int       @id @default(autoincrement())
-  role     Role // discriminator
+  clerkId  String    @unique
+  role     Role? // discriminator
   // child class
   investor Investor? // model-specific 1-1 relation
   business Business? // model-specific 1-1 relation
@@ -41,9 +42,9 @@ model Business {
   id         Int           @id @default(autoincrement())
   userId     Int           @unique
   user       User          @relation(fields: [userId], references: [id]) //  userId is a FK from user.id
-  // Business-specific fields
   campaign   Campaigns[] //  can have multiple Campagins
   investment Investments[] //  can have multiple Investments
+  // Business-specific fields
 }
 
 model Admin {
@@ -59,10 +60,12 @@ model Investments {
   investorId Int
   business   Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from Business.id
   investor   Investor @relation(fields: [investorId], references: [id]) //  investorId is a FK from investor.id
+  // Investments-specific fields
 }
 
 model Campaigns {
   id         Int      @id @default(autoincrement())
   businessId Int //  1 business can have multiple fundrasing
   business   Business @relation(fields: [businessId], references: [id]) //  businessId is a FK from business.id
+  // Campaigns-specific fields
 }

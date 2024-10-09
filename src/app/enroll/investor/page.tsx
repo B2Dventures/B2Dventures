@@ -91,7 +91,7 @@ export default function Home() {
           dropText='Drop your proof of networth and passport picture here'
           descriptionText='Each file should not exceed 5mb'
         />
-        <Group position="center" mt="xl">
+        <Group align={"center"} mt="xl">
             <Button  color="green" onClick={() => {
                 notifications.show({
                     title: 'Registration Sent!',
