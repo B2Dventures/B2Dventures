@@ -1,10 +1,11 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
+import {WebhookEvent, createClerkClient} from '@clerk/nextjs/server'
 import prisma from "@/lib/db";
 
 export async function POST(req: Request) {
     // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
+    const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
     if (!WEBHOOK_SECRET) {
@@ -53,10 +54,11 @@ export async function POST(req: Request) {
     const eventType = evt.type
 
     console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-    console.log('Webhook body:', body)
+    // console.log('Webhook body:', body)
 
     if (evt.type == 'user.created') {
         console.log('userId:', evt.data.id)
+        // create data in our database
         prisma.user.create({
             data: {
                 clerkId: evt.data.id,
@@ -64,6 +66,13 @@ export async function POST(req: Request) {
                 email: evt.data.email_addresses[0].email_address,
             }
         })
+        // set default role of all user to be guest level
+        await clerkClient.users.updateUser(evt.data.id, {
+            privateMetadata: {
+                role: 'guest',
+            },
+        });
+
     }
     return new Response('', { status: 200 })
 }
