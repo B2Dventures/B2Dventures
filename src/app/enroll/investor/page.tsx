@@ -18,7 +18,7 @@ export default function Home() {
     <main>
       <Header />
       <Container size="md" my="xl">
-        <Text align="center" size="xl" weight={700} mb="md">Fill your information</Text>
+        <Text size="xl" weight={700} mb="md">Fill your information</Text>
         <TextInput
           label="Firstname"
           placeholder="Enter your firstname"
