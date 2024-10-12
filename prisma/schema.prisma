@@ -23,6 +23,7 @@ model User {
   business Business? // model-specific 1-1 relation
   admin    Admin? // model-specific 1-1 relation
   // common field
+  request  Request[]
 }
 
 enum Role {
@@ -71,6 +72,62 @@ model Admin {
   userId Int  @unique
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
   // Admin-specific fields
+}
+
+model Request {
+  id       Int            @id @default(autoincrement())
+  userId   Int            // The user making the request
+  user     User           @relation(fields: [userId], references: [id])
+  investor_request InvestorRequest? // model-specific 1-1 relation
+  business_request BusinessRequest? // model-specific 1-1 relation
+  role     RequestType    // Type of request (Investor, Business, etc.)
+  status   RequestStatus  @default(PENDING) // Pending, Approved, Rejected
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+enum RequestType {
+  INVESTOR
+  BUSINESS
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model InvestorRequest{
+  id        Int        @id @default(autoincrement())
+  requestId Int        @unique
+  request   Request    @relation(fields: [requestId], references: [id])
+
+  first_name   String
+  last_name    String
+  nationality  String
+  passport_num String
+  birth_date   DateTime
+  address      String
+  occupation   String
+  income       Int
+  passport_img String //URL IMG LINK
+}
+
+model BusinessRequest{
+  id        Int        @id @default(autoincrement())
+  requestId Int        @unique
+  request   Request    @relation(fields: [requestId], references: [id])
+
+  business_name      String     @unique
+  founder_first_name String
+  founder_last_name  String
+  market_cap         Int
+  company_address    String
+  business_detail    String
+  industry           String
+  logo               String //URL IMG LINK
+  license            String //URL IMG LINK
+  registration_cer   String //URL IMG LINK
 }
 
 model Campaign {
