@@ -3,7 +3,7 @@
 import React from 'react';
 import { Table, Container } from '@mantine/core';
 import classes from './CampaignTable.module.css';
-import { baiSemiBold, arimoRegular } from '@/app/styles/fonts'
+import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts'
 
 
 const elements = [

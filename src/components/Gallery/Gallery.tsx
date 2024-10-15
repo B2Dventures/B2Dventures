@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import {Image, Card, Text} from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import classes from './Gallery.module.css';
-import {baiSemiBold} from "@/app/styles/fonts";
+import {baiSemiBold} from "@/app/(frontend)/styles/fonts";
 
 interface GalleryProps {
     title: string;

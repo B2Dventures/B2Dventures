@@ -1,0 +1,170 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  clerkId  String    @unique
+  role     Role? // discriminator
+  email    String    @unique
+  // child class
+  investor Investor? // model-specific 1-1 relation
+  business Business? // model-specific 1-1 relation
+  admin    Admin? // model-specific 1-1 relation
+  // common field
+  request  Request[]
+}
+
+enum Role {
+  Investor
+  Business
+  Admin
+}
+
+model Investor {
+  id           Int          @id @default(autoincrement())
+  userId       Int          @unique
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
+  // Investor-specific fields
+  first_name   String
+  last_name    String
+  nationality  String
+  passport_num String
+  birth_date   DateTime
+  address      String
+  occupation   String
+  income       Int
+  passport_img String //URL IMG LINK
+  investment   Investment[] //  can have multiple Investments
+}
+
+model Business {
+  id                 Int        @id @default(autoincrement())
+  userId             Int        @unique
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
+  // Business-specific fields
+  business_name      String     @unique
+  founder_first_name String
+  founder_last_name  String
+  market_cap         Int
+  company_address    String
+  business_detail    String
+  industry           String
+  logo               String //URL IMG LINK
+  license            String //URL IMG LINK
+  registration_cer   String //URL IMG LINK
+  campaign           Campaign[] //  can have multiple Campagins
+}
+
+model Admin {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
+  // Admin-specific fields
+}
+
+model Request {
+  id       Int            @id @default(autoincrement())
+  userId   Int            // The user making the request
+  user     User           @relation(fields: [userId], references: [id])
+  investor_request InvestorRequest? // model-specific 1-1 relation
+  business_request BusinessRequest? // model-specific 1-1 relation
+  role     RequestType    // Type of request (Investor, Business, etc.)
+  status   RequestStatus  @default(PENDING) // Pending, Approved, Rejected
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+enum RequestType {
+  INVESTOR
+  BUSINESS
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model InvestorRequest{
+  id        Int        @id @default(autoincrement())
+  requestId Int        @unique
+  request   Request    @relation(fields: [requestId], references: [id])
+
+  first_name   String
+  last_name    String
+  nationality  String
+  passport_num String
+  birth_date   DateTime
+  address      String
+  occupation   String
+  income       Int
+  passport_img String //URL IMG LINK
+}
+
+model BusinessRequest{
+  id        Int        @id @default(autoincrement())
+  requestId Int        @unique
+  request   Request    @relation(fields: [requestId], references: [id])
+
+  business_name      String     @unique
+  founder_first_name String
+  founder_last_name  String
+  market_cap         Int
+  company_address    String
+  business_detail    String
+  industry           String
+  logo               String //URL IMG LINK
+  license            String //URL IMG LINK
+  registration_cer   String //URL IMG LINK
+}
+
+model Detail {
+  id            Int         @id @default(autoincrement())
+  campaignId    Int         @unique
+  highlight     String
+  product       String
+  opportunity   String
+  campaign      Campaign    @relation(fields: [campaignId], references: [id]) // Required relationship
+}
+
+model Campaign {
+  id           Int          @id @default(autoincrement())
+  businessId   Int //  1 business can have multiple fundrasing
+  investmentId Int //  1 business can have multiple investment
+  investment   Investment[] //  can have multiple Investments
+  business     Business     @relation(fields: [businessId], references: [id], onDelete: Cascade) //  businessId is a FK from business.id
+  details      Detail?
+  // Campaigns-specific fields
+  name         String
+  description  String
+  content      String
+  goal         Decimal
+  min_invest   Decimal
+  start_date   DateTime
+  end_date     DateTime
+  status       String
+  image        String
+}
+
+model Investment {
+  id         Int      @id @default(autoincrement())
+  campaignId Int
+  investorId Int
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade) //  campaignId is a FK from campaogn.id
+  investor   Investor @relation(fields: [investorId], references: [id], onDelete: Cascade) //  investorId is a FK from investor.id
+  // Investments-specific fields
+  amount     Decimal
+  timestamp  DateTime @default(now()) @db.Timestamptz(2)
+}

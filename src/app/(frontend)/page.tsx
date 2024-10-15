@@ -7,7 +7,7 @@ import {Stats} from "@/components/Homepage/Stats";
 import { ImageSlide } from '@/components/ImageSlide/ImageSlide'
 import { Container, Text, Box } from '@mantine/core';
 import classes from './index.module.css';
-import {arimoRegular, baiBold} from "@/app/styles/fonts";
+import {arimoRegular, baiBold} from "@/app/(frontend)/styles/fonts";
 
 export default function Home() {
   return (
