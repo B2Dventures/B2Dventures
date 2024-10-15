@@ -3,7 +3,7 @@
 import React from 'react';
 import { Table, Container } from '@mantine/core';
 import classes from './ApprovalTable.module.css';
-import { baiSemiBold, arimoRegular } from '@/app/styles/fonts'
+import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts'
 
 const elements = [
     { id: '1' ,username: 'John Doe', role: 'Investor', email: 'john.doe@gmail.com' },

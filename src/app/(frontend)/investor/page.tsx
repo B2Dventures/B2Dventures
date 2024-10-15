@@ -6,7 +6,7 @@ import {FundraisingCard} from "@/components/FundraisingCard/FundraisingCard";
 import { Grid, Text, Container, Group, Button } from '@mantine/core';
 import classes from './investor.module.css';
 import { SearchBar } from "@/components/Search/SearchBar";
-import { baiSemiBold } from '@/app/styles/fonts'
+import { baiSemiBold } from '@/app/(frontend)/styles/fonts'
 import {Investor} from "@prisma/client";
 
 interface Business {

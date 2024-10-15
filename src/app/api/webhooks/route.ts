@@ -66,7 +66,7 @@ export async function POST(req: Request) {
         })
         // set default role of all user to be guest level
         await clerkClient.users.updateUser(evt.data.id, {
-            privateMetadata: {
+            publicMetadata: {
                 role: 'guest',
             },
         });

@@ -5,7 +5,7 @@ import { Container } from '@mantine/core';
 import classes from "./admin.module.css";
 import React from "react";
 import { ApprovalTable } from "@/components/ApprovalTable/ApprovalTable";
-import { baiSemiBold } from '@/app/styles/fonts'
+import { baiSemiBold } from '@/app/(frontend)/styles/fonts'
 import {checkRole} from "@/utils/roles";
 
 

@@ -7,7 +7,7 @@ import classes from "./business.module.css";
 import React, {useState} from "react";
 import {NavItem} from "@/components/Header/NavItem/NavItem";
 import {LuCheckCircle, LuDollarSign, LuUsers} from "react-icons/lu";
-import { baiSemiBold } from '@/app/styles/fonts'
+import { baiSemiBold } from '@/app/(frontend)/styles/fonts'
 import {checkRole} from "@/utils/roles";
 
 interface Business {
