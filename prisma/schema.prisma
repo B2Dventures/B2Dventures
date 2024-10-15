@@ -130,14 +130,22 @@ model BusinessRequest{
   registration_cer   String //URL IMG LINK
 }
 
+model Description {
+  id            Int         @id @default(autoincrement())
+  campaignId    Int         @unique
+  highlight     String
+  product       String
+  opportunity   String
+  campaign      Campaign    @relation(fields: [campaignId], references: [id]) // Required relationship
+}
+
 model Campaign {
   id           Int          @id @default(autoincrement())
-  businessId   Int //  1 business can have multiple fundrasing
-  investmentId Int //  1 business can have multiple investment
-  investment   Investment[] //  can have multiple Investments
-  business     Business     @relation(fields: [businessId], references: [id], onDelete: Cascade) //  businessId is a FK from business.id
-  // Campaigns-specific fields
-  description  String
+  businessId   Int
+  investmentId Int
+  investment   Investment[] // can have multiple Investments
+  business     Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  description  Description? // Optional relationship
   content      String
   goal         Decimal
   min_invest   Decimal
