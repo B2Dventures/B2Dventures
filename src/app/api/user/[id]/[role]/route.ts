@@ -23,6 +23,8 @@ export async function POST(req: NextApiRequest, res: NextApiResponse , { params 
         return res.status(403).json({ error: 'Forbidden: Admins only' })
     }
 
+    // ----- if id == clerk id  ไม่ต้องทำ if not get clerkId มาก่อน ----
+
     // Update the role of the target user
     await clerkClient.users.updateUser(userIdToUpdate, {
         privateMetadata: {
