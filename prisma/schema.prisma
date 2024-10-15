@@ -147,6 +147,7 @@ model Campaign {
   business     Business     @relation(fields: [businessId], references: [id], onDelete: Cascade) //  businessId is a FK from business.id
   details      Detail?
   // Campaigns-specific fields
+  name         String
   description  String
   content      String
   goal         Decimal
@@ -154,6 +155,7 @@ model Campaign {
   start_date   DateTime
   end_date     DateTime
   status       String
+  image        String
 }
 
 model Investment {
