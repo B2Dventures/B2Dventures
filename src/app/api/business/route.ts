@@ -2,6 +2,9 @@ import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
 
 export async function POST(request: Request) {
+
+    // TODO:Security part
+
     try {
         const { id } = await request.json();
         // Query the business based on the provided ID

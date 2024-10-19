@@ -2,6 +2,9 @@ import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
 
 export async function GET() {
+
+    // TODO:Security part
+
     try {
         const campaigns = await prisma.campaign.findMany({
             select: {
