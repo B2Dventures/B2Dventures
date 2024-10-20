@@ -15,14 +15,14 @@ import {
     UserButton
 } from '@clerk/nextjs';
 
-export function Header() {
+export function AdminHeader() {
 
     const investorPage= () => {
-        window.location.href = '/investor'; // Redirect to the new URL
+        window.location.href = '/admin/investor'; // Redirect to the new URL
     };
 
     const businessPage= () => {
-        window.location.href = '/business'; // Redirect to the new URL
+        window.location.href = '/admin/business'; // Redirect to the new URL
     };
 
     return (
@@ -66,5 +66,5 @@ export function Header() {
                 </Group>
             </Container>
         </header>
-);
+    );
 }
