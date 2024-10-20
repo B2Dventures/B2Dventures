@@ -5,10 +5,10 @@ const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
 export default clerkMiddleware((auth, req) => {
     // Protect all routes starting with `/admin`
-    if (isAdminRoute(req) && auth().sessionClaims?.metadata?.role !== 'admin') {
-        const url = new URL('/', req.url)
-        return NextResponse.redirect(url)
-    }
+    // if (isAdminRoute(req) && auth().sessionClaims?.metadata?.role !== 'admin') {
+    //     const url = new URL('/', req.url)
+    //     return NextResponse.redirect(url)
+    // }
 })
 
 export const config = {
