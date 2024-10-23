@@ -23,19 +23,6 @@ export async function GET(request: Request) {
                 license: true,
                 registration_cer: true,
                 approvalStatus: true,
-                campaign: {
-                    select: {
-                        id: true,
-                        name: true,
-                        goal: true,
-                        status: true,
-                        investment: {
-                            select: {
-                                amount: true,
-                            },
-                        },
-                    },
-                },
             },
         });
 
