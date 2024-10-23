@@ -22,11 +22,6 @@ export async function GET(request: Request) {
                 income: true,
                 passport_img: true,
                 approvalStatus: true,
-                investment: {
-                    select: {
-                        amount: true,
-                    },
-                },
             },
         });
 
