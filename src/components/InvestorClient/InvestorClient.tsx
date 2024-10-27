@@ -29,7 +29,7 @@ const InvestorClient = ({ businesses }: InvestorClientComponentProps) => {
               title={business.name}
               description={business.description}
               imageUrl={'/boxing_club.jpg'}
-              raisedAmount={(business.price ? business.price.toString() : "0")}
+              totalInvestment={(business.totalInvestment ? business.totalInvestment.toString() : "0")}
               investors={business.investors.toString()}
               id={business.id}
             />
