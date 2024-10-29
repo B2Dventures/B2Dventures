@@ -2,11 +2,11 @@ import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
 
 export async function POST(request: Request) {
-    console.log(request);
+    // console.log(request);
 
     try {
         const data = await request.json();
-        console.log(data); // Outputs the parsed JSON object
+        // console.log(data); // Outputs the parsed JSON object
         const { id } = data;
         // Query the business based on the provided ID
         const Campaigns = await prisma.campaign.findMany({
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
             }
         )) // Sum of all investment amounts
 
-        console.log(data);
+        // console.log(data);
 
         return  NextResponse.json(Data);
 
