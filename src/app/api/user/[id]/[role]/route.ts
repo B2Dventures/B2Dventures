@@ -27,7 +27,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse , { params 
 
     // Update the role of the target user
     await clerkClient.users.updateUser(userIdToUpdate, {
-        privateMetadata: {
+        publicMetadata: {
             role: newRole, // newRole could be 'investor', 'business', etc.
         },
     });

@@ -8,6 +8,7 @@ import '@mantine/dropzone/styles.css';
 import { Notifications } from '@mantine/notifications';
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
 import Head from 'next/head';
+import { ClerkProvider } from '@clerk/nextjs';
 
 
 // const theme = createTheme({
@@ -28,10 +29,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ColorSchemeScript />
       </Head>
       <body>
+      <ClerkProvider>
         <MantineProvider>
             <Notifications />
                 {children}
         </MantineProvider>
+      </ClerkProvider>
       </body>
     </html>
   );

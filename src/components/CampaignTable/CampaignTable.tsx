@@ -15,7 +15,6 @@ const elements = [
     { id: '6' ,name: 'A Fundraising', goal: 145000, raised: 162000, investors: 452, status: 'Finished' },
     { id: '7' ,name: 'XYZ', goal: 10000, raised: 13200, investors: 191, status: 'OnGoing' },
     { id: '8' ,name: '123Company', goal: 50000, raised: 32600, investors: 326, status: 'OnGoing' },
-
 ];
 
 export function CampaignTable() {

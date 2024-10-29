@@ -8,7 +8,6 @@ import {Logo} from "@/components/Header/Logo/Logo";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { LuUser, LuBriefcase } from "react-icons/lu";
 import {
-    ClerkProvider,
     SignInButton,
     SignedIn,
     SignedOut,
@@ -48,7 +47,6 @@ export function AdminHeader() {
                     </Button>
                 </Group>
                 <Group gap={20} visibleFrom="xs">
-                    <ClerkProvider>
                         <SignedOut>
                             {/* Replace old login/signup links with Clerk buttons */}
                             <SignInButton>
@@ -62,7 +60,6 @@ export function AdminHeader() {
                             {/* If the user is signed in, show a user button */}
                             <UserButton />
                         </SignedIn>
-                    </ClerkProvider>
                 </Group>
             </Container>
         </header>
