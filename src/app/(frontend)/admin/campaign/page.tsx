@@ -20,7 +20,7 @@ export default function Home() {
             <AdminHeader/>
             <Container size={1440}>
                 <main className={baiSemiBold.className}>
-                    <h1 className={classes.topic}>Approval Request list</h1>
+                    <h1 className={classes.topic}>Campaign Approval Request list</h1>
                 </main>
                 <main className={classes.table}>
                     <ApprovalTable/>

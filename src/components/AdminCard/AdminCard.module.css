@@ -1,0 +1,50 @@
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  transition: transform 0.2s;
+  border: 2px solid #b8860b;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mainText {
+  font-weight: bold;
+  font-size: 80px;
+  color: indianred;
+}
+
+.subText {
+  font-size: 18px;
+  color: black;
+  margin-top: -30px;
+}
+
+.Text {
+  font-size: 24px;
+  color: black;
+  font-weight: bold;
+}
