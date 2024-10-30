@@ -30,12 +30,6 @@ enum Role {
   Admin
 }
 
-enum RequestStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
 model Investor {
   id             Int           @id @default(autoincrement())
   userId         Int           @unique
@@ -45,6 +39,7 @@ model Investor {
   last_name      String
   nationality    String
   passport_num   String
+  phone_num      String
   birth_date     DateTime
   address        String
   occupation     String
@@ -52,6 +47,12 @@ model Investor {
   passport_img   String //URL IMG LINK
   investment     Investment[] //  can have multiple Investments
   approvalStatus RequestStatus
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 model Business {
