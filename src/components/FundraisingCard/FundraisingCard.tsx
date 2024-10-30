@@ -9,12 +9,12 @@ interface CardProps {
     title: string;
     description: string;
     imageUrl: string;
-    raisedAmount: string;
-    investors: string;
+    totalInvestment: number;
+    investors: number;
     id : number;
 }
 
-export const FundraisingCard: React.FC<CardProps> = ({ title, description, imageUrl, raisedAmount, investors, id }) => {
+export const FundraisingCard: React.FC<CardProps> = ({ title, description, imageUrl, totalInvestment, investors, id }) => {
     return (
             <a href={`/investor/${id}`} style={{ textDecoration: 'none' }}>
                 <Card shadow="sm" padding="lg" radius="md" className={classes.card}>
@@ -29,9 +29,8 @@ export const FundraisingCard: React.FC<CardProps> = ({ title, description, image
                         </Text>
                     </Group>
 
-
                     <Group mt="md" className={classes.footer}>
-                        <Text size="sm">{raisedAmount} raised</Text>
+                        <Text size="sm">{totalInvestment} raised</Text>
                         <Text size="sm">{investors} Investors</Text>
                     </Group>
                 </Card>

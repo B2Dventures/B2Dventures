@@ -56,21 +56,23 @@ export async function POST(req: Request) {
 
     if (evt.type == 'user.created') {
         console.log('userId:', evt.data.id)
+        console.log('Email:', evt.data.email_addresses[0].email_address)
         // create data in our database
-        prisma.user.create({
+        const user = await prisma.user.create({
             data: {
                 clerkId: evt.data.id,
-                role: null,
+                role: undefined,
                 email: evt.data.email_addresses[0].email_address,
             }
-        })
+        });
         // set default role of all user to be guest level
         await clerkClient.users.updateUser(evt.data.id, {
             publicMetadata: {
+                id: user.id,
                 role: 'guest',
             },
         });
 
     }
-    return new Response('', { status: 200 })
+    return new Response('Success create', { status: 200 })
 }

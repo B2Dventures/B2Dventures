@@ -1,32 +1,44 @@
 'use client';
 
-import {Header} from "@/components/Header/Header";
-import { Container } from '@mantine/core';
+import {AdminHeader} from "@/components/Header/AdminHeader";
+import {Container, Grid} from '@mantine/core';
 import classes from "./admin.module.css";
 import React from "react";
-import { ApprovalTable } from "@/components/ApprovalTable/ApprovalTable";
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts'
 import {checkRole} from "@/utils/roles";
+import { InvestorPendingCard } from "@/components/AdminCard/InvestorPendingCard";
+import {BusinessPendingCard} from "@/components/AdminCard/BusinessPendingCard";
+import {CampaignPendingCard} from "@/components/AdminCard/CampaignPendingCard";
 
 
 
 export default function Home() {
-    if (!checkRole('admin')) {
-        return <p>This is the protected admin dashboard restricted to users with the `admin` role.</p>
-    }
-    else if (checkRole('admin')) {
+    // if (!checkRole('admin')) {
+    //     return <p>This is the protected admin dashboard restricted to users with the `admin` role.</p>
+    // }
+    // else if (checkRole('admin')) {
         return (
             <main>
-                <Header/>
+                <AdminHeader/>
                 <Container size={1440}>
                     <main className={baiSemiBold.className}>
-                        <h1 className={classes.topic}>Approval Request list</h1>
+                        <h1 className={classes.topic}>Pending Request</h1>
                     </main>
-                    <main className={classes.table}>
-                        <ApprovalTable/>
-                    </main>
+                    <Container fluid className={classes.card}>
+                        <Grid gutter={100}>
+                            <Grid.Col span={4}>
+                                <InvestorPendingCard/>
+                            </Grid.Col>
+                            <Grid.Col span={4}>
+                                <BusinessPendingCard/>
+                            </Grid.Col>
+                            <Grid.Col span={4}>
+                                <CampaignPendingCard/>
+                            </Grid.Col>
+                        </Grid>
+                    </Container>
                 </Container>
             </main>
         );
-    }
 }
+// }

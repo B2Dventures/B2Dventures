@@ -9,7 +9,7 @@ import { Container, Text, Box } from '@mantine/core';
 import classes from './index.module.css';
 import {arimoRegular, baiBold} from "@/app/(frontend)/styles/fonts";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
         <Header />

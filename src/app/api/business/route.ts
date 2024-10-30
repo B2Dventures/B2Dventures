@@ -2,12 +2,16 @@ import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
 
 export async function POST(request: Request) {
+    // console.log(request);
+
     try {
-        const { id } = await request.json();
+        const data = await request.json();
+        // console.log(data); // Outputs the parsed JSON object
+        const { id } = data;
         // Query the business based on the provided ID
-        const business = await prisma.campaign.findUnique({
+        const Campaigns = await prisma.campaign.findMany({
             where: {
-                id: id, // Use the extracted ID here
+                businessId: id, // Use the extracted ID here
             },
             select: {
                 id: true,
@@ -22,20 +26,23 @@ export async function POST(request: Request) {
             }
         });
 
-        if (!business) {
+        if (!Campaigns) {
             return NextResponse.json({ error: "Business not found" }, { status: 404 });
         }
-        const raised = business.investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0); // Sum of all investment amounts
-        const investors = business.investment.length; // Count of investors
+        // investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0);
+        const Data = Campaigns.map(campaign => ({
+                id: campaign.id,
+                name: campaign.name,
+                goal: campaign.goal,
+                status: campaign.status,
+                raised: campaign.investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0),
+                investors: campaign.investment.length
+            }
+        )) // Sum of all investment amounts
 
-        return  NextResponse.json({
-            id: business.id,
-            name: business.name,
-            goal: business.goal,
-            status: business.status,
-            raised, // Total amount raised
-            investors, // Number of investors
-        });
+        // console.log(data);
+
+        return  NextResponse.json(Data);
 
     } catch (error) {
         return NextResponse.json({ error: "Error fetching users" }, { status: 500 });

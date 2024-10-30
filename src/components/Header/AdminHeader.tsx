@@ -6,7 +6,7 @@ import classes from './Header.module.css';
 import {NavItem} from "@/components/Header/NavItem/NavItem";
 import {Logo} from "@/components/Header/Logo/Logo";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { LuUser, LuBriefcase } from "react-icons/lu";
+import { LuUser, LuBriefcase, LuClipboardList } from "react-icons/lu";
 import {
     SignInButton,
     SignedIn,
@@ -14,14 +14,18 @@ import {
     UserButton
 } from '@clerk/nextjs';
 
-export function Header() {
+export function AdminHeader() {
 
     const investorPage= () => {
-        window.location.href = '/investor'; // Redirect to the new URL
+        window.location.href = '/admin/investor'; // Redirect to the new URL
     };
 
     const businessPage= () => {
-        window.location.href = '/business'; // Redirect to the new URL
+        window.location.href = '/admin/business'; // Redirect to the new URL
+    };
+
+    const campaignPage= () => {
+        window.location.href = '/admin/campaign';
     };
 
     return (
@@ -45,6 +49,14 @@ export function Header() {
                             </div>
                         </a>
                     </Button>
+                    <Button size='md' variant="outline" color='white' onClick={campaignPage}>
+                        <a className={classes.fullButtonLink}>
+                            <div className={classes.box}>
+                                <LuClipboardList size={25} color='black' />
+                                <div>Campaign</div>
+                            </div>
+                        </a>
+                    </Button>
                 </Group>
                 <Group gap={20} visibleFrom="xs">
                         <SignedOut>
@@ -63,5 +75,5 @@ export function Header() {
                 </Group>
             </Container>
         </header>
-);
+    );
 }
