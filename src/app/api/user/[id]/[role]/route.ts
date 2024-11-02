@@ -16,7 +16,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse , { params 
 
     // Fetch the requesting user to check their role
     const requestingUser = await clerkClient.users.getUser(userId);
-    const role = requestingUser.privateMetadata.role;
+    const role = requestingUser.publicMetadata.role;
 
     // Only allow if the user has the 'admin' role
     if (role !== 'admin') {
