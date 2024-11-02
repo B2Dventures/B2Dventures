@@ -99,9 +99,9 @@ model Campaign {
   // Campaigns-specific fields
   name           String
   description    String
-  content        String
   goal           Decimal
   min_invest     Decimal
+  industry       String
   start_date     DateTime
   end_date       DateTime
   status         String
