@@ -12,9 +12,13 @@ export async function GET(request: Request) {
             },
             select: {
                 id: true,
+                details: {
+                    select:{
+                        highlight: true,
+                    }
+                },
                 name: true,
                 description: true,
-                content: true,
                 goal: true,
                 min_invest: true,
                 start_date: true,

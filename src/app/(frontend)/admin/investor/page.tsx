@@ -4,7 +4,7 @@ import {AdminHeader} from "@/components/Header/AdminHeader";
 import { Container } from '@mantine/core';
 import classes from "./invester_list.module.css";
 import React from "react";
-import { ApprovalTable } from "@/components/ApprovalTable/ApprovalTable";
+import { InvestorApprovalTable } from "@/components/ApprovalTable/InvestorApprovalTable";
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts'
 import {checkRole} from "@/utils/roles";
 
@@ -23,7 +23,7 @@ export default function Home() {
                         <h1 className={classes.topic}>Investor Approval Request list</h1>
                     </main>
                     <main className={classes.table}>
-                        <ApprovalTable/>
+                        <InvestorApprovalTable/>
                     </main>
                 </Container>
             </main>
