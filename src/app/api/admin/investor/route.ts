@@ -22,6 +22,11 @@ export async function GET(request: Request) {
                 income: true,
                 passport_img: true,
                 approvalStatus: true,
+                user: {
+                    select: {
+                        email: true,
+                    },
+                },
             },
         });
 
@@ -32,7 +37,13 @@ export async function GET(request: Request) {
             );
         }
 
-        return NextResponse.json(investors);
+        // Map the result to include the email directly in each investor object
+        const investorsWithEmail = investors.map(investor => ({
+            ...investor,
+            email: investor.user.email,
+        }));
+
+        return NextResponse.json(investorsWithEmail);
     } catch (error) {
         console.error("Error fetching investors:", error);
         return NextResponse.json({ error: "Error fetching investors" }, { status: 500 });
