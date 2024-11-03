@@ -1,38 +1,80 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Container, Paper, Stack, Flex } from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
 
-const elements = [
-    { id: '1', campaign: 'B2Dventures', businessName: 'VoeVin corp.', description: 'An investment platform', goal: 10000, email: 'john.doe@gmail.com' },
-    { id: '2', campaign: 'Startup World', businessName: 'Innovate Inc.', description: 'Tech innovations', goal: 50000, email: 'jane.smith@gmail.com' },
-    { id: '3', campaign: 'Green Earth', businessName: 'Eco Solutions', description: 'Sustainable products', goal: 20000, email: 'chris.johnson@gmail.com' },
-    { id: '4', campaign: 'Health Hub', businessName: 'MediLife', description: 'Healthcare services', goal: 30000, email: 'sara.lee@gmail.com' },
-];
+type Campaign = {
+    id: number;
+    name: string;
+    description: string;
+    goal: number;
+    min_invest: number;
+    start_date: string;
+    end_date: string;
+    status: string;
+    image: string;
+    approvalStatus: string;
+    details: {
+        highlight: string;
+    };
+    business: {
+        business_name: string;
+    };
+};
 
 export function CampaignApprovalTable() {
+    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchCampaigns = async () => {
+            try {
+                const response = await fetch('/api/admin/campaign');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch campaigns');
+                }
+                const data: Campaign[] = await response.json();
+                setCampaigns(data);
+            } catch (error: unknown) {
+                setError((error as Error).message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCampaigns();
+    }, []);
+
+    if (loading) {
+        return <Text></Text>;
+    }
+
+    if (error) {
+        return <Text>Error: {error}</Text>;
+    }
+
     return (
         <Container>
             <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
-                {elements.map((element) => (
+                {campaigns.map((campaign) => (
                     <Paper
-                        key={element.id}
+                        key={campaign.id}
                         shadow="md"
                         radius="md"
                         p="xl"
                         className={`${classes.paper} ${arimoRegular.className}`}
-                        onClick={() => window.location.href = `/admin/campaign/${element.id}`}
+                        onClick={() => window.location.href = `/admin/campaign/${campaign.id}`}
                     >
-                        <Text className={classes.topic}>Campaign: {element.campaign}</Text>
-                        <Text><strong>Business Name:</strong> {element.businessName}</Text>
+                        <Text className={classes.topic}>Campaign: {campaign.name}</Text>
+                        <Text><strong>Business Name:</strong> {campaign.business.business_name}</Text>
                         <Flex align="center" className={classes.descriptionGoal}>
-                            <Text><strong>Description:</strong> {element.description}</Text>
-                            <Text className={classes.goal}><strong>Goal:</strong> ${element.goal}</Text>
+                            <Text><strong>Description:</strong> {campaign.description}</Text>
+                            <Text className={classes.goal}><strong>Goal:</strong> ${campaign.goal}</Text>
                         </Flex>
-                        <Text><strong>Email:</strong> {element.email}</Text>
                         <Text className={classes.check}>
                             <LuChevronRightCircle size={25} fontWeight="bold" />
                         </Text>

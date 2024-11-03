@@ -8,7 +8,7 @@ export async function GET(request: Request) {
         // Query to find all campaigns with approvalStatus = PENDING
         const campaigns = await prisma.campaign.findMany({
             where: {
-                approvalStatus: "PENDING", // Use PENDING status for filtering
+                approvalStatus: "PENDING",
             },
             select: {
                 id: true,
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
                 approvalStatus: true,
                 business: {
                     select: {
-                        business_name: true, // Include business name details if needed
+                        business_name: true,
                     },
                 },
             },

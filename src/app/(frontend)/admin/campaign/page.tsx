@@ -6,15 +6,10 @@ import classes from "./campaign_list.module.css";
 import React from "react";
 import { CampaignApprovalTable } from "@/components/ApprovalTable/CampaignApprovalTable";
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts'
-import {checkRole} from "@/utils/roles";
 
 
 
 export default function Home() {
-    // if (!checkRole('admin')) {
-    //     return <p>This is the protected admin dashboard restricted to users with the `admin` role.</p>
-    // }
-    // else if (checkRole('admin')) {
     return (
         <main>
             <AdminHeader/>
@@ -29,4 +24,3 @@ export default function Home() {
         </main>
     );
 }
-// }
