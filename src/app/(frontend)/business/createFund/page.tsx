@@ -7,6 +7,8 @@ import { Header } from '@/components/Header/Header';
 import { ImageDrop } from '@/components/ImageDrop/ImageDrop';
 import { notifications } from "@mantine/notifications";
 import '@mantine/notifications/styles.css';
+import { useRouter } from 'next/navigation';
+import { UploadButton } from '@/components/Upload/Upload';
 
 export default function CampaignForm() {
   const [form, setForm] = useState({
@@ -17,7 +19,12 @@ export default function CampaignForm() {
     category: '',
     startDate: null as Date | null,
     endDate: null as Date | null,
+    highlight: '',
+    product: '',
+    opportunity: '',
   });
+
+  const router = useRouter();
 
   const handleInputChange = (field: string, value: any) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -43,6 +50,10 @@ export default function CampaignForm() {
           message: "Your campaign has been submitted and is awaiting approval.",
           color: 'green',
         });
+
+        setTimeout(() => {
+          router.push('/business');
+        }, 750);
       } else {
         notifications.show({
           title: 'Error',
@@ -133,6 +144,35 @@ export default function CampaignForm() {
           descriptionText="Attach as many files as you like, each file should not exceed 5mb"
         />
 
+        <Textarea
+          label="Highlight"
+          placeholder="Describe the highlights of your campaign"
+          value={form.highlight}
+          onChange={(event) => handleInputChange('highlight', event.currentTarget.value)}
+          styles={{ input: { height: 150 } }}
+          required
+          mt="md"
+        />
+
+        <Textarea
+          label="Product"
+          placeholder="Describe your product"
+          value={form.product}
+          onChange={(event) => handleInputChange('product', event.currentTarget.value)}
+          styles={{ input: { height: 150 } }}
+          required
+          mt="md"
+        />
+
+        <Textarea
+          label="Opportunity"
+          placeholder="Describe the opportunity"
+          value={form.opportunity}
+          onChange={(event) => handleInputChange('opportunity', event.currentTarget.value)}
+          styles={{ input: { height: 150 } }}
+          required
+          mt="md"
+        />
         <Group position="center" mt="xl">
           <Button color="green" onClick={handleSubmit}>Submit</Button>
         </Group>

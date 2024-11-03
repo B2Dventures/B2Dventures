@@ -14,12 +14,15 @@ export async function POST(req: Request) {
         category,
         startDate,
         endDate,
+        highlight,
+        product,
+        opportunity
     } = body;
 
     try {
         const user = await prisma.user.findUnique({
             where: { clerkId },
-            select: { id: true }, // Select only the user ID
+            select: { id: true },
         });
 
         if (!user) {
@@ -39,9 +42,10 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Business not approved' }, { status: 403 });
         }
 
+        // Create the campaign and associated detail record
         const campaign = await prisma.campaign.create({
             data: {
-                businessId: business.id, // Reference to the business's ID
+                businessId: business.id,
                 name: title,
                 description: description,
                 goal: goal,
@@ -52,6 +56,13 @@ export async function POST(req: Request) {
                 status: "Wait for approval",
                 image: "https://example.com/logo-url.jpg",
                 approvalStatus: "PENDING",
+                details: {
+                    create: {
+                        highlight,
+                        product,
+                        opportunity,
+                    },
+                },
             },
         });
 
