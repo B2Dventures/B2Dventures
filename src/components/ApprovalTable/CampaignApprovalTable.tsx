@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Text, Container, Paper, Stack, Flex } from '@mantine/core';
+import {Text, Container, Paper, Stack, Flex, Loader} from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
@@ -50,7 +50,11 @@ export function CampaignApprovalTable() {
     }, []);
 
     if (loading) {
-        return <Text></Text>;
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Loader color="goldenrod" type="dots" />
+            </Stack>
+        );
     }
 
     if (error) {
