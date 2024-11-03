@@ -104,7 +104,6 @@ model Campaign {
   industry       String
   start_date     DateTime
   end_date       DateTime
-  status         String
   image          String
   approvalStatus RequestStatus
 }
