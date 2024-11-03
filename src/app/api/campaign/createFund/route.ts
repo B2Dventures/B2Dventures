@@ -53,7 +53,6 @@ export async function POST(req: Request) {
                 industry: category,
                 start_date: new Date(startDate),
                 end_date: new Date(endDate),
-                status: "Wait for approval",
                 image: "https://example.com/logo-url.jpg",
                 approvalStatus: "PENDING",
                 details: {

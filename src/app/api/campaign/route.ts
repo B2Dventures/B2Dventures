@@ -13,27 +13,28 @@ export async function GET(request: Request) {
       orderBy = { name: 'asc' };
     }
     else if (sort === 'inverse_name') {
-        orderBy = { name: 'desc' };
+      orderBy = { name: 'desc' };
     }
     else if (sort === 'min_invest') {
-        orderBy = { min_invest: 'asc' };
+      orderBy = { min_invest: 'asc' };
     }
     else if (sort === 'inverse_min_invest') {
-        orderBy = { min_invest: 'desc' };
+      orderBy = { min_invest: 'desc' };
     }
     else if (sort === 'totalInvestment' || sort === 'investors') {
-        orderBy = {};
+      orderBy = {};
     }
 
     const campaigns = await prisma.campaign.findMany({
-      where: campaignName
-        ? {
-            name: {
-              contains: campaignName,
-              mode: 'insensitive',
-            },
-          }
-        : {},
+      where: {
+        approvalStatus: 'APPROVED',
+        ...(campaignName && {
+          name: {
+            contains: campaignName,
+            mode: 'insensitive',
+          },
+        }),
+      },
       orderBy: sort !== 'totalInvestment' && sort !== 'investors' ? orderBy : undefined,
       include: {
         investment: true,
