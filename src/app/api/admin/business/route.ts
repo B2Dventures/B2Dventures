@@ -2,8 +2,6 @@ import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-    // TODO: Security part (Authentication/Authorization)
-
     try {
         // Query to find all businesses with approvalStatus = PENDING
         const businesses = await prisma.business.findMany({
@@ -23,10 +21,14 @@ export async function GET(request: Request) {
                 license: true,
                 registration_cer: true,
                 approvalStatus: true,
+                user: {
+                    select: {
+                        email: true,
+                    }
+                }
             },
         });
 
-        // If no businesses with PENDING status are found
         if (businesses.length === 0) {
             return NextResponse.json(
                 { message: "No businesses with PENDING approval status found" },

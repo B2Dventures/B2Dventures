@@ -1,39 +1,81 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Container, Paper, Stack, Flex } from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
 
-const elements = [
-    { id: '1', businessName: 'VoeVin Corp.', founderFirstName: 'John', founderLastName: 'Doe', detail: 'NextGen Game Developers', industry: 'Game', email: 'vvcorp@gmail.com' },
-    { id: '2', businessName: 'Tech Innovators', founderFirstName: 'Jane', founderLastName: 'Smith', detail: 'Innovative Tech Solutions', industry: 'Technology', email: 'techinnovators@gmail.com' },
-    { id: '3', businessName: 'EcoFriendly Co.', founderFirstName: 'Chris', founderLastName: 'Johnson', detail: 'Sustainable Products', industry: 'Retail', email: 'ecofriendlyco@gmail.com' },
-    { id: '4', businessName: 'Health First', founderFirstName: 'Sara', founderLastName: 'Lee', detail: 'Healthcare Solutions', industry: 'Health', email: 'healthfirst@gmail.com' },
-];
+type Business = {
+    id: number;
+    business_name: string;
+    founder_first_name: string;
+    founder_last_name: string;
+    market_cap: number;
+    company_address: string;
+    business_detail: string;
+    industry: string;
+    logo: string;
+    license: string;
+    registration_cer: string;
+    approvalStatus: string;
+    user: {
+        email: string;
+    };
+};
 
 export function BusinessApprovalTable() {
+    const [businesses, setBusinesses] = useState<Business[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchBusinesses = async () => {
+            try {
+                const response = await fetch('/api/admin/business');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch businesses');
+                }
+                const data: Business[] = await response.json();
+                setBusinesses(data);
+            } catch (error: unknown) {
+                setError((error as Error).message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBusinesses();
+    }, []);
+
+    if (loading) {
+        return <Text></Text>;
+    }
+
+    if (error) {
+        return <Text>Error: {error}</Text>;
+    }
+
     return (
         <Container>
             <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
-                {elements.map((element) => (
+                {businesses.map((business) => (
                     <Paper
-                        key={element.id}
+                        key={business.id}
                         shadow="md"
                         radius="md"
                         p="xl"
                         className={`${classes.paper} ${arimoRegular.className}`}
-                        onClick={() => window.location.href = `/admin/business/${element.id}`} // Corrected to point to business instead of campaign
+                        onClick={() => window.location.href = `/admin/business/${business.id}`}
                     >
-                        <Text className={classes.topic}>Business Name: {element.businessName}</Text>
-                        <Text><strong>Founder:</strong> {element.founderFirstName} {element.founderLastName}</Text>
+                        <Text className={classes.topic}>Business Name: {business.business_name}</Text>
+                        <Text><strong>Founder:</strong> {business.founder_first_name} {business.founder_last_name}</Text>
                         <Flex align="center" className={classes.descriptionGoal}>
-                            <Text><strong>Description:</strong> {element.detail}</Text>
-                            <Text className={classes.industry}><strong>Industry:</strong> {element.industry}</Text>
+                            <Text><strong>Description:</strong> {business.business_detail}</Text>
+                            <Text className={classes.industry}><strong>Industry:</strong> {business.industry}</Text>
                         </Flex>
                         <Text>
-                            <strong>Email:</strong> {element.email}
+                            <strong>Email:</strong> {business.user.email}
                         </Text>
                         <Text className={classes.check}>
                             <LuChevronRightCircle size={25} fontWeight="bold" />
