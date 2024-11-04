@@ -26,7 +26,7 @@ const InvestorClient = ({ businesses }: InvestorClientComponentProps) => {
               {businesses.map((business, index) => (
                   <Grid.Col
                       key={business.id}
-                      span={businesses.length === 1 ? 6 : businesses.length === 2 ? 6 : 4}
+                      span={businesses.length === 1 ? 12 : businesses.length === 2 ? 6 : 4}
                   >
                       <FundraisingCard
                           title={business.name}
