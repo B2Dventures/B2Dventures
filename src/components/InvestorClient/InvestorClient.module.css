@@ -1,6 +1,4 @@
 .campaign{
   display: flex;
-  justify-content: space-around;
-  align-items: right;
   margin: 0 150px 0 150px;
 }
