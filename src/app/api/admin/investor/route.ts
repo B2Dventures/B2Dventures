@@ -30,20 +30,7 @@ export async function GET(request: Request) {
             },
         });
 
-        if (investors.length === 0) {
-            return NextResponse.json(
-                { message: "No investors with PENDING approval status found" },
-                { status: 404 }
-            );
-        }
-
-        // Map the result to include the email directly in each investor object
-        const investorsWithEmail = investors.map(investor => ({
-            ...investor,
-            email: investor.user.email,
-        }));
-
-        return NextResponse.json(investorsWithEmail);
+        return NextResponse.json(investors.length > 0 ? investors : []);
     } catch (error) {
         console.error("Error fetching investors:", error);
         return NextResponse.json({ error: "Error fetching investors" }, { status: 500 });

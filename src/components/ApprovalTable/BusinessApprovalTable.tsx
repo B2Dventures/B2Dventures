@@ -60,6 +60,14 @@ export function BusinessApprovalTable() {
         return <Text>Error: {error}</Text>;
     }
 
+    if (businesses.length === 0) {
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Text c="goldenrod">No pending business available.</Text>
+            </Stack>
+        );
+    }
+
     return (
         <Container>
             <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>

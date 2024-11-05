@@ -29,14 +29,7 @@ export async function GET(request: Request) {
             },
         });
 
-        if (businesses.length === 0) {
-            return NextResponse.json(
-                { message: "No businesses with PENDING approval status found" },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json(businesses);
+        return NextResponse.json(businesses.length > 0 ? businesses : []);
     } catch (error) {
         console.error("Error fetching businesses:", error);
         return NextResponse.json({ error: "Error fetching businesses" }, { status: 500 });

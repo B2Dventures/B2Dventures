@@ -5,7 +5,6 @@ export async function GET(request: Request) {
     // TODO: Security part (Authentication/Authorization)
 
     try {
-        // Query to find all campaigns with approvalStatus = PENDING
         const campaigns = await prisma.campaign.findMany({
             where: {
                 approvalStatus: "PENDING",
@@ -13,7 +12,7 @@ export async function GET(request: Request) {
             select: {
                 id: true,
                 details: {
-                    select:{
+                    select: {
                         highlight: true,
                     }
                 },
@@ -34,15 +33,8 @@ export async function GET(request: Request) {
             },
         });
 
-        // If no campaigns with PENDING status are found
-        if (campaigns.length === 0) {
-            return NextResponse.json(
-                { message: "No campaigns with PENDING approval status found" },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json(campaigns);
+        // Return an empty array with a 200 status if no pending campaigns
+        return NextResponse.json(campaigns.length > 0 ? campaigns : []);
     } catch (error) {
         console.error("Error fetching campaigns:", error);
         return NextResponse.json({ error: "Error fetching campaigns" }, { status: 500 });

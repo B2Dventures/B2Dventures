@@ -18,7 +18,9 @@ type Investor = {
     income: number;
     passport_img: string;
     approvalStatus: string;
-    email: string;
+    user: {
+        email: string;
+    },
 };
 
 export function InvestorApprovalTable() {
@@ -57,6 +59,14 @@ export function InvestorApprovalTable() {
         return <Text>Error: {error}</Text>;
     }
 
+    if (investors.length === 0) {
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Text c="goldenrod">No pending investor available.</Text>
+            </Stack>
+        );
+    }
+
     return (
         <Container>
             <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
@@ -71,7 +81,7 @@ export function InvestorApprovalTable() {
                     >
                         <Text className={classes.topic}>Name: {investor.first_name} {investor.last_name}</Text>
                         <Text><strong>Nationality</strong>: {investor.nationality}</Text>
-                        <Text><strong>Email</strong>: {investor.email}</Text>
+                        <Text><strong>Email</strong>: {investor.user.email}</Text>
                         <Text className={classes.check}><LuChevronRightCircle size={25} fontWeight="bold" /></Text>
                     </Paper>
                 ))}

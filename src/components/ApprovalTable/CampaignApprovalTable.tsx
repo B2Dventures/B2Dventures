@@ -61,6 +61,15 @@ export function CampaignApprovalTable() {
         return <Text>Error: {error}</Text>;
     }
 
+    if (campaigns.length === 0) {
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Text c="goldenrod">No pending campaigns available.</Text>
+            </Stack>
+        );
+    }
+
+
     return (
         <Container>
             <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
