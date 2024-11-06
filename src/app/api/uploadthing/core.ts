@@ -12,14 +12,16 @@ export const ourFileRouter = {
     ImageMultiple: f({ image: { maxFileSize: "4MB" , maxFileCount: 5, minFileCount: 1} })
         // Set permissions and file types for this FileRoute
         .middleware(async ({ req }) => {
-            if (!checkRole("investor") && !checkRole("business")) throw new UploadThingError("Unauthorized");
+            const user = auth();
+            if (!user) throw new UploadThingError("Unauthorized");
             return { userId: auth().sessionClaims?.metadata?.id };
         })
         .onUploadComplete((data) => console.log("file", data)),
     ImageSingle: f({ image: { maxFileSize: "4MB" , maxFileCount: 1, minFileCount: 1} })
         // Set permissions and file types for this FileRoute
         .middleware(async ({ req }) => {
-            if (!checkRole("investor") && !checkRole("business")) throw new UploadThingError("Unauthorized");
+            const user = auth();
+            if (!user) throw new UploadThingError("Unauthorized");
             return { userId: auth().sessionClaims?.metadata?.id };
         })
         .onUploadComplete((data) => console.log("file", data)),

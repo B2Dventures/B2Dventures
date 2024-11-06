@@ -1,5 +1,7 @@
 import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
+import {CampaignData} from "@/utils/types";
+
 
 export async function POST(request: Request) {
     try {
@@ -35,13 +37,13 @@ export async function POST(request: Request) {
             }
         });
 
-        const responseData = campaigns.map(campaign => ({
+        const responseData: CampaignData[] = campaigns.map(campaign => ({
             id: campaign.id,
             name: campaign.name,
-            goal: campaign.goal,
-            status: campaign.status,
+            goal: campaign.goal.toNumber(),
             raised: campaign.investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0),
-            investors: campaign.investment.length
+            investors: campaign.investment.length,
+            status: campaign.status
         }));
 
         return NextResponse.json(responseData);

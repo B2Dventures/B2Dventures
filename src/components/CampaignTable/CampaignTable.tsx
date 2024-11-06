@@ -37,7 +37,7 @@ export function CampaignTable({ data, loading }: CampaignTableProps) {
                     </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody className={arimoRegular.className}>
-                    {data ? (
+                    {data && data.length > 0 ? (
                         data.map((element) => (
                             <Table.Tr key={element.id} onClick={() => window.location.href = `/investor/${element.id}`} className={classes.info}>
                                 <Table.Td className={classes.name}>{element.name}</Table.Td>
