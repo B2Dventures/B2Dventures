@@ -57,3 +57,8 @@
   width: 45%;
   padding: 10px 0;
 }
+
+.logo{
+  display: flex;
+  justify-content: center;
+}

@@ -1,10 +1,23 @@
 'use client';
 
 import React from 'react';
-import { Container, Text, Stack, Button, Divider, Flex, Image } from '@mantine/core';
+import { Container, Text, Stack, Button, Divider, Flex, Image, Avatar } from '@mantine/core';
 import classes from './RequestDetail.module.css';
 
-export function InvestorRequestDetail() {
+// model Business {
+//     business_name      String        @unique
+//     founder_first_name String
+//     founder_last_name  String
+//     market_cap         Int
+//     company_address    String
+//     business_detail    String
+//     industry           String
+//     logo               String //URL IMG LINK
+//     license            String //URL IMG LINK
+//     registration_cer   String //URL IMG LINK
+// }
+
+export function BusinessRequestDetail() {
     return (
         <Container className={classes.container}>
             <Image
@@ -12,31 +25,25 @@ export function InvestorRequestDetail() {
                 height="auto"
                 width="50%"
                 fit="cover"
-                src="/passport_ex.png"
+                src="/business-certificate-ex.png"
                 className={classes.image}
             />
             <Stack gap="md" align="stretch" className={classes.stack}>
-                <div className={classes.box}>
-                    <Text className={classes.topic}>Personal Information</Text>
-                    <Text className={classes.normalText}><strong>Name:</strong> First Lastname</Text>
-                    <Text className={classes.normalText}><strong>Nationality:</strong> Nationality</Text>
-                    <Text className={classes.normalText}><strong>Passport Number:</strong> 123456789</Text>
-                    <Flex align="center" className={classes.flex}>
-                        <Text className={classes.normalText}><strong>Birth Date:</strong> 01/01/2000</Text>
-                        <Text className={classes.normalText}><strong>Age:</strong> 24</Text>
-                    </Flex>
+                <div className={classes.logo}>
+                    <Avatar src="/logo.ico" radius="sm" size='120px'/>
                 </div>
-                <Divider my="md" />
                 <div className={classes.box}>
-                    <Text className={classes.topic}>Occupation</Text>
-                    <Text className={classes.normalText}><strong>Occupation:</strong> occupation</Text>
-                    <Text className={classes.normalText}><strong>Income:</strong> $1,000</Text>
+                    <Text className={classes.topic}>Business Information</Text>
+                    <Text className={classes.normalText}><strong>Business Name:</strong> ABC Company</Text>
+                    <Text className={classes.normalText}><strong>Founder Name:</strong> Firstname Lastname</Text>
+                    <Text className={classes.normalText}><strong>Industry:</strong> Health</Text>
+                    <Text className={classes.normalText}><strong>Description:</strong> Healthcare Solutions</Text>
+                    <Text className={classes.normalText}><strong>Market Cap:</strong> $ 100,000</Text>
                 </div>
                 <Divider my="md" />
                 <div className={classes.box}>
                     <Text className={classes.topic}>Contact</Text>
                     <Text className={classes.normalText}><strong>Address:</strong> Bangkok, Thailand</Text>
-                    <Text className={classes.normalText}><strong>Phone:</strong> +66812345678</Text>
                     <Text className={classes.normalText}><strong>Email:</strong> ABC@abc.com</Text>
                 </div>
                 <Divider my="md" />
