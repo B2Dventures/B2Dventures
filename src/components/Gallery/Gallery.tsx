@@ -7,12 +7,10 @@ import classes from './Gallery.module.css';
 import {baiSemiBold} from "@/app/(frontend)/styles/fonts";
 
 interface GalleryProps {
-    title: string;
-    description: string;
     images: string[];
 }
 
-export const Gallery: React.FC<GalleryProps> = ({ title, description, images }) => {
+export const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState<string>(images[0]);
 
   return (
