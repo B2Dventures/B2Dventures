@@ -31,9 +31,9 @@ enum Role {
 }
 
 model Investor {
-  id             Int           @id @default(autoincrement())
-  userId         Int           @unique
-  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
+  id             Int             @id @default(autoincrement())
+  userId         Int             @unique
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
   // Investor-specific fields
   first_name     String
   last_name      String
@@ -47,6 +47,7 @@ model Investor {
   passport_img   String //URL IMG LINK
   investment     Investment[] //  can have multiple Investments
   approvalStatus RequestStatus
+  DetailRequest  DetailRequest[]
 }
 
 enum RequestStatus {
@@ -91,10 +92,10 @@ model Detail {
 }
 
 model Campaign {
-  id             Int           @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   businessId     Int //  1 business can have multiple fundrasing
   investment     Investment[] //  can have multiple Investments
-  business       Business      @relation(fields: [businessId], references: [id], onDelete: Cascade) //  businessId is a FK from business.id
+  business       Business        @relation(fields: [businessId], references: [id], onDelete: Cascade) //  businessId is a FK from business.id
   details        Detail?
   // Campaigns-specific fields
   name           String
@@ -106,6 +107,7 @@ model Campaign {
   end_date       DateTime
   image          String
   approvalStatus RequestStatus
+  DetailRequest  DetailRequest[]
 }
 
 model Investment {
@@ -117,6 +119,16 @@ model Investment {
   // Investments-specific fields
   amount         Decimal
   timestamp      DateTime      @default(now()) @db.Timestamptz(2)
+  approvalStatus RequestStatus
+}
+
+model DetailRequest {
+  id             Int           @id @default(autoincrement())
+  campaignId     Int
+  investorId     Int
+  campaign       Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade) //  campaignId is a FK from campaogn.id
+  investor       Investor      @relation(fields: [investorId], references: [id], onDelete: Cascade) //  investorId is a FK from investor.id
+  // Specific fields
   approvalStatus RequestStatus
 }
 

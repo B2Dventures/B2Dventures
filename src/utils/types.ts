@@ -9,4 +9,13 @@ export interface CampaignData {
     status: string;
 }
 
+export interface RequestData {
+    id: number;
+    campaignId : number;
+    firstName: string;
+    lastName: string;
+    netWorth: number;
+    email: string;
+}
+
 // declare another data struct below

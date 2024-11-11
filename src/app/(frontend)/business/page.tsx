@@ -56,54 +56,64 @@ export default function BusinessPage() {
         return null; // Handle loading state
     }
 
-    if (isSignedIn && role === "business") {
-        return (
-            <main className={classes.main}>
-                <Header/>
-                <Container size={1440} className={classes.container}>
-                    <main className={baiSemiBold.className}>
-                        <h1 className={classes.topic}>All Campaigns list</h1>
+    return (
+        <main className={classes.main}>
+            <Header/>
+            <Container size={1440} className={classes.container}>
+                {role === "business" ? (
+                    <main>
+                        <div className={baiSemiBold.className}>
+                            <h1 className={classes.topic}>All Campaigns list</h1>
+                        </div>
+                        <div className={classes.table}>
+                            <CampaignTable data={fetchedData} loading={loading}/>
+                        </div>
                     </main>
-                    <main className={classes.table}>
-                        <CampaignTable data={fetchedData} loading={loading}/>
+                ) : role === "investor" ? (  // for non-business role
+                    <main>
+                        <h2>Welcome to Campaigns</h2>
+                        <p>For business role user</p>
+                        <p>Ur role is investor </p>
                     </main>
+                ) : (
+                    <main>
+                        <h2>Welcome to Campaigns</h2>
+                        <p>Became our business in our platform</p>
+                        <p>Ur role is Guest or None </p>
+                    </main>
+                )}
+            </Container>
+            <footer className={classes.footer}>
+                <Container className={classes.inner} size={1440}>
+                    <Group>
+                        <div className={classes.box}>
+                        <LuDollarSign size={50}/>
+                            <Text className={classes.name}>Total Fund Raised</Text>
+                            <Text className={classes.number}>$ 610,724</Text>
+                        </div>
+                        <Divider orientation="vertical"/>
+                        <div className={classes.box}>
+                            <LuUsers size={50}/>
+                            <Text className={classes.name}>Total Investors</Text>
+                            <Text className={classes.number}>8,117</Text>
+                        </div>
+                        <Divider orientation="vertical"/>
+                        <div className={classes.box}>
+                            <LuCheckCircle size={50}/>
+                            <Text className={classes.name}>Total Campaigns</Text>
+                            <Text className={classes.number}>8</Text>
+                        </div>
+                        <Divider orientation="vertical"/>
+                    </Group>
+                    <Group gap={20} visibleFrom="xs">
+                        <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
+                                onClick={() => window.location.href = "/business/createFund"}>
+                            <NavItem label="Create Fundraising" link="/business/createFund"/>
+                        </Button>
+                    </Group>
                 </Container>
-                <footer className={classes.footer}>
-                    <Container className={classes.inner} size={1440}>
-                        <Group>
-                            <div className={classes.box}>
-                                <LuDollarSign size={50}/>
-                                <Text className={classes.name}>Total Fund Raised</Text>
-                                <Text className={classes.number}>$ 610,724</Text>
-                            </div>
-                            <Divider orientation="vertical"/>
-                            <div className={classes.box}>
-                                <LuUsers size={50}/>
-                                <Text className={classes.name}>Total Investors</Text>
-                                <Text className={classes.number}>8,117</Text>
-                            </div>
-                            <Divider orientation="vertical"/>
-                            <div className={classes.box}>
-                                <LuCheckCircle size={50}/>
-                                <Text className={classes.name}>Total Campaigns</Text>
-                                <Text className={classes.number}>8</Text>
-                            </div>
-                            <Divider orientation="vertical"/>
-                        </Group>
-                        <Group gap={20} visibleFrom="xs">
-                            <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
-                                    onClick={() => window.location.href = "/business/createFund"}>
-                                <NavItem label="Create Fundraising" link="/business/createFund"/>
-                            </Button>
-                        </Group>
-                    </Container>
-                </footer>
-            </main>
-        );
-    } else
-        return (
-            <main>
-                <h1>Here none</h1>
-            </main>
-        );
+            </footer>
+        </main>
+    );
+
 }
