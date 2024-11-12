@@ -20,7 +20,9 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
                     <Text className={classes.normalText}><strong>Nationality:</strong> {investor.nationality}</Text>
                     <Text className={classes.normalText}><strong>Passport Number:</strong> {investor.passport_num}</Text>
                     <Flex align="center" className={classes.flex}>
-                        <Text className={classes.normalText}><strong>Birth Date:</strong> {investor.birth_date}</Text>
+                        <Text className={classes.normalText}>
+                            <strong>Birth Date:</strong> {new Date(investor.birth_date).toLocaleDateString()}
+                        </Text>
                         <Text className={classes.normalText}>
                             <strong>Age:</strong> {new Date().getFullYear() - new Date(investor.birth_date).getFullYear() -
                             (new Date().getMonth() < new Date(investor.birth_date).getMonth() ||
