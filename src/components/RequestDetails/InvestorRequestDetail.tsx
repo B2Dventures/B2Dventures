@@ -1,10 +1,8 @@
-'use client';
-
 import React from 'react';
 import { Container, Text, Stack, Button, Divider, Flex, Image } from '@mantine/core';
 import classes from './RequestDetail.module.css';
 
-export function InvestorRequestDetail() {
+export function InvestorRequestDetail({ investor }: { investor: any }) {
     return (
         <Container className={classes.container}>
             <Image
@@ -12,32 +10,37 @@ export function InvestorRequestDetail() {
                 height="auto"
                 width="50%"
                 fit="cover"
-                src="/passport_ex.png"
+                src={investor.passport_img || "/passport_ex.png"}
                 className={classes.image}
             />
             <Stack gap="md" align="stretch" className={classes.stack}>
                 <div className={classes.box}>
                     <Text className={classes.topic}>Personal Information</Text>
-                    <Text className={classes.normalText}><strong>Name:</strong> First Lastname</Text>
-                    <Text className={classes.normalText}><strong>Nationality:</strong> Nationality</Text>
-                    <Text className={classes.normalText}><strong>Passport Number:</strong> 123456789</Text>
+                    <Text className={classes.normalText}><strong>Name:</strong> {investor.first_name} {investor.last_name}</Text>
+                    <Text className={classes.normalText}><strong>Nationality:</strong> {investor.nationality}</Text>
+                    <Text className={classes.normalText}><strong>Passport Number:</strong> {investor.passport_num}</Text>
                     <Flex align="center" className={classes.flex}>
-                        <Text className={classes.normalText}><strong>Birth Date:</strong> 01/01/2000</Text>
-                        <Text className={classes.normalText}><strong>Age:</strong> 24</Text>
+                        <Text className={classes.normalText}><strong>Birth Date:</strong> {investor.birth_date}</Text>
+                        <Text className={classes.normalText}>
+                            <strong>Age:</strong> {new Date().getFullYear() - new Date(investor.birth_date).getFullYear() -
+                            (new Date().getMonth() < new Date(investor.birth_date).getMonth() ||
+                            (new Date().getMonth() === new Date(investor.birth_date).getMonth() &&
+                                new Date().getDate() < new Date(investor.birth_date).getDate()) ? 1 : 0)}
+                        </Text>
                     </Flex>
                 </div>
                 <Divider my="md" />
                 <div className={classes.box}>
                     <Text className={classes.topic}>Occupation</Text>
-                    <Text className={classes.normalText}><strong>Occupation:</strong> occupation</Text>
-                    <Text className={classes.normalText}><strong>Income:</strong> $1,000</Text>
+                    <Text className={classes.normalText}><strong>Occupation:</strong> {investor.occupation}</Text>
+                    <Text className={classes.normalText}><strong>Income:</strong> ${investor.income}</Text>
                 </div>
                 <Divider my="md" />
                 <div className={classes.box}>
                     <Text className={classes.topic}>Contact</Text>
-                    <Text className={classes.normalText}><strong>Address:</strong> Bangkok, Thailand</Text>
-                    <Text className={classes.normalText}><strong>Phone:</strong> +66812345678</Text>
-                    <Text className={classes.normalText}><strong>Email:</strong> ABC@abc.com</Text>
+                    <Text className={classes.normalText}><strong>Address:</strong> {investor.address}</Text>
+                    <Text className={classes.normalText}><strong>Phone:</strong> {investor.phone_num}</Text>
+                    <Text className={classes.normalText}><strong>Email:</strong> {investor.user.email}</Text>
                 </div>
                 <Divider my="md" />
                 <div className={classes.buttonContainer}>
