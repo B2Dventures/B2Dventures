@@ -1,9 +1,15 @@
 import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
 import {CampaignData} from "@/utils/types";
+import {auth} from "@clerk/nextjs/server";
 
 
 export async function POST(request: Request) {
+
+    if (auth().sessionClaims?.metadata?.role != "business") {
+        NextResponse.json({ error: "Not authenticate" }, { status: 401 });
+    }
+
     try {
         const data = await request.json();
         const { id: userId } = data;
@@ -28,7 +34,7 @@ export async function POST(request: Request) {
                 id: true,
                 name: true,
                 goal: true,
-                status: true,
+                approvalStatus: true,
                 investment: {
                     select: {
                         amount: true,
@@ -43,7 +49,7 @@ export async function POST(request: Request) {
             goal: campaign.goal.toNumber(),
             raised: campaign.investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0),
             investors: campaign.investment.length,
-            status: campaign.status
+            status: campaign.approvalStatus
         }));
 
         return NextResponse.json(responseData);

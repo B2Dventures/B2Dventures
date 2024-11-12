@@ -1,5 +1,6 @@
 // Keep all interface Data
 
+// POST api/business
 export interface CampaignData {
     id: number;
     name: string;
@@ -9,6 +10,7 @@ export interface CampaignData {
     status: string;
 }
 
+// GET api/request
 export interface RequestData {
     id: number;
     campaignId : number;

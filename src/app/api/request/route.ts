@@ -34,8 +34,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             },
             investor: {
                 select: {
-                    firstName: true,
-                    lastName: true,
+                    first_name: true,
+                    last_name: true,
                     income: true,
                     user: {
                         select: {
@@ -53,9 +53,9 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     const requestData: RequestData[] = detailRequests.map((detail) => ({
         id: detail.id,
-        campaignId: detail.campaignId,
-        firstName: detail.investor.firstName,
-        lastName: detail.investor.lastName,
+        campaignId: detail.campaign.id,
+        firstName: detail.investor.first_name,
+        lastName: detail.investor.last_name,
         netWorth: detail.investor.income,
         email: detail.investor.user.email,
     }));
@@ -77,21 +77,22 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // params must have id campaign
-
     const { id } = req.query as unknown as RequestQuery;
     if (!id) {
         return res.status(400).json({ error: 'Missing required query parameters' });
     }
-    let data = {
-        campaignId: id,
-        investorId: Uid
-    }
 
     // Adding to DB if pass though all guard clause
-    const result = await prisma.DetailRequest.create({data: data})
+    const result = await prisma.detailRequest.create({
+        data: {
+            campaignId: id,
+            investorId: Uid,
+            approvalStatus: "PENDING",
+        }
+    })
     if (!result) {
         return res.status(401).json({ error: 'Create Not Successfully' })
     }
 
-    return res.status(200).json({success: true, data: result})
+    return res.status(200).json({success: "Successfully"})
 }
