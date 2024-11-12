@@ -1,9 +1,7 @@
 import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
 
-export async function GET(request) {
-
-    // TODO: Security part
+export async function GET(request: Request) {
 
     try {
         const { searchParams } = new URL(request.url);

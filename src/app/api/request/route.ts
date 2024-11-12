@@ -8,7 +8,7 @@ interface RequestQuery {
 }
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
-    // security partRequest
+    // security part
     const user = auth().sessionClaims?.metadata;
     const Uid  = user?.id;
     const role = user?.role;
@@ -56,12 +56,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         campaignId: detail.campaign.id,
         firstName: detail.investor.first_name,
         lastName: detail.investor.last_name,
-        netWorth: detail.investor.income,
+        income: detail.investor.income,
         email: detail.investor.user.email,
     }));
 
     return res.status(200).json({success: true, data: requestData});
-
 
 }
 

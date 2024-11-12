@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
     }
     const body = await req.json();
 
+    // TODO: fixing constant
     const {
         title,
         description,
@@ -22,7 +23,6 @@ export async function POST(req: NextRequest) {
     } = body;
 
     const id = auth().sessionClaims?.metadata?.id;
-
     if (!id) {
         return NextResponse.json({error: "User not found"}, {status: 404});
     }
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
             industry: category,
             start_date: new Date(startDate),
             end_date: new Date(endDate),
-            image: "https://example.com/logo-url.jpg",
+            image: "https://example.com/logo-url.jpg",  // TODO: create more database for storing multiple image in one campaign
             approvalStatus: "PENDING",
             details: {
                 create: {

@@ -16,7 +16,7 @@ export interface RequestData {
     campaignId : number;
     firstName: string;
     lastName: string;
-    netWorth: number;
+    income: number;
     email: string;
 }
 

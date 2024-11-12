@@ -1,5 +1,5 @@
 // src/app/api/user/[id]/[role]/route.ts
-import {auth, createClerkClient, getAuth} from '@clerk/nextjs/server';
+import {auth, createClerkClient} from '@clerk/nextjs/server';
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from "@/utils/db";

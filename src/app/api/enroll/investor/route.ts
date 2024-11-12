@@ -1,13 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest ,NextResponse } from 'next/server';
 import prisma from '@/utils/db';
 import { auth } from '@clerk/nextjs/server';
 
-export async function POST(req: Request) {
-    const { userId: clerkId } = auth(req); // Retrieve clerkId
+export async function POST(req: NextRequest) {
+    if (auth().sessionClaims?.metadata?.role != "guest") {
+        return NextResponse.json({error: "Already have a role or not logged in yet."});
+    }
     const body = await req.json();
 
     const {
-        email,
         firstName,
         lastName,
         nationality,
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
         address,
         occupation,
         income,
-        approvalStatus,
+        passport_img,  // TODO: implement uploadthing to ui in order to retrieve url picture
     } = body;
 
     const parsedBirthDate = new Date(birthDate);
@@ -25,48 +26,34 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Invalid birth date format' }, { status: 400 });
     }
 
-    try {
-        const sampleImgURL = "https://example.com/default-image-url.jpg";
+    const userId = auth().sessionClaims?.metadata?.id;
 
-        const user = await prisma.user.findUnique({
-            where: { clerkId },
-            select: { id: true }, // Select only the user ID
-        });
-
-        if (!user) {
-            return NextResponse.json({ error: 'User not found' }, { status: 404 });
-        }
-
-        const userId = user.id; // Retrieve the user ID from the user record
-
-        await prisma.user.update({
-            where: { id: userId },
-            data: {
-                role: 'Investor',
-            },
-        });
-
-        // Create an investor and link it to the user
-        const investor = await prisma.investor.create({
-            data: {
-                first_name: firstName,
-                last_name: lastName,
-                nationality,
-                passport_num: passportNumber,
-                phone_num: phoneNumber,
-                birth_date: parsedBirthDate,
-                address,
-                occupation,
-                income,
-                passport_img: sampleImgURL,
-                approvalStatus: 'PENDING',
-                user: { connect: { id: userId } }, // Connect the Investor to the User
-            },
-        });
-
-        return NextResponse.json({ success: true, investor });
-    } catch (error) {
-        console.error('Error saving investor:', error);
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    if (!userId) {
+        return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
+
+    // Create an investor and link it to the user
+    const investor = await prisma.investor.create({
+        data: {
+            userId: userId,
+            first_name: firstName,
+            last_name: lastName,
+            nationality,
+            passport_num: passportNumber,
+            phone_num: phoneNumber,
+            birth_date: parsedBirthDate,
+            address,
+            occupation,
+            income,
+            passport_img: passport_img,
+            approvalStatus: 'PENDING',
+        },
+    });
+
+    if (!investor) {
+        return NextResponse.json({ error: 'Create Not Successfully' }, { status: 401 });
+    }
+
+    return NextResponse.json({ success: true, investor });
+
 }

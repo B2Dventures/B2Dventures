@@ -9,16 +9,17 @@ interface ApprovalQuery {
 
 export async function POST(req: NextApiRequest,
                            res: NextApiResponse) {
-    type ModelType = 'investor' | 'business' | 'investment' | 'campaign';  // type of thing need approve
+    type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';  // type of thing need approve
 
     const modelMap: Record<ModelType, any> = {
         investor: prisma.investor,
         business: prisma.business,
         investment: prisma.investment,
         campaign: prisma.campaign,
+        detailRequest: prisma.detailRequest
     };
 
-    const { id, type, status } = req.query as unknown as ApprovalQuery;  //
+    const { id, type, status } = req.query as unknown as ApprovalQuery;
 
     if ( !id || !type || !status) {
         return res.status(400).json({ error: 'Missing required query parameters' });
