@@ -1,23 +1,8 @@
-'use client';
-
 import React from 'react';
 import { Container, Text, Stack, Button, Divider, Flex, Image, Avatar } from '@mantine/core';
 import classes from './RequestDetail.module.css';
 
-// model Business {
-//     business_name      String        @unique
-//     founder_first_name String
-//     founder_last_name  String
-//     market_cap         Int
-//     company_address    String
-//     business_detail    String
-//     industry           String
-//     logo               String //URL IMG LINK
-//     license            String //URL IMG LINK
-//     registration_cer   String //URL IMG LINK
-// }
-
-export function BusinessRequestDetail() {
+export function BusinessRequestDetail({ business }: { business: any }) {
     return (
         <Container className={classes.container}>
             <Image
@@ -25,7 +10,7 @@ export function BusinessRequestDetail() {
                 height="auto"
                 width="50%"
                 fit="cover"
-                src="/business-certificate-ex.png"
+                src={business.license || "/business-certificate-ex.png"}
                 className={classes.image}
             />
             <Stack gap="md" align="stretch" className={classes.stack}>
@@ -34,17 +19,17 @@ export function BusinessRequestDetail() {
                 </div>
                 <div className={classes.box}>
                     <Text className={classes.topic}>Business Information</Text>
-                    <Text className={classes.normalText}><strong>Business Name:</strong> ABC Company</Text>
-                    <Text className={classes.normalText}><strong>Founder Name:</strong> Firstname Lastname</Text>
-                    <Text className={classes.normalText}><strong>Industry:</strong> Health</Text>
-                    <Text className={classes.normalText}><strong>Description:</strong> Healthcare Solutions</Text>
-                    <Text className={classes.normalText}><strong>Market Cap:</strong> $ 100,000</Text>
+                    <Text className={classes.normalText}><strong>Business Name:</strong> {business.business_name}</Text>
+                    <Text className={classes.normalText}><strong>Founder Name:</strong> {business.founder_first_name} {business.founder_last_name}</Text>
+                    <Text className={classes.normalText}><strong>Industry:</strong> {business.industry}</Text>
+                    <Text className={classes.normalText}><strong>Description:</strong> {business.business_detail}</Text>
+                    <Text className={classes.normalText}><strong>Market Cap:</strong> $ {business.market_cap}</Text>
                 </div>
                 <Divider my="md" />
                 <div className={classes.box}>
                     <Text className={classes.topic}>Contact</Text>
-                    <Text className={classes.normalText}><strong>Address:</strong> Bangkok, Thailand</Text>
-                    <Text className={classes.normalText}><strong>Email:</strong> ABC@abc.com</Text>
+                    <Text className={classes.normalText}><strong>Address:</strong> {business.company_address}</Text>
+                    <Text className={classes.normalText}><strong>Email:</strong> {business.user.email}</Text>
                 </div>
                 <Divider my="md" />
                 <div className={classes.buttonContainer}>
