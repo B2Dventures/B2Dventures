@@ -1,48 +1,46 @@
 import prisma from "@/utils/db";
-import type {NextApiRequest, NextApiResponse} from "next";
+import { NextRequest, NextResponse } from "next/server";
+import { RequestStatus } from "@prisma/client";  // Ensure RequestStatus is defined in Prisma schema
 
-interface ApprovalQuery {
-    id: number,
-    type: string,
-    status: "Approved" | "Rejected"
-}
+type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
 
-export async function POST(req: NextApiRequest,
-                           res: NextApiResponse) {
-    type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';  // type of thing need approve
+const modelMap: Record<ModelType, any> = {
+    investor: prisma.investor,
+    business: prisma.business,
+    investment: prisma.investment,
+    campaign: prisma.campaign,
+    detailRequest: prisma.detailRequest,
+};
 
-    const modelMap: Record<ModelType, any> = {
-        investor: prisma.investor,
-        business: prisma.business,
-        investment: prisma.investment,
-        campaign: prisma.campaign,
-        detailRequest: prisma.detailRequest
-    };
+export async function POST(req: NextRequest) {
+    const { searchParams } = new URL(req.url);
+    const id = parseInt(searchParams.get("id") || "");
+    const type = searchParams.get("type") as ModelType;
+    const status = searchParams.get("status") as RequestStatus;
 
-    const { id, type, status } = req.query as unknown as ApprovalQuery;
-
-    if ( !id || !type || !status) {
-        return res.status(400).json({ error: 'Missing required query parameters' });
+    if (!id || !type || !status) {
+        return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
-    const table = modelMap[type as ModelType];   // only allow type that listed in model type
+    const table = modelMap[type];
 
-    if (modelMap[type as ModelType]) {
+    if (!table) {
+        return NextResponse.json({ error: `Invalid type: ${type} does not exist` }, { status: 404 });
+    }
+
+    try {
         const updateData = await table.update({
-            where: {
-                id : id
-            },
-            data: {
-                status: status,
-            }
-        })
+            where: { id },
+            data: { approvalStatus: status },
+        });
+
         if (updateData) {
-            res.status(200).json(`Successfully updated status to ${status}`);
+            return NextResponse.json({ message: `Successfully updated status to ${status}` });
         } else {
-            res.status(404).json({error: `ID: ${id} Not Found on ${type}`});
+            return NextResponse.json({ error: `ID: ${id} not found in ${type}` }, { status: 404 });
         }
-    }
-    else {
-        res.status(404).json({error: `Wrong type: ${type} doesn't exist`});
+    } catch (error) {
+        console.error("Error updating approval status:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }
