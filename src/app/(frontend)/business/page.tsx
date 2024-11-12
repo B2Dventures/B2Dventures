@@ -2,14 +2,19 @@
 
 import { Header } from "@/components/Header/Header";
 import { CampaignTable } from "@/components/CampaignTable/CampaignTable";
-import { Button, Container, Divider, Group, Text } from '@mantine/core';
+import { Button, Container, Divider, Group, Text, Box } from '@mantine/core';
 import classes from "./business.module.css";
 import { NavItem } from "@/components/Header/NavItem/NavItem";
 import { LuCheckCircle, LuDollarSign, LuUsers } from "react-icons/lu";
-import { baiSemiBold } from '@/app/(frontend)/styles/fonts';
+import { baiSemiBold, baiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { useEffect, useState } from "react";
 import { useUser } from '@clerk/clerk-react';
 import {CampaignData} from "@/utils/types";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import {
+    SignInButton,
+    SignedIn,
+} from '@clerk/nextjs';
 
 
 export default function BusinessPage() {
@@ -69,17 +74,66 @@ export default function BusinessPage() {
                             <CampaignTable data={fetchedData} loading={loading}/>
                         </div>
                     </main>
-                ) : role === "investor" ? (  // for non-business role
+                ) : role === "investor" || role === "guest" ? (  // for non-business role
                     <main>
-                        <h2>Welcome to Campaigns</h2>
-                        <p>For business role user</p>
-                        <p>Ur role is investor </p>
+                            <main className={baiBold.className}>
+                                <Text
+                                fw={750}
+                                component="span"
+                                className={classes.mediumtext}
+                                >
+                                    This page's for
+                                </Text>
+                            </main>
+                            <main className={baiBold.className}>
+                                <Text
+                                variant="gradient"
+                                gradient={{from: '#000000', to: 'goldenrod', deg: 90}}
+                                fw={1000}
+                                component="span"
+                                className={classes.bigtext}
+                                >
+                                    Businessman
+                                </Text>
+                            </main>
+                            <main className={arimoRegular.className}>
+                                <Text className={classes.smalltext}>
+                                    If you’re interested in having your business become part of B2D Venture.
+                                </Text>
+                                <Text className={classes.smalltext}>
+                                    Please register here
+                                </Text>
+                                <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
+                                        onClick={() => window.location.href = "/enroll/business"}>
+                                    <NavItem label="Business Enrollment" link="/enroll/business"/>
+                                </Button>
+                            </main>
+
                     </main>
                 ) : (
                     <main>
-                        <h2>Welcome to Campaigns</h2>
-                        <p>Became our business in our platform</p>
-                        <p>Ur role is Guest or None </p>
+                        <main className={baiBold.className}>
+                            <Text
+                            variant="gradient"
+                            gradient={{from: '#000000', to: 'goldenrod', deg: 90}}
+                            fw={1000}
+                            component="span"
+                            className={classes.bigtext}
+                            >
+                                You have not logged in to our application yet
+                            </Text>
+                        </main>
+                        <main className={arimoRegular.className}>
+                            <Text className={classes.smalltext}>
+                                Please login here
+                            </Text>
+                            <SignInButton>
+                                <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
+                                        onClick={() => window.location.href = "/enroll/business"}>
+                                    <NavItem label="Login" link="/enroll/business"/>
+                                </Button>
+                            </SignInButton>
+                        </main>
                     </main>
                 )}
             </Container>
