@@ -1,6 +1,26 @@
 import prisma from "@/utils/db";
+<<<<<<< Updated upstream
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
+=======
+import {NextResponse} from 'next/server';
+import { auth } from "@clerk/nextjs/server";
+
+export async function POST(req: Request) {
+
+    if (auth().sessionClaims?.metadata?.role != "investor") {
+        return NextResponse.json({ error: 'Not authenticated' }, {status: 401});
+    }
+    const { searchParams } = new URL(req.url);
+    const campaignId = Number(searchParams.get("campaignId"));
+    const investorId = Number(searchParams.get("investorId"));
+    const amount = Number(searchParams.get("amount"));
+
+
+    if (!campaignId || !investorId || !amount) {
+        return NextResponse.json({ error: 'Missing required query parameters' }, {status: 400});
+    }
+>>>>>>> Stashed changes
 
 export async function GET(req: NextRequest) {
     try {

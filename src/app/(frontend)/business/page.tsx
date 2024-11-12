@@ -16,6 +16,18 @@ import {
     SignedIn,
 } from '@clerk/nextjs';
 
+function calculateTotals(data: CampaignData[]) {
+    if (data.length === 0) {
+        const totalRaised = 0;
+        const totalInvestors = 0;
+        const campaignCount = 0;
+        return { totalRaised, totalInvestors, campaignCount };
+    }
+    const totalRaised = data.reduce((sum, campaign) => sum + campaign.raised, 0);
+    const totalInvestors = data.reduce((sum, campaign) => sum + campaign.investors, 0);
+    const campaignCount = data.length;
+    return { totalRaised, totalInvestors, campaignCount };
+}
 
 export default function BusinessPage() {
     const { isSignedIn, user, isLoaded } = useUser();
@@ -36,7 +48,6 @@ export default function BusinessPage() {
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(data),
                     });
 
                     if (!res.ok) {
@@ -56,10 +67,11 @@ export default function BusinessPage() {
         fetchData(); // Call the function to fetch data
     }, [isSignedIn, role, id]); // Dependency array should include relevant dependencies
 
-
     if (!isLoaded) {
         return null; // Handle loading state
     }
+
+    const totals = calculateTotals(fetchedData);
 
     return (
         <main className={classes.main}>
@@ -143,19 +155,19 @@ export default function BusinessPage() {
                         <div className={classes.box}>
                         <LuDollarSign size={50}/>
                             <Text className={classes.name}>Total Fund Raised</Text>
-                            <Text className={classes.number}>$ 610,724</Text>
+                            <Text className={classes.number}>$ {totals.totalRaised}</Text>
                         </div>
                         <Divider orientation="vertical"/>
                         <div className={classes.box}>
                             <LuUsers size={50}/>
                             <Text className={classes.name}>Total Investors</Text>
-                            <Text className={classes.number}>8,117</Text>
+                            <Text className={classes.number}>{totals.totalInvestors}</Text>
                         </div>
                         <Divider orientation="vertical"/>
                         <div className={classes.box}>
                             <LuCheckCircle size={50}/>
                             <Text className={classes.name}>Total Campaigns</Text>
-                            <Text className={classes.number}>8</Text>
+                            <Text className={classes.number}>{totals.campaignCount}</Text>
                         </div>
                         <Divider orientation="vertical"/>
                     </Group>
@@ -166,6 +178,7 @@ export default function BusinessPage() {
                         </Button>
                     </Group>
                 </Container>
+
             </footer>
         </main>
     );

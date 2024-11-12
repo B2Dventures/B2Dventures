@@ -2,19 +2,20 @@ import type {NextApiRequest, NextApiResponse} from "next";
 import { createClerkClient , auth } from '@clerk/nextjs/server';
 import prisma from "@/utils/db";
 import {RequestData} from "@/utils/types";
+import {NextResponse} from "next/server";
 
 interface RequestQuery {
     id : number
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest) {
     // security part
     const user = auth().sessionClaims?.metadata;
     const Uid  = user?.id;
     const role = user?.role;
     // check user exist and role valid
     if (!Uid || role != "business") {
-        return res.status(401).json({ error: 'Not authenticated' })
+        return NextResponse.json({ error: 'Not authenticated' }, {status: 401})
     }    // params must have id campaign
 
     const detailRequests = await prisma.detailRequest.findMany({
@@ -48,7 +49,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     });
 
     if(!detailRequests) {
-        return res.status(401).json({ error: 'Not Found' })
+        return NextResponse.json({ error: 'Not Found' }, {status: 401})
     }
 
     const requestData: RequestData[] = detailRequests.map((detail) => ({
@@ -60,38 +61,39 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         email: detail.investor.user.email,
     }));
 
-    return res.status(200).json({success: true, data: requestData});
+    return NextResponse.json({success: true, data: requestData}, {status: 200});
 
 }
 
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
     // security part
     const user = auth().sessionClaims?.metadata;
     const Uid  = user?.id;
     const role = user?.role;
     // check user exist and role valid
     if (!Uid || role != "investor") {
-        return res.status(401).json({ error: 'Not authenticated' })
+        return NextResponse.json({ error: 'Not authenticated' }, {status: 401})
     }
 
     // params must have id campaign
-    const { id } = req.query as unknown as RequestQuery;
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
     if (!id) {
-        return res.status(400).json({ error: 'Missing required query parameters' });
+        return NextResponse.json({error: 'Missing required query parameters'}, {status: 400})
     }
 
     // Adding to DB if pass though all guard clause
     const result = await prisma.detailRequest.create({
         data: {
-            campaignId: id,
+            campaignId: Number(id),
             investorId: Uid,
             approvalStatus: "PENDING",
         }
     })
     if (!result) {
-        return res.status(401).json({ error: 'Create Not Successfully' })
+        return NextResponse.json({ error: 'Create Not Successfully' }, {status: 401})
     }
 
-    return res.status(200).json({success: "Successfully"})
+    return NextResponse.json({success: "Successfully"}, {status: 200})
 }
