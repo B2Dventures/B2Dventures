@@ -1,8 +1,83 @@
-import React from 'react';
+'use client'
+
+import React, {useEffect, useState} from 'react';
 import { Container, Text, Stack, Button, Divider, Flex, Image, Avatar } from '@mantine/core';
 import classes from './RequestDetail.module.css';
+import {useRouter} from "next/navigation";
 
 export function BusinessRequestDetail({ business }: { business: any }) {
+    const [approvalStatus, setApprovalStatus] = useState('PENDING');
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
+
+    useEffect(() => {
+        setApprovalStatus(business.approvalStatus);
+    }, [business.approvalStatus]);
+
+    // const updateRole = async (role: string) => {
+    //     try {
+    //         const response = await fetch(`/api/user/${business.userId}/${role}`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         const data = await response.json();
+    //         if (!response.ok) throw new Error(data.error || 'Failed to update role');
+    //     } catch (error) {
+    //         console.error('Error updating user role in Clerk:', error);
+    //     }
+    // };
+
+    const handleApprove = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=APPROVED`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setApprovalStatus('APPROVED');
+                // await updateRole('business');
+                router.push('/admin/business');
+            } else {
+                console.error('Failed to approve:', data.error);
+            }
+        } catch (error) {
+            console.error('Error approving business:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleReject = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=REJECTED`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setApprovalStatus('REJECTED');
+                // No role update needed on rejection
+                router.push('/admin/business');
+            } else {
+                console.error('Failed to reject:', data.error);
+            }
+        } catch (error) {
+            console.error('Error rejecting investor:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Container className={classes.container}>
             <Image
@@ -33,10 +108,24 @@ export function BusinessRequestDetail({ business }: { business: any }) {
                 </div>
                 <Divider my="md" />
                 <div className={classes.buttonContainer}>
-                    <Button size="lg" color="green" radius="20" className={classes.button}>
+                    <Button
+                        size="lg"
+                        color="green"
+                        radius="20"
+                        className={classes.button}
+                        onClick={handleApprove}
+                        disabled={loading || approvalStatus !== 'PENDING'} // Disable if loading or not in "PENDING" state
+                    >
                         Approve
                     </Button>
-                    <Button size="lg" color="red" radius="20" className={classes.button}>
+                    <Button
+                        size="lg"
+                        color="red"
+                        radius="20"
+                        className={classes.button}
+                        onClick={handleReject}
+                        disabled={loading || approvalStatus !== 'PENDING'} // Disable if loading or not in "PENDING" state
+                    >
                         Reject
                     </Button>
                 </div>
