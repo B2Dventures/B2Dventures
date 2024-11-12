@@ -1,32 +1,34 @@
 // src/app/api/user/[id]/[role]/route.ts
-import { createClerkClient , getAuth } from '@clerk/nextjs/server';
+import {auth, createClerkClient, getAuth} from '@clerk/nextjs/server';
 
 import type { NextApiRequest, NextApiResponse } from 'next'
+import prisma from "@/utils/db";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse , { params }: { params: { id: string; role: string } }) {
+export async function POST(req: NextApiRequest, res: NextApiResponse , { params }: { params: { id: number; role: string } }) {
+    // Only allow if the user has the 'admin' role
+    if (auth().sessionClaims?.metadata?.role !== 'admin') {
+        return res.status(403).json({ error: 'Forbidden: Admins only' })
+    }
+
     const userIdToUpdate = params.id; // Get user ID from the route parameters
     const newRole = params.role; // Get new role from the route parameters
     const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
-    // Authenticate the user making the request
-    const { userId } = getAuth(req);
-    if (!userId) {
-        return res.status(401).json({ error: 'Not authenticated' })
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userIdToUpdate,
+        },
+        select:{
+            clerkId: true
+        },
+    })
+
+    if (!user) {
+        return res.status(404).json({ error: 'User not Fond' })
     }
-
-    // Fetch the requesting user to check their role
-    const requestingUser = await clerkClient.users.getUser(userId);
-    const role = requestingUser.publicMetadata.role;
-
-    // Only allow if the user has the 'admin' role
-    if (role !== 'admin') {
-        return res.status(403).json({ error: 'Forbidden: Admins only' })
-    }
-
-    // ----- if id == clerk id  ไม่ต้องทำ if not get clerkId มาก่อน ----
 
     // Update the role of the target user
-    await clerkClient.users.updateUser(userIdToUpdate, {
+    await clerkClient.users.updateUser(user.clerkId, {
         publicMetadata: {
             role: newRole, // newRole could be 'investor', 'business', etc.
         },
