@@ -23,12 +23,27 @@ export async function POST(req: NextRequest) {
     } = body;
 
     const id = auth().sessionClaims?.metadata?.id;
+
     if (!id) {
         return NextResponse.json({error: "User not found"}, {status: 404});
     }
+
+    const business = await prisma.business.findUnique({
+        where: {
+            userId: id,
+        },
+        select: {
+            id: true,
+        }
+    })
+
+    if (!business) {
+        return NextResponse.json({error: "User not found"}, {status: 404});
+    }
+
     const campaign = await prisma.campaign.create({
         data: {
-            businessId: id,
+            businessId: business.id,
             name: title,
             description: description,
             goal: goal,
