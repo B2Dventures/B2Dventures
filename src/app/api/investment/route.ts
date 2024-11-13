@@ -1,9 +1,5 @@
 import prisma from "@/utils/db";
-<<<<<<< Updated upstream
-import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
-=======
-import {NextResponse} from 'next/server';
+import {NextRequest, NextResponse} from 'next/server';
 import { auth } from "@clerk/nextjs/server";
 
 export async function POST(req: Request) {
@@ -20,9 +16,23 @@ export async function POST(req: Request) {
     if (!campaignId || !investorId || !amount) {
         return NextResponse.json({ error: 'Missing required query parameters' }, {status: 400});
     }
->>>>>>> Stashed changes
 
-export async function GET(req: NextRequest) {
+    try {
+        const investment = await prisma.investment.create({
+            data:{
+                campaignId: campaignId,
+                investorId: investorId,
+                amount: amount,
+                approvalStatus: "PENDING"
+            }
+        });
+        return NextResponse.json({ success: true, message: "Successfully created investment" });
+    } catch (error) {
+        return NextResponse.json({ error: 'Not success creating investment' });
+    }
+}
+
+export async function GET() {
     try {
         const userId = auth().sessionClaims?.metadata?.id;
 

@@ -1,7 +1,7 @@
 import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET() {
     try {
         // Query to find all businesses with approvalStatus = PENDING
         const businesses = await prisma.business.findMany({

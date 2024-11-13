@@ -1,8 +1,7 @@
 import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-    // TODO: Security part (Authentication/Authorization)
+export async function GET() {
 
     try {
         const campaigns = await prisma.campaign.findMany({
