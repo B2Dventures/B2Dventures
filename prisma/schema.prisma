@@ -105,7 +105,7 @@ model Campaign {
   industry       String
   start_date     DateTime
   end_date       DateTime
-  image          String
+  images         String[]
   approvalStatus RequestStatus
   DetailRequest  DetailRequest[]
 }
