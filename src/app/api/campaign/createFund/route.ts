@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
         endDate,
         highlight,
         product,
-        opportunity
+        opportunity,
+        images
     } = body;
 
     const id = auth().sessionClaims?.metadata?.id;
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
             industry: category,
             start_date: new Date(startDate),
             end_date: new Date(endDate),
-            image: "https://example.com/logo-url.jpg",  // TODO: create more database for storing multiple image in one campaign
+            images: images,
             approvalStatus: "PENDING",
             details: {
                 create: {

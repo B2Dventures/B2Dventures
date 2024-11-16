@@ -51,7 +51,7 @@ export async function GET(request: Request) {
         id: campaign.id,
         name: campaign.name,
         description: campaign.description,
-        image: campaign.image,
+        images: campaign.images,
         totalInvestment,
         investors,
         min_invest: campaign.min_invest,
