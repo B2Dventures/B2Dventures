@@ -2,6 +2,7 @@
 
 import { Header } from "@/components/Header/Header";
 import InvestorClient from '@/components/InvestorClient/InvestorClient';
+import { NavItem } from "@/components/Header/NavItem/NavItem";
 import { Container, Group, Button, Text, Select } from '@mantine/core';
 import classes from './investor.module.css';
 import { SearchBar } from "@/components/Search/SearchBar";
@@ -86,6 +87,10 @@ export default function InvestorPage() {
               size="sm"
               style={{ marginLeft: '15px', width: '200px' }}
             />
+            <Button size='sm' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
+                    onClick={() => window.location.href = "/investor/dashboard"}>
+                <NavItem label="Dashboard" link="/investor/dashboard"/>
+            </Button>
           </Group>
         </Container>
 
