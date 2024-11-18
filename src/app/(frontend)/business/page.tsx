@@ -48,13 +48,14 @@ export default function BusinessPage() {
                         headers: {
                             "Content-Type": "application/json",
                         },
+                        body: JSON.stringify(data),
                     });
 
                     if (!res.ok) {
                             throw new Error(`Failed to fetch: ${res.status}`);
                     }
 
-                    const responseData: CampaignData[] = await res.json();
+                    const responseData = await res.json();
                     setFetchedData(responseData);
                 } catch (error) {
                     console.error("Error fetching data:", error);
@@ -88,7 +89,7 @@ export default function BusinessPage() {
                     </main>
                 ) : role === "investor" || role === "guest" ? (  // for non-business role
                     <main>
-                            <main className={baiBold.className}>
+                            <div className={baiBold.className}>
                                 <Text
                                 fw={750}
                                 component="span"
@@ -96,8 +97,8 @@ export default function BusinessPage() {
                                 >
                                     This page's for
                                 </Text>
-                            </main>
-                            <main className={baiBold.className}>
+                            </div>
+                            <div className={baiBold.className}>
                                 <Text
                                 variant="gradient"
                                 gradient={{from: '#000000', to: 'goldenrod', deg: 90}}
@@ -107,8 +108,8 @@ export default function BusinessPage() {
                                 >
                                     Businessman
                                 </Text>
-                            </main>
-                            <main className={arimoRegular.className}>
+                            </div>
+                            <div className={arimoRegular.className}>
                                 <Text className={classes.smalltext}>
                                     If you’re interested in having your business become part of B2D Venture.
                                 </Text>
@@ -119,7 +120,7 @@ export default function BusinessPage() {
                                         onClick={() => window.location.href = "/enroll/business"}>
                                     <NavItem label="Business Enrollment" link="/enroll/business"/>
                                 </Button>
-                            </main>
+                            </div>
 
                     </main>
                 ) : (
