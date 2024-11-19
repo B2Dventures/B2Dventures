@@ -19,7 +19,6 @@ export async function POST(req: Request) {
         businessDetail,
         industry,
         logo,
-        registrationCer,
         license,
     } = body;
 
@@ -41,7 +40,6 @@ export async function POST(req: Request) {
             industry: industry,
             logo: logo,
             license: license,
-            registration_cer: registrationCer,
             approvalStatus: "PENDING",
         },
     });

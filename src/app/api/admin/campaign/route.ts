@@ -21,7 +21,7 @@ export async function GET() {
                 min_invest: true,
                 start_date: true,
                 end_date: true,
-                image: true,
+                images: true,
                 approvalStatus: true,
                 business: {
                     select: {
