@@ -1,12 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import prisma from '@/utils/db';
+import {Campaign} from "@/utils/types";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET({ params }: { params: { id: number } }) {
     const { id } = params;
 
     try {
         const campaign = await prisma.campaign.findUnique({
-            where: { id: parseInt(id, 10) },
+            where: { id: id },
             include: {
                 investment: true,
                 details: true
@@ -28,22 +29,25 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
         const investors = campaign.investment.length;
 
-        return NextResponse.json({
+        const result : Campaign = {
             id: campaign.id,
             name: campaign.name,
             description: campaign.description,
-            images: campaign.images,
+            images: campaign.images || [],
             goal: campaign.goal.toNumber(),
-            raisedAmount,
-            daysLeft,
-            investors,
+            raisedAmount: raisedAmount,
+            daysLeft: daysLeft,
+            investors: investors,
             min_invest: campaign.min_invest.toNumber(),
-            industry: campaign.industry,
             start_date: campaign.start_date,
             end_date: campaign.end_date,
-            details: campaign.details,
+            highlights: campaign.details?.highlight || "",
+            product: campaign.details?.product || "",
+            opportunity: campaign.details?.opportunity || "",
             approvalStatus: campaign.approvalStatus,
-        });
+        }
+
+        return NextResponse.json(result);
     } catch (error) {
         console.error("Error fetching campaign:", error);
         return NextResponse.json({ error: "An error occurred" }, { status: 500 });

@@ -8,16 +8,8 @@ import classes from './investor.module.css';
 import { SearchBar } from "@/components/Search/SearchBar";
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts';
 import React, { useState, useEffect } from 'react';
+import {Business} from "@/utils/types";
 
-interface Business {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  totalInvestment: number;
-  investors: number;
-  min_invest: number;
-}
 
 export default function InvestorPage() {
   const [searchQuery, setSearchQuery] = useState('');

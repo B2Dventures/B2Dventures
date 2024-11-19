@@ -1,22 +1,13 @@
 'use client';
 
-import { Grid, Text, Container } from '@mantine/core';
-import { baiSemiBold } from '@/app/(frontend)/styles/fonts';
+import { Grid, Container } from '@mantine/core';
 import classes from './InvestorClient.module.css';
 import { FundraisingCard } from '@/components/FundraisingCard/FundraisingCard';
+import { Business } from "@/utils/types"
 
-interface Business {
-  id: number;
-  name: string;
-  description: string;
-  images: string | string[];
-  totalInvestment: number;
-  investors: number;
-  price?: number;
-}
 
 interface InvestorClientComponentProps {
-  businesses: Business[];
+  businesses: Business[]
 }
 
 const InvestorClient = ({ businesses }: InvestorClientComponentProps) => {
@@ -24,9 +15,9 @@ const InvestorClient = ({ businesses }: InvestorClientComponentProps) => {
       <Container fluid className={classes.campaign}>
           <Grid gutter={100} justify="center">
               {businesses.map((business) => {
-                  const firstImage = Array.isArray(business.images)
-                      ? business.images[0]
-                      : business.images.split(',')[0];
+                  const firstImage = Array.isArray(business.image)
+                      ? business.image[0]
+                      : business.image.split(',')[0];
 
                   return (
                       <Grid.Col
@@ -37,8 +28,8 @@ const InvestorClient = ({ businesses }: InvestorClientComponentProps) => {
                               title={business.name}
                               description={business.description}
                               imageUrl={firstImage}
-                              totalInvestment={(business.totalInvestment ? business.totalInvestment.toString() : "0")}
-                              investors={business.investors.toString()}
+                              totalInvestment={(business.totalInvestment ? business.totalInvestment : 0)}
+                              investors={business.investors}
                               id={business.id}
                           />
                       </Grid.Col>

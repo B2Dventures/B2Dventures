@@ -1,6 +1,8 @@
 // Keep all interface Data
 
 // POST api/business
+import {Detail} from "@prisma/client";
+
 export interface CampaignData {
     id: number;
     name: string;
@@ -32,4 +34,32 @@ export interface adminInvestment {
     investorEmail: string;
     businessName: string;
     businessOwnerEmail: string;
+}
+
+export interface Business {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    totalInvestment: number;
+    investors: number;
+    min_invest: number;
+}
+
+export interface Campaign {
+    id: number; // Assuming ID is a string, adjust if it's a number
+    name: string;
+    description: string;
+    images: string[]; // Assuming images is an array of strings (URLs or file paths)
+    goal: number;
+    raisedAmount: number;
+    daysLeft: number;
+    investors: number;
+    min_invest: number;
+    start_date: string | Date; // Adjust type if you're using Date objects
+    end_date: string | Date;   // Adjust type if you're using Date objects
+    highlights: string ;
+    product: string;
+    opportunity: string;
+    approvalStatus: string;
 }

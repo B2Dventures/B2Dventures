@@ -8,10 +8,11 @@ import { Container, Flex, Text, Loader } from '@mantine/core';
 import Description from '@/components/Description/Description';
 import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 import classes from './id.module.css';
+import {Campaign} from "@/utils/types";
 
 const CampaignPage = ({ params }: { params: { id: string } }) => {
     const { id } = params;
-    const [campaign, setCampaign] = useState<any>(null);
+    const [campaign, setCampaign] = useState<Campaign>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -46,9 +47,6 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
         return <p>Campaign not found.</p>;
     }
 
-    const images = campaign.images || [];
-    const highlights = campaign.details?.highlight || [];
-
     return (
         <main>
             <Header />
@@ -70,7 +68,7 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
                     </Text>
                 </main>
                 <Flex direction="row" justify="space-between" align="stretch">
-                    <Gallery images={images} />
+                    <Gallery images={campaign.images} />
                     <InvestmentInfo
                         raisedAmount={campaign.raisedAmount}
                         goalAmount={campaign.goal}
@@ -81,9 +79,9 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
                 </Flex>
                 <Flex>
                     <Description
-                        highlight={campaign.details.highlight || 'No highlights available'}
-                        product={campaign.details.product || 'No product details available'}
-                        opportunity={campaign.details.opportunity || 'No opportunities available'}
+                        highlight={campaign.highlights}
+                        product={campaign.product}
+                        opportunity={campaign.opportunity}
                     />
                 </Flex>
             </Container>
