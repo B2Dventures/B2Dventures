@@ -10,7 +10,7 @@ import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 import classes from './id.module.css';
 import {Campaign} from "@/utils/types";
 
-const CampaignPage = ({ params }: { params: { id: string } }) => {
+const CampaignPage = ({ params }: { params: { id: number } }) => {
     const { id } = params;
     const [campaign, setCampaign] = useState<Campaign>();
     const [loading, setLoading] = useState(true);
@@ -70,6 +70,8 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
                 <Flex direction="row" justify="space-between" align="stretch">
                     <Gallery images={campaign.images} />
                     <InvestmentInfo
+                        campaignId={id}
+                        stockPrice={100} // initial for prisma update
                         raisedAmount={campaign.raisedAmount}
                         goalAmount={campaign.goal}
                         totalInvestors={campaign.investors}

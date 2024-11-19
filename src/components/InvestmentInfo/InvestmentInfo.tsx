@@ -3,16 +3,25 @@ import {Container, Text, Progress, Badge, Stack, Button, Divider} from '@mantine
 import classes from './InvestmentInfo.module.css';
 import {LuChevronRightCircle} from "react-icons/lu";
 import {NavItem} from "@/components/Header/NavItem/NavItem";
+import InvestmentModal from "@/components/InvestmentInfo/InvestmentModal";
 
 interface InvestmentInfoProps {
+    campaignId: number;
     raisedAmount: number;
     goalAmount: number;
     totalInvestors: number;
     daysLeft: number;
     campaignName: string;
+    stockPrice: number;
 }
 
-export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({ raisedAmount, goalAmount, totalInvestors, daysLeft, campaignName }) => {
+export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({   campaignId,
+                                                                  raisedAmount,
+                                                                  goalAmount,
+                                                                  totalInvestors,
+                                                                  daysLeft,
+                                                                  campaignName,
+                                                                  stockPrice}) => {
     return (
         <Container className={classes.container}>
             <Stack gap="sm" align="stretch">
@@ -36,6 +45,7 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({ raisedAmount, go
                         Invest in {campaignName}
                     </Button>
                 </div>
+                <InvestmentModal campaignId={campaignId} stockPrice={stockPrice} />
             </Stack>
         </Container>
     );
