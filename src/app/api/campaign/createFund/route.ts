@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
             industry: category,
             start_date: new Date(startDate),
             end_date: new Date(endDate),
-            images: images,
+            image: images,
             approvalStatus: "PENDING",
             details: {
                 create: {

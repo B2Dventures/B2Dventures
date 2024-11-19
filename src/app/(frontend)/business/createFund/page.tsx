@@ -38,7 +38,22 @@ export default function CampaignForm() {
   const router = useRouter();
 
   const handleInputChange = (field: string, value: any) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+      setForm((prev) => {
+          const updatedForm = { ...prev, [field]: value };
+
+          // Validation for endDate being after startDate
+          if (field === "endDate" && updatedForm.startDate && value) {
+              if (new Date(value) <= new Date(updatedForm.startDate)) {
+                  notifications.show({
+                      title: "Invalid End Date",
+                      message: "End date must be after the start date.",
+                      color: "red",
+                  });
+                  return prev; // Don't update the form
+              }
+          }
+          return updatedForm;
+      });
   };
 
   const handleUploadComplete = (urls: string[]) => {
@@ -89,7 +104,7 @@ export default function CampaignForm() {
     <main>
       <Header />
       <Container size="md" my="xl">
-        <Text align="center" size="xl" weight={700} mb="md">
+        <Text size="xl" mb="md">
           Create your Campaign
         </Text>
 
@@ -103,7 +118,7 @@ export default function CampaignForm() {
 
         <Textarea
           label="Description"
-          placeholder="Short detail to describe your campaign"
+          placeholder="Short detail to describe your campaign this section will show in the browsing page!"
           value={form.description}
           onChange={(event) => handleInputChange("description", event.currentTarget.value)}
           minRows={4}
@@ -149,6 +164,7 @@ export default function CampaignForm() {
             onChange={(value) => handleInputChange("startDate", value)}
             label="Start date"
             placeholder="Enter your start date"
+              minDate={new Date()}
           />
           <DateTimePicker
               clearable
@@ -157,6 +173,7 @@ export default function CampaignForm() {
             onChange={(value) => handleInputChange("endDate", value)}
             label="End date"
             placeholder="Enter your end date"
+              minDate={form.startDate || new Date()} // Ensure endDate is after startDate
           />
         </Group>
 
@@ -210,7 +227,7 @@ export default function CampaignForm() {
           mt="md"
         />
 
-        <Group position="center" mt="xl">
+        <Group mt="xl">
           <Button color="green" onClick={handleSubmit}>
             Submit
           </Button>
