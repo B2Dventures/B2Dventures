@@ -4,8 +4,8 @@ import { auth } from '@clerk/nextjs/server';
 
 export async function POST(req: Request) {
 
-    if (auth().sessionClaims?.metadata?.role != "guest") {
-        return NextResponse.json({error: "Already have a role or not logged in yet."});
+    if (auth().sessionClaims?.metadata?.role !== "guest" && auth().sessionClaims?.metadata?.role !== "investor") {
+        return NextResponse.json({ error: "Already have a role or not logged in yet." });
     }
 
     const body = await req.json();
