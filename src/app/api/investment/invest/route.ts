@@ -1,33 +1,34 @@
 import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { auth } from "@clerk/nextjs/server";
+import {InvestmentQuery} from "@/utils/types";
 
-interface InvestmentQuery {
-    campaignId: number;  // Assuming these are received as strings
-    investorId: number;
-    amount: number;
-}
-
-export async function POST(req: NextApiRequest,
-                           res: NextApiResponse) {
+export async function POST(req: Request) {
 
     if (auth().sessionClaims?.metadata?.role != "investor") {
-        return res.status(401).json({ error: 'Not authenticated' });
-    }
-
-    const {campaignId, investorId, amount} = req.query as unknown as InvestmentQuery;  // https://domain/api/investment?campaignId=1&investorId=1&amount=9999
-
-
-    if (!campaignId || !investorId || !amount) {
-        return res.status(400).json({ error: 'Missing required query parameters' });
+        return NextResponse.json({ error: 'Not authenticated' }, {status: 401});
     }
 
     try {
+        const { campaignId, amount } = await req.json();
+
+        const id = auth().sessionClaims?.metadata?.id;
+
+        // Convert values to numbers and validate
+        const check: InvestmentQuery = {
+            campaignId: parseInt(campaignId, 10), // Ensure it's an integer
+            amount: Number(amount), // Allow for decimals
+        };
+
+        // Validate that all values are valid numbers
+        if (isNaN(check.campaignId) || isNaN(check.amount) || !id) {
+            return NextResponse.json({ error: 'Invalid query parameters. Must be numbers or can not find userId .' }, {status: 400});
+        }
+
         const investment = await prisma.investment.create({
             data:{
                 campaignId: campaignId,
-                investorId: investorId,
+                investorId: id,
                 amount: amount,
                 approvalStatus: "PENDING"
             }
@@ -35,6 +36,6 @@ export async function POST(req: NextApiRequest,
 
         return NextResponse.json({ investment });
     } catch (error) {
-        return NextResponse.json({ error: "Error fetching users" }, { status: 500 });
+        return NextResponse.json({ error: "Error to place an investment" }, { status: 500 });
     }
 }

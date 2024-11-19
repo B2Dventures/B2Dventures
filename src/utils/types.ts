@@ -63,3 +63,8 @@ export interface Campaign {
     opportunity: string;
     approvalStatus: string;
 }
+
+export interface InvestmentQuery {
+    campaignId: number;  // Assuming these are received as strings
+    amount: number;
+}

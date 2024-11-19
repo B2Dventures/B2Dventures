@@ -1,4 +1,5 @@
-'use server';
+// 'use server';
+"use client"
 
 import React from 'react';
 import { Header } from '@/components/Header/Header';
@@ -7,6 +8,7 @@ import { ImageSlide } from '@/components/ImageSlide/ImageSlide'
 import { Container, Text, Box } from '@mantine/core';
 import classes from './index.module.css';
 import {arimoRegular, baiBold} from "@/app/(frontend)/styles/fonts";
+import InvestmentModal from "@/components/InvestmentInfo/InvestmentModal";
 
 export default async function Home() {
     return (
