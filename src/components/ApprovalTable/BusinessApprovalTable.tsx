@@ -14,10 +14,9 @@ type Business = {
     market_cap: number;
     company_address: string;
     business_detail: string;
-    industry: string;
+    industry: string[];
     logo: string;
     license: string;
-    registration_cer: string;
     approvalStatus: string;
     user: {
         email: string;
@@ -82,10 +81,10 @@ export function BusinessApprovalTable() {
                     >
                         <Text className={classes.topic}>Business Name: {business.business_name}</Text>
                         <Text><strong>Founder:</strong> {business.founder_first_name} {business.founder_last_name}</Text>
-                        <Flex align="center" className={classes.descriptionGoal}>
-                            <Text><strong>Description:</strong> {business.business_detail}</Text>
-                            <Text className={classes.industry}><strong>Industry:</strong> {business.industry}</Text>
-                        </Flex>
+                        <Text><strong>Description:</strong> {business.business_detail}</Text>
+                        <Text className={classes.industry}>
+                            <strong>Category:</strong> {Array.isArray(business.industry) ? business.industry.join(', ') : 'Not specified'}
+                        </Text>
                         <Text>
                             <strong>Email:</strong> {business.user.email}
                         </Text>

@@ -96,7 +96,9 @@ export function BusinessRequestDetail({ business }: { business: any }) {
                     <Text className={classes.topic}>Business Information</Text>
                     <Text className={classes.normalText}><strong>Business Name:</strong> {business.business_name}</Text>
                     <Text className={classes.normalText}><strong>Founder Name:</strong> {business.founder_first_name} {business.founder_last_name}</Text>
-                    <Text className={classes.normalText}><strong>Industry:</strong> {business.industry}</Text>
+                    <Text className={classes.normalText}>
+                        <strong>Category:</strong> {Array.isArray(business.industry) ? business.industry.join(', ') : 'Not specified'}
+                    </Text>
                     <Text className={classes.normalText}><strong>Description:</strong> {business.business_detail}</Text>
                     <Text className={classes.normalText}><strong>Market Cap:</strong> $ {business.market_cap}</Text>
                 </div>

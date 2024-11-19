@@ -15,7 +15,8 @@ type Campaign = {
     start_date: string;
     end_date: string;
     status: string;
-    image: string;
+    images: string;
+    industry: string[];
     approvalStatus: string;
     details: {
         highlight: string;
@@ -86,8 +87,11 @@ export function CampaignApprovalTable() {
                         <Text><strong>Business Name:</strong> {campaign.business.business_name}</Text>
                         <Flex align="center" className={classes.descriptionGoal}>
                             <Text><strong>Description:</strong> {campaign.description}</Text>
-                            <Text className={classes.goal}><strong>Goal:</strong> ${campaign.goal}</Text>
+                            <Text className={classes.goal}><strong>Goal:</strong> $ {campaign.goal}</Text>
                         </Flex>
+                        <Text className={classes.industry}>
+                            <strong>Category:</strong> {Array.isArray(campaign.industry) ? campaign.industry.join(', ') : 'Not specified'}
+                        </Text>
                         <Text className={classes.check}>
                             <LuChevronRightCircle size={25} fontWeight="bold" />
                         </Text>
