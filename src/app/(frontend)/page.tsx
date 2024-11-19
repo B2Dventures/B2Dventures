@@ -10,11 +10,11 @@ import {arimoRegular, baiBold} from "@/app/(frontend)/styles/fonts";
 
 export default async function Home() {
     return (
-    <main>
+    <main style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }} >
         <Header />
-        <Container size={1440}>
+        <Container size={1440} style={{ flex : 1}}>
             <Box p="xl">
-                <main className={baiBold.className}>
+                <div className={baiBold.className}>
                     <Text
                         variant="gradient"
                         gradient={{from: '#000000', to: 'goldenrod', deg: 90}}
@@ -24,14 +24,15 @@ export default async function Home() {
                     >
                         B2D Ventures
                     </Text>
-                </main>
-                <main className={arimoRegular.className}>
+                </div>
+                <div className={arimoRegular.className}>
                     <Text className={classes.smalltext}>Become a part of world’s ventures</Text>
-                </main>
+                </div>
                 <ImageSlide/>
             </Box>
         </Container>
         <Stats/>
     </main>
+
     );
 }
