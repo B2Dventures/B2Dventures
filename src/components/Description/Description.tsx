@@ -1,27 +1,65 @@
 import React from 'react';
-import MarkdownRenderer from '@/components/MarkdownRenderer/MarkdownRenderer';
+import { Text } from '@mantine/core';
+import classes from "./Description.module.css";
+import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 
 interface DescriptionProps {
-    id: string;
+    highlight: string;
+    product: string;
+    opportunity: string;
 }
-const markdownContent = "## Highlights\n - Largest platform  \n - Biggest user base"
 
-
-const Description: React.FC<DescriptionProps> = ({ id }) => {
+const Description: React.FC<DescriptionProps> = ({ highlight, product, opportunity }) => {
     return (
-        <div style={styles.card}>
-            <MarkdownRenderer content={markdownContent} />
+        <div>
+            <main className={baiBold.className}>
+                <Text
+                    fw={1000}
+                    component="span"
+                    className={classes.bigtext}
+                    mt="lg"
+                    color="goldenrod"
+                >
+                    Highlight
+                </Text>
+            </main>
+            <main className={arimoRegular.className}>
+                <Text className={classes.smalltext} mb="lg" color="dimmed">
+                    {highlight || 'No highlights available'}
+                </Text>
+            </main>
+            <main className={baiBold.className}>
+                <Text
+                    fw={1000}
+                    component="span"
+                    className={classes.bigtext}
+                    color="goldenrod"
+                >
+                    Product
+                </Text>
+            </main>
+            <main className={arimoRegular.className}>
+                <Text className={classes.smalltext} color="dimmed">
+                    {product || 'No product details available'}
+                </Text>
+            </main>
+            <main className={baiBold.className}>
+                <Text
+                    fw={1000}
+                    component="span"
+                    className={classes.bigtext}
+                    color="goldenrod"
+                >
+                    Opportunity
+                </Text>
+            </main>
+            <main className={arimoRegular.className}>
+                <Text className={classes.smalltext} color="dimmed">
+                    {opportunity || 'No opportunities available'}
+                </Text>
+            </main>
         </div>
     );
-};
-
-// Define some basic styles
-const styles = {
-    card: {
-        padding: '16px',
-        borderRadius: '8px',
-        maxWidth: '600px',
-    },
 };
 
 export default Description;
