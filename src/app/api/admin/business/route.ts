@@ -19,7 +19,6 @@ export async function GET() {
                 industry: true,
                 logo: true,
                 license: true,
-                registration_cer: true,
                 approvalStatus: true,
                 user: {
                     select: {

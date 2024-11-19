@@ -21,7 +21,6 @@ export default function Home() {
     industry: '',
     logo: null,
     license: null,
-    registrationCer: null,
   });
 
   const router = useRouter();
@@ -77,7 +76,7 @@ export default function Home() {
     <main>
       <Header />
       <Container size="md" my="xl">
-        <Text align="center" size="xl" weight={700} mb="md">Fill your information</Text>
+        <Text size="xl" mb="md">Fill your information</Text>
         <TextInput
           label="Business name"
           placeholder="Enter your business name"
@@ -167,7 +166,7 @@ export default function Home() {
           dropText="Drop your certification of business registration here"
           descriptionText="Your certification must contain a number and the start date. Each file should not exceed 5mb."
         />
-        <Group position="center" mt="xl">
+        <Group mt="xl">
           <Button color="green" onClick={handleSubmit}>
             Submit
           </Button>

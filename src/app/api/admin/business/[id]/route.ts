@@ -20,7 +20,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
                 industry: true,
                 logo: true,
                 license: true,
-                registration_cer: true,
                 approvalStatus: true,
                 user: {
                     select: {

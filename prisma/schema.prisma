@@ -67,6 +67,7 @@ model Business {
   market_cap         Int
   company_address    String
   business_detail    String
+  industry           String[]
   logo               String //URL IMG LINK
   license            String //URL IMG LINK
   campaign           Campaign[] //  can have multiple Campagins
