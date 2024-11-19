@@ -21,8 +21,6 @@ import { useRouter } from "next/navigation";
 import { UploadMultiple } from "@/components/Upload/Upload";
 import classes from "./campaignCreate.module.css"
 
-import "./CampaignForm.css"; // External CSS for styling
-
 export default function CampaignForm() {
     const [form, setForm] = useState({
         title: "",
