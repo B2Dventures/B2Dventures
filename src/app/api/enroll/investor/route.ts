@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         address,
         occupation,
         income,
-        passport_img,  // TODO: implement uploadthing to ui in order to retrieve url picture
+        passport_img,
     } = body;
 
     const parsedBirthDate = new Date(birthDate);
@@ -32,7 +32,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Create an investor and link it to the user
     const investor = await prisma.investor.create({
         data: {
             userId: userId,
@@ -45,7 +44,7 @@ export async function POST(req: NextRequest) {
             address,
             occupation,
             income,
-            passport_img: passport_img,
+            passport_img,
             approvalStatus: 'PENDING',
         },
     });
