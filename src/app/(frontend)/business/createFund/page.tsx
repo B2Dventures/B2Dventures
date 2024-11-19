@@ -2,16 +2,18 @@
 
 import React, { useState } from "react";
 import {
-  Container,
-  TextInput,
-  Textarea,
-  NumberInput,
-  Select,
-  Button,
-  Group,
-  Text,
+    Container,
+    TextInput,
+    Textarea,
+    NumberInput,
+    Button,
+    Group,
+    Text,
+    TagsInput
 } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
+import { DateTimePicker } from "@mantine/dates";
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 import { Header } from "@/components/Header/Header";
 import { notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
@@ -24,7 +26,7 @@ export default function CampaignForm() {
     description: "",
     goal: undefined as number | undefined,
     minimumInvest: undefined as number | undefined,
-    category: "",
+    category: [] as string[],
     startDate: null as Date | null,
     endDate: null as Date | null,
     highlight: "",
@@ -101,7 +103,7 @@ export default function CampaignForm() {
 
         <Textarea
           label="Description"
-          placeholder="Describe your campaign in detail"
+          placeholder="Short detail to describe your campaign"
           value={form.description}
           onChange={(event) => handleInputChange("description", event.currentTarget.value)}
           minRows={4}
@@ -127,24 +129,30 @@ export default function CampaignForm() {
           mt="md"
         />
 
-        <Select
-          label="Category"
-          placeholder="Select a category"
-          data={["Technology", "Health", "Education", "Environment"]}
-          value={form.category}
-          onChange={(value) => handleInputChange("category", value)}
-          required
-          mt="md"
-        />
+          <TagsInput
+              label="Category"
+              placeholder="Select a category for your campaign"
+              data={["Technology", "Health", "Education", "Environment", "Game", "Food"]}
+              value={form.category}
+              onChange={(value) => handleInputChange("category", value)}
+              required
+              mt="md"
+              acceptValueOnBlur
+          />
+
 
         <Group mt="md" grow>
-          <DateInput
+          <DateTimePicker
+              clearable
+              defaultValue={new Date()}
             value={form.startDate}
             onChange={(value) => handleInputChange("startDate", value)}
             label="Start date"
             placeholder="Enter your start date"
           />
-          <DateInput
+          <DateTimePicker
+              clearable
+              defaultValue={new Date()}
             value={form.endDate}
             onChange={(value) => handleInputChange("endDate", value)}
             label="End date"
