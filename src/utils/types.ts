@@ -20,4 +20,16 @@ export interface RequestData {
     email: string;
 }
 
-// declare another data struct below
+// GET /api/admin/investment
+
+export interface adminInvestment {
+    id: number;
+    amount: number;
+    investorFirstName: string;
+    investorLastName: string;
+    investorIncome: number;
+    investorPhone: string;
+    investorEmail: string;
+    businessName: string;
+    businessOwnerEmail: string;
+}
