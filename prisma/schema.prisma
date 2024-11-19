@@ -67,10 +67,8 @@ model Business {
   market_cap         Int
   company_address    String
   business_detail    String
-  industry           String
   logo               String //URL IMG LINK
   license            String //URL IMG LINK
-  registration_cer   String //URL IMG LINK
   campaign           Campaign[] //  can have multiple Campagins
   approvalStatus     RequestStatus
 }
@@ -102,7 +100,7 @@ model Campaign {
   description    String
   goal           Decimal
   min_invest     Decimal
-  industry       String
+  industry       String[]
   start_date     DateTime
   end_date       DateTime
   images         String[]

@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     if (auth().sessionClaims?.metadata?.role !== 'admin') {
         return NextResponse.json({ error: 'Forbidden: Admins only' }, { status: 400 });
     }
-    const validRoles: Roles[] = ['admin', 'investor', 'business', 'guest'];
+    const validRoles: Roles[] = ['admin', 'investor(approved)', 'business(approved)', 'guest', 'investor(pending)', "business(pending)"];
     let newRole: Roles | null = null;
 
     const { searchParams } = new URL(req.url);
