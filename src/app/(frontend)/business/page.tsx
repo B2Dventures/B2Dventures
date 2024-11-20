@@ -10,10 +10,8 @@ import { baiSemiBold, baiBold, arimoRegular } from '@/app/(frontend)/styles/font
 import { useEffect, useState } from "react";
 import { useUser } from '@clerk/clerk-react';
 import {CampaignData} from "@/utils/types";
-import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import {
-    SignInButton,
-    SignedIn,
+    SignInButton
 } from '@clerk/nextjs';
 
 function calculateTotals(data: CampaignData[]) {

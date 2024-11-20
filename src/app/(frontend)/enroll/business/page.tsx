@@ -18,6 +18,8 @@ import '@mantine/notifications/styles.css';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header/Header';
 import { UploadSingle } from "@/components/Upload/Upload";
+import classes from "@/app/(frontend)/enroll/enroll.module.css";
+import ImagePreview from "@/components/Upload/ImageDisplay";
 
 interface FormData {
   businessName: string;
@@ -200,24 +202,36 @@ export default function Home() {
               mt="md"
               acceptValueOnBlur
           />
+          <div className={classes.container}>
+            {/* Business Logo Section */}
+            <div className={classes.section}>
+              <Text>Business Logo</Text>
+              {logoPreview ? (
+                  <ImagePreview
+                      title="Logo Image Preview"
+                      imageSrc={logoPreview}
+                      onRemove={() => setLogoPreview(null)} // Custom behavior for removing the logo preview
+                  />
+              ) : (
+                  <UploadSingle onUploadComplete={handleLogoUploadComplete}/>
+              )}
+            </div>
 
-          <Text>Business Logo</Text>
-          <UploadSingle onUploadComplete={handleLogoUploadComplete} />
-          {logoPreview && (
-              <Box mt="md" style={{ maxWidth: 200 }}>
-                <Text size="sm" mt="md">Logo Image Preview:</Text>
-                <Image src={logoPreview} alt="Business Logo Preview" />
-              </Box>
-          )}
+            {/* Business License Section */}
+            <div className={classes.section}>
+              <Text>Business License</Text>
+              {licensePreview ? (
+                  <ImagePreview
+                      title="License Image Preview"
+                      imageSrc={licensePreview}
+                      onRemove={() => setLicensePreview(null)} // Custom behavior for removing the license preview
+                  />
+              ) : (
+                  <UploadSingle onUploadComplete={handleLicenseUploadComplete}/>
+              )}
+            </div>
+          </div>
 
-          <Text>Business License</Text>
-          <UploadSingle onUploadComplete={handleLicenseUploadComplete} />
-          {licensePreview && (
-              <Box mt="md" style={{ maxWidth: 200 }}>
-                <Text size="sm" mt="md">License Image Preview:</Text>
-                <Image src={licensePreview} alt="Business License Preview" />
-              </Box>
-          )}
 
           <Group mt="xl">
             <Button color="green" onClick={handleSubmit}>

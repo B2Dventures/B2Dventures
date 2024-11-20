@@ -9,6 +9,8 @@ import '@mantine/notifications/styles.css';
 import "@mantine/dates/styles.css";
 import { useRouter } from 'next/navigation';
 import { UploadSingle } from "@/components/Upload/Upload";
+import classes from "@/app/(frontend)/enroll/enroll.module.css";
+import ImagePreview from "@/components/Upload/ImageDisplay";
 
 interface FormState {
   firstName: string;
@@ -192,15 +194,17 @@ export default function Home() {
 
           {/* Upload Passport Image */}
           <Text>Passport Image</Text>
-          <UploadSingle onUploadComplete={handlePassportImageUpload} />
-
           {/* Passport Image Preview */}
-          {passportImagePreview && (
-              <Box mt="md" style={{ maxWidth: 200 }}>
-                <Text size="sm" mt="md">Passport Image Preview:</Text>
-                <img src={passportImagePreview} alt="Passport" />
-              </Box>
-          )}
+          {passportImagePreview ? (
+              <ImagePreview
+                  title="License Image Preview"
+                  imageSrc={passportImagePreview}
+                  onRemove={() => setPassportImagePreview(null)} // Custom behavior for removing the license preview
+              />
+            ) : (
+              <UploadSingle onUploadComplete={handlePassportImageUpload} />
+            )
+          }
 
           <Group align={"center"} mt="xl">
             <Button color="green" onClick={handleSubmit}>

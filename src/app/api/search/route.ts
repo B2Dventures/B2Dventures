@@ -18,7 +18,7 @@ export async function GET(request: Request) {
                 id: true,
                 name: true,
                 description: true,
-                image: true,
+                images: true,
                 investment: {
                     select: {
                         amount: true,
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
                 id: campaign.id,
                 name: campaign.name,
                 description: campaign.description,
-                image: campaign.image,
+                image: campaign.images,
                 totalInvestment,
                 investors,
             };

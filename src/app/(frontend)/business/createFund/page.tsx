@@ -184,20 +184,19 @@ export default function CampaignForm() {
                     />
                 </Group>
 
-                <UploadMultiple onUploadComplete={handleUploadComplete} />
-
-                {form.images.length > 0 && (
+                {form.images.length > 0 ? (
                     <div>
                         <Text size="sm" mt="md">
                             Uploaded Images:
                         </Text>
-                        <Group mt="sm">
+                        <>
                             {form.images.map((url, index) => (
                                 <div className={classes.imageWrapper} key={index}>
                                     <img
                                         className={classes.uploadedImage}
                                         src={url}
                                         alt={`Uploaded ${index + 1}`}
+
                                     />
                                     <button
                                         className={classes.deleteButton}
@@ -207,9 +206,11 @@ export default function CampaignForm() {
                                     </button>
                                 </div>
                             ))}
-                        </Group>
+                        </>
                     </div>
-                )}
+                ) :
+                    <UploadMultiple onUploadComplete={handleUploadComplete} />
+                }
 
                 <Textarea
                     label="Highlight"
