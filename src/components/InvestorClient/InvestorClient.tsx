@@ -4,10 +4,19 @@ import { Grid, Container, Pagination } from '@mantine/core';
 import { useState } from 'react';
 import classes from './InvestorClient.module.css';
 import { FundraisingCard } from '@/components/FundraisingCard/FundraisingCard';
-import { Business } from "@/utils/types"
 
 interface InvestorClientComponentProps {
   businesses: Business[]
+}
+
+interface Business {
+    id: number;
+    name: string;
+    description: string;
+    images: string | string[];
+    totalInvestment: number;
+    investors: number;
+    price?: number;
 }
 
 const itemsPerPage = 6;
@@ -24,9 +33,9 @@ const InvestorClient = ({ businesses }: InvestorClientComponentProps) => {
         <Container fluid className={classes.campaign}>
             <Grid gutter={100}>
                 {selectedBusinesses.map((business) => {
-                    const firstImage = Array.isArray(business.image)
-                        ? business.image[0]
-                        : business.image.split(',')[0];
+                    const firstImage = Array.isArray(business.images)
+                        ? business.images[0]
+                        : business.images.split(',')[0];
 
                     return (
                         <Grid.Col
