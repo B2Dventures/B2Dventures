@@ -1,10 +1,13 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/utils/db';
-import { auth } from '@clerk/nextjs/server';
+import { auth, createClerkClient } from '@clerk/nextjs/server';
 
 export async function POST(req: Request) {
+    const session = auth();
+    const role = session?.sessionClaims?.metadata?.role;
+    const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
-    if (auth().sessionClaims?.metadata?.role !== "guest" && auth().sessionClaims?.metadata?.role !== "investor") {
+    if (!session || (role !== "guest" && role !== "investor")) {
         return NextResponse.json({ error: "Already have a role or not logged in yet." });
     }
 
@@ -22,15 +25,28 @@ export async function POST(req: Request) {
         license,
     } = body;
 
-    const userId = auth().sessionClaims?.metadata?.id;
+    const userId = session?.sessionClaims?.metadata?.id;
 
     if (!userId) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
+    const user = await prisma.user.findUnique({
+        where: {
+            id: Number(userId),
+        },
+        select:{
+            clerkId: true
+        },
+    })
+
+    if (!user) {
+        return NextResponse.json({ error: 'User not Fond' }, {status: 404});
+    }
+
     const business = await prisma.business.create({
         data: {
-            userId: userId, // Reference to the user's ID
+            userId: userId,
             business_name: businessName,
             founder_first_name: founderFirstName,
             founder_last_name: founderLastName,
@@ -46,6 +62,18 @@ export async function POST(req: Request) {
 
     if (!business) {
         return NextResponse.json({ error: 'Create Not Successfully' }, { status: 401 });
+    }
+
+    try {
+        const response = await clerkClient.users.updateUserMetadata(user.clerkId, {
+            publicMetadata : {
+                role : "business"
+            }
+
+        });
+    } catch (error) {
+        console.error('Error updating Clerk metadata:', error);
+        return NextResponse.json({ error: 'Error updating user role' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, business });
