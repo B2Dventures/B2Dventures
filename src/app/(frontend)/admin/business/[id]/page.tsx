@@ -1,34 +1,40 @@
-import {AdminHeader} from "@/components/Header/AdminHeader";
+'use client'
+
+import { AdminHeader } from "@/components/Header/AdminHeader";
+import { useState, useEffect } from 'react';
 import React from "react";
-import {baiSemiBold} from "@/app/(frontend)/styles/fonts";
+import { baiSemiBold } from "@/app/(frontend)/styles/fonts";
 import classes from "@/app/(frontend)/admin/business/business_list.module.css";
-import {BusinessRequestDetail} from "@/components/RequestDetails/BusinessRequestDetail";
+import { BusinessRequestDetail } from "@/components/RequestDetails/BusinessRequestDetail";
 
-async function fetchBusiness(id: string) {
-    const isServer = typeof window === 'undefined';
-    const baseUrl = isServer ? 'http://localhost:3000' : '';
+export default function BusinessRequestPage({ params }: { params: { id: string } }) {
+    const [businessData, setBusinessData] = useState<any>(null);
 
-    const response = await fetch(`${baseUrl}/api/admin/business/${id}`, {
-        cache: 'no-store',
-    });
+    useEffect(() => {
+        const fetchBusinessData = async () => {
+            const response = await fetch(`/api/admin/business/${params.id}`);
+            const data = await response.json();
+            setBusinessData(data);
+        };
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch business data");
+        fetchBusinessData();
+    }, [params.id]);
+
+    if (!businessData) {
+        return <div>Loading...</div>;
     }
-
-    return response.json();
-}
-
-export default async function BusinessDetailPage({ params }: { params: { id: string } }) {
-    const business = await fetchBusiness(params.id);
 
     return (
         <main>
-            <AdminHeader/>
+            <AdminHeader />
             <main className={baiSemiBold.className}>
                 <h1 className={classes.topic}>Business Detail</h1>
             </main>
-            <BusinessRequestDetail business={business}/>
+            {businessData ? (
+                <BusinessRequestDetail business={businessData} />
+            ) : (
+                <div>Failed to load business details</div>
+            )}
         </main>
     );
 }
