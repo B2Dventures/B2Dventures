@@ -40,7 +40,7 @@ export interface Business {
     id: number;
     name: string;
     description: string;
-    image: string;
+    images: string[];
     totalInvestment: number;
     investors: number;
     min_invest: number;
