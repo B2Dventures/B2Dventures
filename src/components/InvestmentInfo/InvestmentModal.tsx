@@ -100,7 +100,13 @@ export default function InvestmentModal({ stockPrice, campaignId }: InvestmentMo
 
                     {/* Submit Button */}
                     <Group mt="md">
-                        <Button type="submit">Request to Invest</Button>
+                        <Button type="submit"
+                                onClick={() =>
+                                    notifications.show({
+                                        title: "Investment Form",
+                                        message: "Request accepted",
+                                    })}
+                        >Request to Invest</Button>
                     </Group>
                 </form>
             </Modal>
