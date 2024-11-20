@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Modal, Button, TextInput, Group, Box } from '@mantine/core';
 import {InvestmentQuery} from "@/utils/types";
 import {notifications} from "@mantine/notifications";
+import {LuChevronRightCircle} from "react-icons/lu";
 
 interface InvestmentModalProps {
-    stockPrice: number; // Pass the current stock price as a prop
+    stockPrice: number;
     campaignId: number;
+    campaignName: string;
 }
 
-export default function InvestmentModal({ stockPrice, campaignId }: InvestmentModalProps) {
+export default function InvestmentModal({ stockPrice, campaignId, campaignName }: InvestmentModalProps) {
     const [opened, setOpened] = useState(false);
     const [formData, setFormData] = useState({
         money: '',
@@ -58,8 +60,16 @@ export default function InvestmentModal({ stockPrice, campaignId }: InvestmentMo
 
     return (
         <>
-            <Button onClick={() => setOpened(true)}>Invest Now</Button>
-
+            <Button
+                size="lg"
+                rightSection={<LuChevronRightCircle size={25} />}
+                variant="outline"
+                color="yellow"
+                radius="20"
+                onClick={() => setOpened(true)}
+            >
+                Invest in {campaignName}
+            </Button>
             <Modal
                 opened={opened}
                 onClose={() => setOpened(false)}
