@@ -43,7 +43,7 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName }
                 campaignId: campaignId,
                 amount: Number(formData.money),
             }
-            const response = await fetch('/api/investment/invest', {
+            const response = await fetch('/api/investment', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload),
@@ -51,8 +51,10 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName }
             if (response.ok) {
                 console.log(response);
             }
+            console.log(response);
 
         } catch (error) {
+            console.log(error);
 
         }
         setOpened(false);

@@ -11,26 +11,30 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { campaignId, amount } = await req.json();
-
+        const { campaignId, amount } : InvestmentQuery = await req.json();
         const id = auth().sessionClaims?.metadata?.id;
 
-        // Convert values to numbers and validate
-        const check: InvestmentQuery = {
-            campaignId: parseInt(campaignId, 10), // Ensure it's an integer
-            amount: Number(amount), // Allow for decimals
-        };
-
-        // Validate that all values are valid numbers
-        if (isNaN(check.campaignId) || isNaN(check.amount) || !id) {
+        if (isNaN(campaignId) || isNaN(amount) || !id) {
             return NextResponse.json({ error: 'Invalid query parameters. Must be numbers or can not find userId .' }, {status: 400});
+        }
+        const investor = await prisma.investor.findUnique({
+            where : {
+                userId : id
+            },
+            select : {
+                id : true
+            }
+        })
+
+        if (!investor) {
+            return NextResponse.json({error : "Investor not found"})
         }
 
         const investment = await prisma.investment.create({
             data:{
-                campaignId: campaignId,
-                investorId: id,
-                amount: amount,
+                campaignId: Number(campaignId),
+                investorId: investor.id,
+                amount: Number(amount),
                 approvalStatus: "PENDING"
             }
         });
