@@ -15,20 +15,20 @@ export function BusinessRequestDetail({ business }: { business: any }) {
         setApprovalStatus(business.approvalStatus);
     }, [business.approvalStatus]);
 
-    // const updateRole = async (role: string) => {
-    //     try {
-    //         const response = await fetch(`/api/user/${business.userId}/${role}`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //         const data = await response.json();
-    //         if (!response.ok) throw new Error(data.error || 'Failed to update role');
-    //     } catch (error) {
-    //         console.error('Error updating user role in Clerk:', error);
-    //     }
-    // };
+    const updateRole = async (role: string) => {
+        try {
+            const response = await fetch(`/api/user?id=${business.user.id}&role=${role}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Failed to update role');
+        } catch (error) {
+            console.error('Error updating user role in Clerk:', error);
+        }
+    };
 
     const handleApprove = async () => {
         setLoading(true);
@@ -42,7 +42,7 @@ export function BusinessRequestDetail({ business }: { business: any }) {
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('APPROVED');
-                // await updateRole('business');
+                await updateRole('business');
                 router.push('/admin/business');
             } else {
                 console.error('Failed to approve:', data.error);
@@ -66,7 +66,7 @@ export function BusinessRequestDetail({ business }: { business: any }) {
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('REJECTED');
-                // No role update needed on rejection
+                await updateRole('guest');
                 router.push('/admin/business');
             } else {
                 console.error('Failed to reject:', data.error);

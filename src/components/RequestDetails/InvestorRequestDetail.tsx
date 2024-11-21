@@ -22,20 +22,20 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
         setApprovalStatus(investor.approvalStatus);
     }, [investor.approvalStatus]);
 
-    // const updateRole = async (role: string) => {
-    //     try {
-    //         const response = await fetch(`/api/user/${investor.userId}/${role}`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //         const data = await response.json();
-    //         if (!response.ok) throw new Error(data.error || 'Failed to update role');
-    //     } catch (error) {
-    //         console.error('Error updating user role in Clerk:', error);
-    //     }
-    // };
+    const updateRole = async (role: string) => {
+        try {
+            const response = await fetch(`/api/user?id=${investor.user.id}&role=${role}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Failed to update role');
+        } catch (error) {
+            console.error('Error updating user role in Clerk:', error);
+        }
+    };
 
     const handleApprove = async () => {
         setLoading(true);
@@ -49,7 +49,7 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('APPROVED');
-                // await updateRole('investor'); // Update Clerk role to "investor"
+                await updateRole('investor'); // Update Clerk role to "investor"
                 router.push('/admin/investor');
             } else {
                 console.error('Failed to approve:', data.error);
@@ -73,7 +73,7 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('REJECTED');
-                // No role update needed on rejection
+                await updateRole('guest');
                 router.push('/admin/investor');
             } else {
                 console.error('Failed to reject:', data.error);

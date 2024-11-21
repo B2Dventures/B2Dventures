@@ -65,6 +65,7 @@ export interface Campaign {
     product: string;
     opportunity: string;
     approvalStatus: string;
+    industry: string[];
 }
 
 export interface InvestmentQuery {

@@ -77,6 +77,7 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
                         totalInvestors={campaign.investors}
                         daysLeft={campaign.daysLeft}
                         campaignName={campaign.name}
+                        category={campaign.industry}
                     />
                 </Flex>
                 <Flex>

@@ -49,6 +49,7 @@ export async function GET(request: Request) {
         product: campaign.details?.product || "",
         opportunity: campaign.details?.opportunity || "",
         approvalStatus: campaign.approvalStatus,
+          industry: campaign.industry,
       };
 
       return NextResponse.json(result);
