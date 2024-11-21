@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, Text, Group, Button} from '@mantine/core';
 import classes from './AdminCard.module.css';
 import {LuBriefcase, LuChevronRightCircle, LuUser, LuClipboardList, LuCoins} from "react-icons/lu";
+import {adminInvestment} from "@/utils/types";
 
 interface CardProps {
 }
@@ -14,15 +15,13 @@ export const InvestmentPendingCard: React.FC<CardProps> = () => {
             try {
                 const response = await fetch('/api/admin/investment');
                 if (!response.ok) {
-                    throw new Error('Failed to fetch campaigns');
+                    throw new Error('Failed to fetch investments');
                 }
-
-                const investments = await response.json();
-                const pendingCampaigns = investments.filter((campaign: { approvalStatus: string }) => campaign.approvalStatus === "PENDING");
-
-                setPendingCount(pendingCampaigns.length);
+                const investments: adminInvestment[] = await response.json();
+                const pendingInvestments = investments.length;
+                setPendingCount(pendingInvestments);
             } catch (error) {
-                console.error("Error fetching campaigns:", error);
+                console.error("Error fetching investments:", error);
                 setPendingCount(0);
             }
         };
