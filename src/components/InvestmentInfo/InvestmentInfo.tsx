@@ -30,6 +30,7 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
 
     // Check if user is an investor
     const isInvestor = user?.publicMetadata?.role === 'investor';
+    const isBusiness = user?.publicMetadata?.role === 'business';
 
     const progressPercentage = Math.min((raisedAmount / goalAmount) * 100, 100);
 
@@ -57,7 +58,7 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
                     <Badge color="yellow" size="24px">{daysLeft} days left</Badge>
                 </div>
 
-                {isInvestor ? (
+                {isInvestor || isBusiness ? (
                     <InvestmentModal
                         campaignId={campaignId}
                         stockPrice={stockPrice}
