@@ -193,7 +193,7 @@ export default function Home() {
           />
 
           {/* Upload Passport Image */}
-          <Text>Passport Image</Text>
+          <Text>Passport Image (Recommended size: 1000x1400)</Text>
           {/* Passport Image Preview */}
           {passportImagePreview ? (
               <ImagePreview

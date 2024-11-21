@@ -183,7 +183,7 @@ export default function CampaignForm() {
                         minDate={form.startDate || new Date()} // Ensure endDate is after startDate
                     />
                 </Group>
-
+                <Text>Image about your campaign (Recommened size: 170x300)</Text>
                 {form.images.length > 0 ? (
                     <div>
                         <Text size="sm" mt="md">

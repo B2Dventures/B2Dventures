@@ -205,7 +205,7 @@ export default function Home() {
           <div className={classes.container}>
             {/* Business Logo Section */}
             <div className={classes.section}>
-              <Text>Business Logo</Text>
+              <Text>Business Logo (Recommended size: 255x255)</Text>
               {logoPreview ? (
                   <ImagePreview
                       title="Logo Image Preview"
@@ -219,7 +219,7 @@ export default function Home() {
 
             {/* Business License Section */}
             <div className={classes.section}>
-              <Text>Business License</Text>
+              <Text>Business License (Recommended size: 800x1024)</Text>
               {licensePreview ? (
                   <ImagePreview
                       title="License Image Preview"
