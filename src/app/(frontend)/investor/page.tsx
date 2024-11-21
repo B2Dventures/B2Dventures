@@ -71,8 +71,8 @@ export default function InvestorPage() {
               data={[
                 { value: 'name', label: 'A-Z' },
                 { value: 'inverse_name', label: 'Z-A' },
-                { value: 'min_invest', label: 'Minimum Investment (Low -> High)' },
-                { value: 'inverse_min_invest', label: 'Minimum Investment (High -> Low)' },
+                { value: 'min_invest', label: 'Minimum investment (Low -> High)' },
+                { value: 'inverse_min_invest', label: 'Minimum investment (High -> Low)' },
                 { value: 'totalInvestment', label: 'Total Raised' },
                 { value: 'investors', label: 'Number of Investors' },
               ]}

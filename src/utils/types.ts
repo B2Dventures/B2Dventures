@@ -2,6 +2,7 @@
 
 // POST api/business
 import {Detail} from "@prisma/client";
+import {DateTime} from "effect/DateTime";
 
 export interface CampaignData {
     id: number;
@@ -27,6 +28,7 @@ export interface RequestData {
 export interface adminInvestment {
     id: number;
     amount: number;
+    timestamp: Date;
     investorFirstName: string;
     investorLastName: string;
     investorIncome: number;
@@ -34,6 +36,7 @@ export interface adminInvestment {
     investorEmail: string;
     businessName: string;
     businessOwnerEmail: string;
+    campaignName: string;
 }
 
 export interface Business {

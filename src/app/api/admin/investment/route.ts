@@ -17,6 +17,7 @@ export async function GET() {
         };
 
         const campaignSelection = {
+            name: true,
             business: {
                 select: {
                     business_name : true,
@@ -49,6 +50,7 @@ export async function GET() {
         const flattenedInvestments: adminInvestment[] = investments.map(investment => ({
             id: investment.id,
             amount: Number(investment.amount),
+            timestamp: investment.timestamp,
             investorFirstName: investment.investor?.first_name || "",
             investorLastName: investment.investor?.last_name || "",
             investorIncome: investment.investor?.income || 0,
@@ -56,6 +58,7 @@ export async function GET() {
             investorEmail: investment.investor?.user?.email || "",
             businessName: investment.campaign?.business?.business_name || "",
             businessOwnerEmail: investment.campaign?.business?.user?.email || "",
+            campaignName: investment.campaign?.name || "",
         }));
 
         return NextResponse.json(flattenedInvestments, {status: 200});
@@ -88,7 +91,7 @@ export async function POST(req: Request) {
         });
 
         if (!updatedInvestment) {
-            return NextResponse.json({ error: "Investment not found" });
+            return NextResponse.json({ error: "investment not found" });
         }
 
         return NextResponse.json({ message: 'Success update investment status' }, { status: 200 });
