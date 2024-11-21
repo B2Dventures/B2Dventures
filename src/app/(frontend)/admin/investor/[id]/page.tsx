@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import {baiSemiBold} from "@/app/(frontend)/styles/fonts";
 import classes from "@/app/(frontend)/admin/business/business_list.module.css";
 import React from "react";
+import {Loader, Stack} from "@mantine/core";
 
 export default function InvestorRequestPage({ params }: { params: { id: string } }) {
     const [investorData, setInvestorData] = useState<any>(null);
@@ -21,7 +22,11 @@ export default function InvestorRequestPage({ params }: { params: { id: string }
     }, [params.id]);
 
     if (!investorData) {
-        return <div>Loading...</div>;
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Loader color="goldenrod" type="dots" />
+            </Stack>
+        );
     }
     return (
         <main>

@@ -6,6 +6,7 @@ import React from "react";
 import { baiSemiBold } from "@/app/(frontend)/styles/fonts";
 import classes from "@/app/(frontend)/admin/business/business_list.module.css";
 import { BusinessRequestDetail } from "@/components/RequestDetails/BusinessRequestDetail";
+import {Loader, Stack} from "@mantine/core";
 
 export default function BusinessRequestPage({ params }: { params: { id: string } }) {
     const [businessData, setBusinessData] = useState<any>(null);
@@ -21,7 +22,11 @@ export default function BusinessRequestPage({ params }: { params: { id: string }
     }, [params.id]);
 
     if (!businessData) {
-        return <div>Loading...</div>;
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Loader color="goldenrod" type="dots" />
+            </Stack>
+        );
     }
 
     return (
