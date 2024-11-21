@@ -1,6 +1,10 @@
 .campaign{
   display: flex;
-  justify-content: space-around;
-  align-items: right;
   margin: 0 150px 0 150px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paginator{
+  margin: 50px 0 50px 0;
 }

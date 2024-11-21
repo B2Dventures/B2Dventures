@@ -2,21 +2,14 @@
 
 import { Header } from "@/components/Header/Header";
 import InvestorClient from '@/components/InvestorClient/InvestorClient';
+import { NavItem } from "@/components/Header/NavItem/NavItem";
 import { Container, Group, Button, Text, Select } from '@mantine/core';
 import classes from './investor.module.css';
 import { SearchBar } from "@/components/Search/SearchBar";
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts';
 import React, { useState, useEffect } from 'react';
+import {Business} from "@/utils/types";
 
-interface Business {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  totalInvestment: number;
-  investors: number;
-  min_invest: number;
-}
 
 export default function InvestorPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -78,14 +71,18 @@ export default function InvestorPage() {
               data={[
                 { value: 'name', label: 'A-Z' },
                 { value: 'inverse_name', label: 'Z-A' },
-                { value: 'min_invest', label: 'Minimum Investment (Low -> High)' },
-                { value: 'inverse_min_invest', label: 'Minimum Investment (High -> Low)' },
+                { value: 'min_invest', label: 'Minimum investment (Low -> High)' },
+                { value: 'inverse_min_invest', label: 'Minimum investment (High -> Low)' },
                 { value: 'totalInvestment', label: 'Total Raised' },
                 { value: 'investors', label: 'Number of Investors' },
               ]}
               size="sm"
               style={{ marginLeft: '15px', width: '200px' }}
             />
+            <Button size='sm' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
+                    onClick={() => window.location.href = "/investor/dashboard"}>
+                <NavItem label="Dashboard" link="/investor/dashboard"/>
+            </Button>
           </Group>
         </Container>
 

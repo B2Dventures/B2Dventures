@@ -1,9 +1,7 @@
 import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-    // TODO: Security part
-
+export async function GET() {
     try {
         // Query to find all investors with approvalStatus = PENDING
         const investors = await prisma.investor.findMany({
@@ -22,17 +20,15 @@ export async function GET(request: Request) {
                 income: true,
                 passport_img: true,
                 approvalStatus: true,
+                user: {
+                    select: {
+                        email: true,
+                    },
+                },
             },
         });
 
-        if (investors.length === 0) {
-            return NextResponse.json(
-                { message: "No investors with PENDING approval status found" },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json(investors);
+        return NextResponse.json(investors.length > 0 ? investors : []);
     } catch (error) {
         console.error("Error fetching investors:", error);
         return NextResponse.json({ error: "Error fetching investors" }, { status: 500 });

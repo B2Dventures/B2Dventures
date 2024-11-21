@@ -1,23 +1,40 @@
 import prisma from "@/utils/db";
-import {NextResponse} from 'next/server';
+import { NextResponse } from 'next/server';
+import {CampaignData} from "@/utils/types";
+import {auth} from "@clerk/nextjs/server";
+
 
 export async function POST(request: Request) {
-    // console.log(request);
+
+    if (auth().sessionClaims?.metadata?.role != "business") {
+        NextResponse.json({ error: "Not authenticate" }, { status: 401 });
+    }
 
     try {
         const data = await request.json();
-        // console.log(data); // Outputs the parsed JSON object
-        const { id } = data;
-        // Query the business based on the provided ID
-        const Campaigns = await prisma.campaign.findMany({
+        const { id: userId } = data;
+
+        const business = await prisma.business.findUnique({
             where: {
-                businessId: id, // Use the extracted ID here
+                userId: userId,
+            },
+        });
+
+        if (!business) {
+            return NextResponse.json({ error: "Business not found" }, { status: 404 });
+        }
+
+        const businessId = business.id; // Get the business ID
+
+        const campaigns = await prisma.campaign.findMany({
+            where: {
+                businessId: businessId, // Use the business ID here
             },
             select: {
                 id: true,
                 name: true,
                 goal: true,
-                status: true,
+                approvalStatus: true,
                 investment: {
                     select: {
                         amount: true,
@@ -26,25 +43,19 @@ export async function POST(request: Request) {
             }
         });
 
-        if (!Campaigns) {
-            return NextResponse.json({ error: "Business not found" }, { status: 404 });
-        }
-        // investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0);
-        const Data = Campaigns.map(campaign => ({
-                id: campaign.id,
-                name: campaign.name,
-                goal: campaign.goal,
-                status: campaign.status,
-                raised: campaign.investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0),
-                investors: campaign.investment.length
-            }
-        )) // Sum of all investment amounts
+        const responseData: CampaignData[] = campaigns.map(campaign => ({
+            id: campaign.id,
+            name: campaign.name,
+            goal: campaign.goal.toNumber(),
+            raised: campaign.investment.reduce((sum, inv) => sum + inv.amount.toNumber(), 0),
+            investors: campaign.investment.length,
+            status: campaign.approvalStatus
+        }));
 
-        // console.log(data);
-
-        return  NextResponse.json(Data);
+        return NextResponse.json(responseData);
 
     } catch (error) {
-        return NextResponse.json({ error: "Error fetching users" }, { status: 500 });
+        console.error("Error fetching campaigns:", error);
+        return NextResponse.json({ error: "Error fetching campaigns" }, { status: 500 });
     }
 }

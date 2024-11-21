@@ -1,38 +1,89 @@
 import prisma from "@/utils/db";
-import {NextResponse} from 'next/server';
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server';
+import { auth } from "@clerk/nextjs/server";
+import {InvestmentQuery} from "@/utils/types";
 
-interface InvestmentQuery {
-    campaignId: string;  // Assuming these are received as strings
-    investorId: string;
-    amount: string;
-}
 
-export async function POST(req: NextApiRequest,
-                           res: NextApiResponse) {
-    // TODO:Security part
+export async function POST(req: Request) {
 
-    const {campaignId, investorId, amount} = req.query as unknown as InvestmentQuery;  // https://domain/api/investment?campaignId=1&investorId=1&amount=9999
-    const campaignIdNumber = parseInt(campaignId, 10);
-    const investorIdNumber = parseInt(investorId, 10);
-    const amountNumber = parseFloat(amount);
-
-    if (!campaignId || !investorId || !amount) {
-        return res.status(400).json({ error: 'Missing required query parameters' });
+    if (auth().sessionClaims?.metadata?.role != "investor") {
+        return NextResponse.json({ error: 'Not authenticated' }, {status: 401});
     }
 
     try {
+        const { campaignId, amount } : InvestmentQuery = await req.json();
+        const id = auth().sessionClaims?.metadata?.id;
+
+        if (isNaN(campaignId) || isNaN(amount) || !id) {
+            return NextResponse.json({ error: 'Invalid query parameters. Must be numbers or can not find userId .' }, {status: 400});
+        }
+        const investor = await prisma.investor.findUnique({
+            where : {
+                userId : id
+            },
+            select : {
+                id : true
+            }
+        })
+
+        if (!investor) {
+            return NextResponse.json({error : "Investor not found"})
+        }
+
         const investment = await prisma.investment.create({
             data:{
-                campaignId: campaignIdNumber,
-                investorId: investorIdNumber,
-                amount: amountNumber,
+                campaignId: Number(campaignId),
+                investorId: investor.id,
+                amount: Number(amount),
                 approvalStatus: "PENDING"
             }
         });
 
         return NextResponse.json({ investment });
     } catch (error) {
-        return NextResponse.json({ error: "Error fetching users" }, { status: 500 });
+        return NextResponse.json({ error: "Error to place an investment" }, { status: 500 });
     }
 }
+
+
+export async function GET() {
+    try {
+        const userId = auth().sessionClaims?.metadata?.id;
+
+        if (!userId) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 });
+        }
+
+        const investor = await prisma.investor.findUnique({
+            where: { userId: userId },
+            select: { id: true },
+        });
+
+        if (!investor) {
+            return NextResponse.json({ error: "Investor not found" }, { status: 404 });
+        }
+
+        const investorId = investor.id;
+
+        const investments = await prisma.investment.findMany({
+            where: { investorId: investorId },
+            select: {
+                amount: true,
+                timestamp: true,
+                approvalStatus: true,
+                campaign: {
+                    select: {
+                        name: true,
+                    }
+                }
+            }
+        });
+
+        return NextResponse.json({ success: true, investments });
+
+    } catch (error) {
+        console.error("Error retrieving investments:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+}
+

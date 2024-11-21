@@ -9,7 +9,7 @@ import {checkRole} from "@/utils/roles";
 import { InvestorPendingCard } from "@/components/AdminCard/InvestorPendingCard";
 import {BusinessPendingCard} from "@/components/AdminCard/BusinessPendingCard";
 import {CampaignPendingCard} from "@/components/AdminCard/CampaignPendingCard";
-
+import {InvestmentPendingCard} from "@/components/AdminCard/InvestmentPendingCard";
 
 
 export default function Home() {
@@ -26,14 +26,17 @@ export default function Home() {
                     </main>
                     <Container fluid className={classes.card}>
                         <Grid gutter={100}>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={3}>
                                 <InvestorPendingCard/>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={3}>
                                 <BusinessPendingCard/>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={3}>
                                 <CampaignPendingCard/>
+                            </Grid.Col>
+                            <Grid.Col span={3}>
+                                <InvestmentPendingCard/>
                             </Grid.Col>
                         </Grid>
                     </Container>

@@ -29,7 +29,7 @@ describe('Create Fundraising Page', () => {
       .type('123456789');
 
     cy.get('label')
-      .contains('Minimum Investment')
+      .contains('Minimum investment')
       .parent()
       .find('input')
       .type('420');

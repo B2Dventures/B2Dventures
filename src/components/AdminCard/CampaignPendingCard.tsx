@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Text, Group, Button} from '@mantine/core';
 import classes from './AdminCard.module.css';
 import {LuBriefcase, LuChevronRightCircle, LuUser, LuClipboardList} from "react-icons/lu";
@@ -7,6 +7,29 @@ interface CardProps {
 }
 
 export const CampaignPendingCard: React.FC<CardProps> = () => {
+    const [pendingCount, setPendingCount] = useState<number | null>(null);
+
+    useEffect(() => {
+        const fetchPendingCampaigns = async () => {
+            try {
+                const response = await fetch('/api/admin/campaign');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch campaigns');
+                }
+
+                const campaigns = await response.json();
+                const pendingCampaigns = campaigns.filter((campaign: { approvalStatus: string }) => campaign.approvalStatus === "PENDING");
+
+                setPendingCount(pendingCampaigns.length);
+            } catch (error) {
+                console.error("Error fetching campaigns:", error);
+                setPendingCount(0);
+            }
+        };
+
+        fetchPendingCampaigns();
+    }, []);
+
     return (
         <a href={`/admin/campaign`} style={{textDecoration: 'none'}}>
             <Card shadow="sm" padding="lg" radius="md" className={classes.card}>
@@ -18,7 +41,9 @@ export const CampaignPendingCard: React.FC<CardProps> = () => {
 
                 <Group mt="md" mb="xs" className={classes.textContainer}>
                     <Text size="sm" className={classes.Text}>Campaign</Text>
-                    <Text size="lg" fw="bold" className={classes.mainText}>8</Text>
+                    <Text size="lg" fw="bold" className={classes.mainText}>
+                        {pendingCount !== null ? pendingCount : '...'}
+                    </Text>
                     <Text size="sm" className={classes.subText}>Pending</Text>
                 </Group>
 

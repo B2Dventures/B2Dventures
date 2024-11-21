@@ -6,7 +6,7 @@ import classes from './Header.module.css';
 import {NavItem} from "@/components/Header/NavItem/NavItem";
 import {Logo} from "@/components/Header/Logo/Logo";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { LuUser, LuBriefcase, LuClipboardList } from "react-icons/lu";
+import { LuUser, LuBriefcase, LuClipboardList, LuCoins } from "react-icons/lu";
 import {
     SignInButton,
     SignedIn,
@@ -26,6 +26,10 @@ export function AdminHeader() {
 
     const campaignPage= () => {
         window.location.href = '/admin/campaign';
+    };
+
+    const investmentPage= () => {
+        window.location.href = '/admin/investment';
     };
 
     return (
@@ -54,6 +58,14 @@ export function AdminHeader() {
                             <div className={classes.box}>
                                 <LuClipboardList size={25} color='black' />
                                 <div>Campaign</div>
+                            </div>
+                        </a>
+                    </Button>
+                    <Button size='md' variant="outline" color='white' onClick={investmentPage}>
+                        <a className={classes.fullButtonLink}>
+                            <div className={classes.box}>
+                                <LuCoins size={25} color='black' />
+                                <div>Investment</div>
                             </div>
                         </a>
                     </Button>

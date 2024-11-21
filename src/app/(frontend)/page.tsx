@@ -1,6 +1,5 @@
-'use client';
+'use server';
 
-import Image from 'next/image';
 import React from 'react';
 import { Header } from '@/components/Header/Header';
 import {Stats} from "@/components/Homepage/Stats";
@@ -10,30 +9,30 @@ import classes from './index.module.css';
 import {arimoRegular, baiBold} from "@/app/(frontend)/styles/fonts";
 
 export default async function Home() {
-  return (
-    <main>
+    return (
+    <main style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }} >
         <Header />
-        <Container size={1440} >
-
-      <Box p="xl">
-          <main className={baiBold.className}>
-        <Text
-          variant="gradient"
-          gradient={{ from: '#000000', to: 'goldenrod', deg: 90 }}
-          fw={1000}
-          component="span"
-          className={classes.bigtext}
-        >
-          B2D Ventures
-        </Text>
-          </main>
-          <main className={arimoRegular.className}>
-        <Text className={classes.smalltext}>Become a part of world’s ventures</Text>
-          </main>
-        <ImageSlide />
-      </Box>
+        <Container size={1440} style={{ flex : 1}}>
+            <Box p="xl">
+                <div className={baiBold.className}>
+                    <Text
+                        variant="gradient"
+                        gradient={{from: '#000000', to: 'goldenrod', deg: 90}}
+                        fw={1000}
+                        component="span"
+                        className={classes.bigtext}
+                    >
+                        B2D Ventures
+                    </Text>
+                </div>
+                <div className={arimoRegular.className}>
+                    <Text className={classes.smalltext}>Become a part of world’s ventures</Text>
+                </div>
+                <ImageSlide/>
+            </Box>
         </Container>
-        <Stats />
+        <Stats/>
     </main>
-  );
+
+    );
 }

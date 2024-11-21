@@ -1,6 +1,10 @@
-.table {
-  align-items: center;
-  justify-content: space-around;
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  flex: 1
 }
 
 .button {
@@ -53,3 +57,14 @@
   display: flex;
 }
 
+.bigtext {
+    font-size: 100px;
+}
+
+.mediumtext {
+    font-size: 60px;
+}
+
+.smalltext {
+    font-size: 20px;
+}

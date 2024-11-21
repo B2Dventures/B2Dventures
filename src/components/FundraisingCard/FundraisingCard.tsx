@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Card, Image, Text, Group } from '@mantine/core';
+import { Card, Image, Text, Group, Stack } from '@mantine/core';
 import classes from './FundraisingCard.module.css';
 
 
@@ -22,12 +22,10 @@ export const FundraisingCard: React.FC<CardProps> = ({ title, description, image
                         <Image src={imageUrl} height={180} alt={title}/>
                     </Card.Section>
 
-                    <Group mt="md" mb="xs">
-                        <Text size="lg" fw='bold'>{title}</Text>
-                        <Text size="sm">
-                            {description}
-                        </Text>
-                    </Group>
+                    <Stack mt="md" mb="xs">
+                        <Text size="lg" fw="bold">{title}</Text>
+                        <Text size="sm">{description}</Text>
+                    </Stack>
 
                     <Group mt="md" className={classes.footer}>
                         <Text size="sm">{totalInvestment} raised</Text>

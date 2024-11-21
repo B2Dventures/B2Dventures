@@ -1,39 +1,40 @@
-'use client';
+'use client'
 
-import { InvestorDetailsPage } from "@/components/RequestDetails/RequestDetails";
-import {Container} from "@mantine/core";
-import {Header} from "@/components/Header/Header";
+import { InvestorRequestDetail } from "@/components/RequestDetails/InvestorRequestDetail";
+import {AdminHeader} from "@/components/Header/AdminHeader";
+import { useState, useEffect } from 'react';
+import {baiSemiBold} from "@/app/(frontend)/styles/fonts";
+import classes from "@/app/(frontend)/admin/business/business_list.module.css";
 import React from "react";
+import {Loader, Stack} from "@mantine/core";
 
-const info = [
-    { id:0 , label: "First Name", value: "John" },
-    { id:1 , label: "Last Name", value: "Doe" },
-    { id:2 , label: "Email", value: "john.doe@example.com" },
-    { id:3 , label: "Nationality", value: "American" },
-    { id:4 , label: "Passport No", value: "X12345678" },
-    { id:5 , label: "Phone Number", value: "+1 123 456 7890" },
-    { id:6 , label: "Birthday", value: "January 1, 1980" },
-    { id:7 , label: "Address", value: "1234 Main St, City, Country" },
-    { id:8 , label: "Occupation", value: "Investor" },
-    { id:9 , label: "Income", value: "$500,000/year" },
-    { id:10 , label: "Investment Preference", value: "Technology" }
-];
+export default function InvestorRequestPage({ params }: { params: { id: string } }) {
+    const [investorData, setInvestorData] = useState<any>(null);
 
-const link = [
-    { id:0, label: "Networth Proof", value: "/networth-proof-link" },
-    { id:1, label: "Passport Picture", value: "/passport-proof-link" }
-];
+    useEffect(() => {
+        const fetchInvestorData = async () => {
+            const response = await fetch(`/api/admin/investor/${params.id}`);
+            const data = await response.json();
+            setInvestorData(data);
+        };
 
-const picture = "/4.ico"; // Make sure the path is correct
+        fetchInvestorData()
+    }, [params.id]);
 
-export default function Home() {
+    if (!investorData) {
+        return (
+            <Stack align="center" justify="flex-start" gap="sm" className={classes.stack}>
+                <Loader color="goldenrod" type="dots" />
+            </Stack>
+        );
+    }
     return (
         <main>
-            <Header />
-            &nbsp;
-            <Container size={1440}>
-                <InvestorDetailsPage info={info} link={link} picture={picture}/>
-            </Container>
+            <AdminHeader/>
+            <main className={baiSemiBold.className}>
+                <h1 className={classes.topic}>Investor Detail</h1>
+            </main>
+            <InvestorRequestDetail investor={investorData} />
         </main>
     );
 }

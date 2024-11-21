@@ -1,33 +1,38 @@
-.head{
-  background-color: goldenrod;
-  color: white;
-  font-size: 17px;
-}
-
-.body{
-  text-align: center;
-  vertical-align: middle;
-  justify-content: center;
-  align-items: center;
-}
-
-.id{
-  font-weight: bold;
-  padding-left: 20px;
-}
-
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
 }
-
-.table {
-  border-radius: 25px;
-  overflow: hidden;
+.stack{
+  margin-top: 20px;
+}
+.paper {
+  width: 500px;
+  height: 200px;
+  border: 2px solid goldenrod;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.info {
-  font-size: 16px;
+.paper:hover {
+  transform: scale(1.05);
+}
+
+.check {
+  align-self: flex-end;
+  color: goldenrod;
+  font-weight: bold;
+}
+
+.topic{
+  font-weight: bold;
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.descriptionGoal {
+  font-size: 1rem;
+  gap: 16px;
 }

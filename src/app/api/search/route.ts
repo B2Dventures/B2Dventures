@@ -1,9 +1,7 @@
 import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
 
-export async function GET(request) {
-
-    // TODO: Security part
+export async function GET(request: Request) {
 
     try {
         const { searchParams } = new URL(request.url);
@@ -20,7 +18,7 @@ export async function GET(request) {
                 id: true,
                 name: true,
                 description: true,
-                image: true,
+                images: true,
                 investment: {
                     select: {
                         amount: true,
@@ -36,7 +34,7 @@ export async function GET(request) {
                 id: campaign.id,
                 name: campaign.name,
                 description: campaign.description,
-                image: campaign.image,
+                image: campaign.images,
                 totalInvestment,
                 investors,
             };
