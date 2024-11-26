@@ -1,7 +1,6 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { createClerkClient , auth } from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 import { UploadThingError } from "uploadthing/server";
-import {checkRole} from "@/utils/roles";
 
 const f = createUploadthing();
 

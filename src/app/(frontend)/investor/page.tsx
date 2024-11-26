@@ -8,7 +8,7 @@ import classes from './investor.module.css';
 import { SearchBar } from "@/components/Search/SearchBar";
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts';
 import React, { useState, useEffect } from 'react';
-import {Business} from "@/utils/types";
+import {Business} from "types/api";
 
 
 export default function InvestorPage() {

@@ -1,12 +1,10 @@
-import type {NextApiRequest, NextApiResponse} from "next";
-import { createClerkClient , auth } from '@clerk/nextjs/server';
-import prisma from "@/utils/db";
-import {RequestData} from "@/utils/types";
-import {NextResponse} from "next/server";
+import type { NextApiRequest } from "next";
+import { auth } from '@clerk/nextjs/server';
+import { NextResponse } from "next/server";
 
-interface RequestQuery {
-    id : number
-}
+import prisma from "@/utils/db";
+import {RequestData} from "types/api";
+
 
 export async function GET(req: NextApiRequest) {
     // security part
@@ -76,6 +74,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Not authenticated' }, {status: 401})
     }
 
+    // TODO:using payload will fix next commit
     // params must have id campaign
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");

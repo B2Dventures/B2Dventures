@@ -6,10 +6,11 @@ import { InvestorDashboard } from '@/components/InvestorDashboard/InvestorDashbo
 import { baiSemiBold } from '@/app/(frontend)/styles/fonts';
 import classes from "./dashboard.module.css";
 import React, { useState, useEffect } from 'react';
+import {} from "types/api";
 
 export default function InvestorDashboardPage() {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<Investment[] | null>(null);
+    const [data, setData] = useState<[] | null>(null);
 
     useEffect(() => {
         const fetchInvestments = async () => {

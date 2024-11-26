@@ -1,6 +1,7 @@
-import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
 import {auth, createClerkClient} from "@clerk/nextjs/server";
+
+import prisma from "@/utils/db";
 import {Roles} from "@/utils/globals";
 
 
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
     const validRoles: Roles[] = ['admin', 'investor', 'business', 'guest', 'investor(pending)', "business(pending)"];
     let newRole: Roles | null = null;
 
+    // TODO: using payload
     const { searchParams } = new URL(req.url);
     const userIdToUpdate = searchParams.get("id"); // Get user ID from the route parameters
     const role = searchParams.get("role"); // Get new role from the route parameters

@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/utils/db';
 import { auth } from '@clerk/nextjs/server';
+
+import prisma from '@/utils/db';
+import {createFundQuery} from "types/models";
 
 export async function POST(req: NextRequest) {
     if (auth().sessionClaims?.metadata?.role != "business") {
         return NextResponse.json({error: "Not have authenticated"}, {status: 401});
     }
-    const body = await req.json();
+    const body : createFundQuery = await req.json();
 
-    // TODO: fixing constant
     const {
         title,
         description,

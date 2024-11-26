@@ -1,7 +1,9 @@
 import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
 import { auth } from "@clerk/nextjs/server";
-import {InvestmentQuery} from "@/utils/types";
+
+import {InvestmentQuery} from "types/models";
+import {InvestmentDashboard} from "types/api";
 
 
 export async function POST(req: Request) {
@@ -78,6 +80,14 @@ export async function GET() {
                 }
             }
         });
+
+        const result: InvestmentDashboard[] = investments.map(investment => ({
+            amount: (investment.amount).toNumber(), // Convert Decimal to number
+            timestamp: investment.timestamp,
+            approvalStatus: investment.approvalStatus,
+            campaign: investment.campaign
+        }));
+
 
         return NextResponse.json({ success: true, investments });
 

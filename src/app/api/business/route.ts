@@ -1,8 +1,8 @@
-import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
-import {CampaignData} from "@/utils/types";
 import {auth} from "@clerk/nextjs/server";
 
+import prisma from "@/utils/db";
+import {CampaignData} from "types/api";
 
 export async function POST(request: Request) {
 

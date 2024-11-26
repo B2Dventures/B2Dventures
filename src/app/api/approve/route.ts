@@ -1,6 +1,6 @@
 import {NextResponse} from 'next/server';
+
 import prisma from "@/utils/db";
-import { RequestStatus } from "@prisma/client";  // Ensure RequestStatus is defined in Prisma schema
 
 type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
 type ModelStatus = "APPROVED" | "REJECTED"
@@ -21,6 +21,7 @@ export async function POST(req: Request)
     let type: ModelType | null = null;
     let status: ModelStatus | null = null;
 
+    // TODO: replace with payload
     const { searchParams } = new URL(req.url);
     const id = Number(searchParams.get('id'));
     const typeParam = searchParams.get('type');

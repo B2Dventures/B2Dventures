@@ -1,9 +1,6 @@
-// Keep all interface Data
+// Keep all respond data
 
 // POST api/business
-import {Detail} from "@prisma/client";
-import {DateTime} from "effect/DateTime";
-
 export interface CampaignData {
     id: number;
     name: string;
@@ -23,8 +20,7 @@ export interface RequestData {
     email: string;
 }
 
-// GET /api/admin/investment
-
+// GET api/admin/investment
 export interface adminInvestment {
     id: number;
     amount: number;
@@ -39,16 +35,18 @@ export interface adminInvestment {
     campaignName: string;
 }
 
+// GET  api/campaign?sort=_&campaignName=_
 export interface Business {
     id: number;
     name: string;
     description: string;
-    images: string[];
+    images: string[] | string;
     totalInvestment: number;
     investors: number;
     min_invest: number;
 }
 
+// GET api/campaign?id=_
 export interface Campaign {
     id: number; // Assuming ID is a string, adjust if it's a number
     name: string;
@@ -68,7 +66,33 @@ export interface Campaign {
     industry: string[];
 }
 
-export interface InvestmentQuery {
-    campaignId: number;  // Assuming these are received as strings
-    amount: number;
+// GET api/search
+export interface Investment {
+    id: number;
+    name: string;
+    description: string;
+    images: string[];
+    totalInvestment: number;
+    investors: number;
 }
+
+// GET api/investment/
+export interface InvestmentDashboard {
+    campaign: {
+        name: string;
+    };
+    amount: number;
+    timestamp: Date;
+    approvalStatus: string;
+}
+
+// GET api/campaigns/slide
+export interface Slide {
+    id: number;
+    name: string;
+    image: string;
+    totalInvestors: number;
+
+}
+
+//

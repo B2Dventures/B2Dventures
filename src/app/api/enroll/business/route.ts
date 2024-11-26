@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/utils/db';
 import { auth, createClerkClient } from '@clerk/nextjs/server';
+import {enrollBusinessQuery} from "types/models";
 
 export async function POST(req: Request) {
     const session = auth();
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Already have a role or not logged in yet." });
     }
 
-    const body = await req.json();
+    const body: enrollBusinessQuery = await req.json();
 
     const {
         businessName,

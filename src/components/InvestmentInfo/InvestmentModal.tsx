@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, Button, TextInput, Group, Box } from '@mantine/core';
-import {InvestmentQuery} from "@/utils/types";
 import {notifications} from "@mantine/notifications";
 import {LuChevronRightCircle} from "react-icons/lu";
+
+
+import {InvestmentQuery} from "types/models";
 
 interface InvestmentModalProps {
     stockPrice: number;

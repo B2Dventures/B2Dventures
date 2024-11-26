@@ -1,6 +1,6 @@
 import {NextResponse} from "next/server";
 import prisma from "@/utils/db";
-import {adminInvestment} from "@/utils/types";
+import {adminInvestment} from "types/api";
 
 export async function GET() {
     try {

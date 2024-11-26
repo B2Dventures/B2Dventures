@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/utils/db';
-import { Campaign } from "@/utils/types";
+import {Business, Campaign} from "types/api";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -85,7 +85,7 @@ export async function GET(request: Request) {
         },
       });
 
-      const campaignsWithTotalInvestment = campaigns.map(campaign => {
+      const campaignsWithTotalInvestment : Business[] = campaigns.map(campaign => {
         const totalInvestment = campaign.investment.reduce(
             (sum, inv) => sum + inv.amount.toNumber(),
             0
@@ -98,7 +98,7 @@ export async function GET(request: Request) {
           images: campaign.images,
           totalInvestment,
           investors,
-          min_invest: campaign.min_invest,
+          min_invest: Number(campaign.min_invest),
         };
       });
 

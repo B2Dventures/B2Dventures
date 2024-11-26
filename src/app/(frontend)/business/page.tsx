@@ -9,7 +9,7 @@ import { LuCheckCircle, LuDollarSign, LuUsers } from "react-icons/lu";
 import { baiSemiBold, baiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { useEffect, useState } from "react";
 import { useUser } from '@clerk/clerk-react';
-import {CampaignData} from "@/utils/types";
+import {CampaignData} from "types/api";
 import {
     SignInButton
 } from '@clerk/nextjs';

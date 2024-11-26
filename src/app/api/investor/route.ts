@@ -1,6 +1,7 @@
 import prisma from "@/utils/db";
 import {NextResponse} from 'next/server';
 
+// no use will remove
 export async function GET() {
     try {
         const users = await prisma.investor.findMany();

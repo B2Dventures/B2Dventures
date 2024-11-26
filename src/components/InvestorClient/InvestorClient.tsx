@@ -2,21 +2,14 @@
 
 import { Grid, Container, Pagination } from '@mantine/core';
 import { useState } from 'react';
+
 import classes from './InvestorClient.module.css';
 import { FundraisingCard } from '@/components/FundraisingCard/FundraisingCard';
+import {Business} from "types/api";
+
 
 interface InvestorClientComponentProps {
   businesses: Business[]
-}
-
-interface Business {
-    id: number;
-    name: string;
-    description: string;
-    images: string | string[];
-    totalInvestment: number;
-    investors: number;
-    price?: number;
 }
 
 const itemsPerPage = 6;

@@ -8,7 +8,7 @@ import { Container, Flex, Text, Loader } from '@mantine/core';
 import Description from '@/components/Description/Description';
 import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 import classes from './id.module.css';
-import {Campaign} from "@/utils/types";
+import {Campaign} from "types/api";
 
 const CampaignPage = ({ params }: { params: { id: number } }) => {
     const { id } = params;
@@ -77,7 +77,6 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
                         totalInvestors={campaign.investors}
                         daysLeft={campaign.daysLeft}
                         campaignName={campaign.name}
-                        category={campaign.industry}
                     />
                 </Flex>
                 <Flex>

@@ -5,7 +5,7 @@ import {Text, Container, Paper, Stack, Flex, Loader} from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
-import { adminInvestment } from "@/utils/types";
+import { adminInvestment } from "types/api";
 
 export function InvestmentApprovalTable() {
     const [investments, setInvestments] = useState<adminInvestment[]>([]);
