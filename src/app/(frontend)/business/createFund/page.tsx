@@ -1,24 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-    Container,
-    TextInput,
-    Textarea,
-    NumberInput,
-    Button,
-    Group,
-    Text,
-    TagsInput,
-} from "@mantine/core";
-import { DateTimePicker } from "@mantine/dates";
+import React, {useState} from "react";
+import {Button, Container, Group, NumberInput, TagsInput, Text, Textarea, TextInput,} from "@mantine/core";
+import {DateTimePicker} from "@mantine/dates";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-import { Header } from "@/components/Header/Header";
-import { notifications } from "@mantine/notifications";
+import {Header} from "@/components/Header/Header";
+import {notifications} from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
-import { useRouter } from "next/navigation";
-import { UploadMultiple } from "@/components/Upload/Upload";
+import {useRouter} from "next/navigation";
+import {UploadMultiple} from "@/components/Upload/Upload";
 import classes from "./campaignCreate.module.css";
 
 export default function CampaignForm() {
@@ -34,6 +25,8 @@ export default function CampaignForm() {
         product: "",
         opportunity: "",
         images: [] as string[],
+        stockPrice: undefined as number | undefined,
+        stockAmount: undefined as number | undefined,
     });
 
     const router = useRouter();
@@ -52,6 +45,21 @@ export default function CampaignForm() {
                     });
                     return prev; // Don't update the form
                 }
+            } else if (field === "stockAmount" || field === "goal" || field === "minimumInvest") {
+                const { goal, stockAmount, minimumInvest } = updatedForm;
+
+                if (stockAmount && !/^\d+$/.test(stockAmount.toString())) {
+                    updatedForm.stockAmount = 0;
+                }
+                if (minimumInvest && !/^\d+$/.test(minimumInvest.toString())) {
+                    updatedForm.minimumInvest = 0;
+                }
+                if (goal && stockAmount){
+                    const stockPrice = goal / stockAmount;
+                    updatedForm.stockPrice = Number(stockPrice.toFixed(2)); // Ensure 2 decimal places
+                }
+
+
             }
             return updatedForm;
         });
@@ -162,11 +170,28 @@ export default function CampaignForm() {
                 />
 
                 <NumberInput
-                    label="Minimum Investment"
-                    placeholder="Enter the minimum amount of your campaign"
+                    label="Stock Amount"
+                    placeholder="Enter the Stock Amount of your fund"
+                    value={form.stockAmount}
+                    onChange={(value) => handleInputChange("stockAmount", value)}
+                    required
+                    mt="md"
+                />
+
+                <NumberInput
+                    label="Minimum Stock Investment"
+                    placeholder="Enter the minimum amount of stock that you want investor to invest"
                     value={form.minimumInvest}
                     onChange={(value) => handleInputChange("minimumInvest", value)}
                     required
+                    mt="md"
+                />
+
+                <TextInput
+                    label="Stock Price (Unit)"
+                    placeholder="Stock per USD"
+                    value={form.stockPrice}
+                    disabled
                     mt="md"
                 />
 
