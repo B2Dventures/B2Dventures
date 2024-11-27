@@ -4,6 +4,8 @@ import { NextResponse } from 'next/server';
 // Define route matchers for role-based access control
 const isAdminRoute = createRouteMatcher(['/admin(.*)', '/api/admin(.*)']);
 const isBusinessRoute = createRouteMatcher(['/business/(.*)']);
+const isInvestorEnrollRoute = createRouteMatcher(['/enroll/investor']);
+const isEnrollRoute = createRouteMatcher(['/enroll/(.*)'])
 
 // Middleware to handle access and redirection
 export default clerkMiddleware(async (auth, req) => {
@@ -12,6 +14,16 @@ export default clerkMiddleware(async (auth, req) => {
     if (req.nextUrl.pathname === '/' && auth().sessionClaims?.metadata?.role === 'admin') {
         const url = new URL('/admin', req.url);
         return NextResponse.redirect(url);
+    }
+
+    if (isInvestorEnrollRoute(req) && auth().sessionClaims?.metadata?.role === 'investor') {
+        const url = new URL('/investor', req.url);
+        return NextResponse.redirect(url);
+    }
+
+    if (isEnrollRoute(req) && auth().sessionClaims?.metadata?.role === 'business') {
+        const url = new URL('/business', req.url);
+        return NextResponse.redirect(url)
     }
 
     // Protect /business routes

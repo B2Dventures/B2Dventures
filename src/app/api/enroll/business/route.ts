@@ -65,6 +65,15 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Create Not Successfully' }, { status: 401 });
     }
 
+    const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { role: 'Business' },
+    });
+
+    if (!updatedUser) {
+        return NextResponse.json({ error: 'Failed to update user role' }, { status: 400 });
+    }
+
     try {
         const response = await clerkClient.users.updateUserMetadata(user.clerkId, {
             publicMetadata : {
