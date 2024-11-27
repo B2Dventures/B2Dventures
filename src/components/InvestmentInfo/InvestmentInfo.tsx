@@ -59,16 +59,26 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
                 </div>
                 <Divider my="md"/>
                 <div className={classes.box}>
-                    <Text className={classes.normalText}>Tags: {category}</Text>
-                </div>
-                <Divider my="md"/>
-                <div className={classes.badge}>
-                    <Badge color="yellow" size="24px">{daysLeft} days left</Badge>
+                    <Text className={classes.normalText}>Tags:</Text>
+                    <div className={classes.tag}>
+                        {category.map((tag, index) => (
+                            <Badge key={index} color="goldenrod" size="sm"
+                                   radius="sm" mx={2}>
+                                #{tag}
+                            </Badge>
+                        ))}
+                    </div>
                 </div>
 
-                    {isInvestor || isBusiness ? (
-                        <InvestmentModal
-                            campaignId={campaignId}
+                <Divider my="md"/>
+                <div className={classes.badge}>
+                    <Badge color="yellow" size="24px">{daysLeft} days
+                        left</Badge>
+                </div>
+
+                {isInvestor || isBusiness ? (
+                    <InvestmentModal
+                        campaignId={campaignId}
                             stockPrice={stockPrice}
                             campaignName={campaignName}
                             minInvest={minInvest}
