@@ -23,7 +23,7 @@ export interface enrollBusinessQuery {
     businessName: string;
     founderFirstName: string;
     founderLastName: string;
-    marketCap : number;
+    marketCap: number;
     companyAddress: string;
     businessDetail: string;
     industry: string[];
@@ -43,5 +43,22 @@ export interface createFundQuery {
     highlight: string;
     product: string;
     opportunity: string;
-    images : string[];
+    images: string[];
+}
+
+// Payload from POST api/user
+export interface updateRoleQuery {
+    id: number;
+    role: 'admin' | 'investor' | 'business' | 'guest' | 'investor(pending)' | "business(pending)";
+}
+
+// Payload from POST api/approve
+export interface approvalsQuery {
+    id: number;
+    type: 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
+    status: 'APPROVED' | 'REJECTED';
+}
+
+export interface requestExtraDataQuery {
+    id: number;
 }

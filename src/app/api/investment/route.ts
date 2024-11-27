@@ -89,7 +89,7 @@ export async function GET() {
         }));
 
 
-        return NextResponse.json({ success: true, investments });
+        return NextResponse.json({ success: true, result });
 
     } catch (error) {
         console.error("Error retrieving investments:", error);

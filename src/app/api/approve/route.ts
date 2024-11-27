@@ -1,9 +1,9 @@
 import {NextResponse} from 'next/server';
 
 import prisma from "@/utils/db";
+import {approvalsQuery} from "types/models";
 
 type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
-type ModelStatus = "APPROVED" | "REJECTED"
 
 const modelMap: Record<ModelType, any> = {
     investor: prisma.investor,
@@ -15,32 +15,11 @@ const modelMap: Record<ModelType, any> = {
 
 export async function POST(req: Request)
 {
-    const validModelTypes: ModelType[] = ['investor', 'business', 'investment', 'campaign', 'detailRequest'];
-    const validStatus: string[] = ["APPROVED", "REJECTED"];
 
-    let type: ModelType | null = null;
-    let status: ModelStatus | null = null;
-
-    // TODO: replace with payload
-    const { searchParams } = new URL(req.url);
-    const id = Number(searchParams.get('id'));
-    const typeParam = searchParams.get('type');
-    const statusParam = searchParams.get('status');
-
-    if ( !id || !typeParam || !statusParam) {
-        return NextResponse.json({ error: 'Missing required query parameters' });
-    }
-
-    if (validModelTypes.includes(typeParam as ModelType)) {
-        type = typeParam as ModelType;  // only allow type that listed in model type
-    } else {
-        return NextResponse.json({ error: 'Invalid type' });
-    }
-
-    if (validStatus.includes(statusParam as ModelStatus)) {
-        status = statusParam as ModelStatus;  // only allow status that listed in model status
-    } else {
-        return NextResponse.json({ error: 'Invalid status' });
+    const payload: approvalsQuery = await req.json();
+    const {id, type, status} = payload;
+    if ( !id || !type || !status) {
+        return NextResponse.json({ error: 'Missing required parameters' });
     }
 
     const table = modelMap[type];

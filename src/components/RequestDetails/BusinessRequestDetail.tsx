@@ -1,9 +1,11 @@
 'use client'
 
 import React, {useEffect, useState} from 'react';
-import { Container, Text, Stack, Button, Divider, Flex, Image, Avatar } from '@mantine/core';
-import classes from './RequestDetail.module.css';
+import { Container, Text, Stack, Button, Divider, Image, Avatar } from '@mantine/core';
 import {useRouter} from "next/navigation";
+
+import classes from './RequestDetail.module.css';
+import {approvalsQuery, updateRoleQuery} from "types/models";
 
 export function BusinessRequestDetail({ business }: { business: any }) {
     const [approvalStatus, setApprovalStatus] = useState('PENDING');
@@ -14,14 +16,20 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     useEffect(() => {
         setApprovalStatus(business.approvalStatus);
     }, [business.approvalStatus]);
+    type roleCheck = 'admin' | 'investor' | 'business' | 'guest' | 'investor(pending)' | "business(pending)";
 
-    const updateRole = async (role: string) => {
+    const updateRole = async (role: roleCheck) => {
         try {
-            const response = await fetch(`/api/user?id=${business.user.id}&role=${role}`, {
+            const payload: updateRoleQuery = {
+                id: business.user.id,
+                role: role,
+            }
+            const response = await fetch(`/api/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify(payload),
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Failed to update role');
@@ -33,7 +41,12 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     const handleApprove = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=APPROVED`, {
+            const payload: approvalsQuery = {
+                id: business.id,
+                type: 'business',
+                status: 'APPROVED',
+            }
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
