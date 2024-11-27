@@ -80,9 +80,18 @@ describe("successful fundraising creation", () => {
     cy.get('body').click({ force: true });
 
     cy.get('input[type="file"]')
-        .selectFile("cypress/fixtures/sample-campaign-image.jpg", {
+        .selectFile(
+            [
+                "cypress/fixtures/sample-campaign-image.jpg",
+                "cypress/fixtures/sample-campaign-image-2.jpg",
+                "cypress/fixtures/sample-campaign-image-3.jpg",
+                "cypress/fixtures/sample-campaign-image-4.jpg",
+                "cypress/fixtures/sample-campaign-image-5.jpg",
+            ], {
           force: true,
         });
+
+    cy.wait(5000);
 
     cy.get('label')
         .contains('Highlight')
@@ -179,8 +188,7 @@ describe("missing some field when create fundraising", () => {
 
     cy.get('.mantine-Notification-root')
         .should('be.visible')
-        .and('contain', 'Campaign Created!')
-        .and('contain', 'Your campaign has been submitted and is awaiting approval.');
+        .and('contain', 'Incomplete Form')
 
   });
 });
