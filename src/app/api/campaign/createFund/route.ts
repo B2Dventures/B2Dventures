@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
         product,
         opportunity,
         images,
+        stockPrice
     } = body;
 
     const id = user.sessionClaims?.metadata?.id;
@@ -43,7 +44,8 @@ export async function POST(req: NextRequest) {
         !highlight ||
         !product ||
         !opportunity ||
-        !images.length
+        !images.length ||
+        !stockPrice
     ) {
         return NextResponse.json(
             { error: "All fields are required" },
@@ -76,6 +78,7 @@ export async function POST(req: NextRequest) {
             end_date: new Date(endDate),
             images,
             approvalStatus: "PENDING",
+            stockPrice: stockPrice,
             details: {
                 create: {
                     highlight,
