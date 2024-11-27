@@ -77,6 +77,22 @@ export interface Investment {
     investors: number;
 }
 
+//  GET api/admin/investment/[id]
+export interface adminInvestmentDetail {
+    id: number;
+    amount: number;
+    timestamp: Date;
+    approvalStatus: string;
+    investorFirstName: string;
+    investorLastName: string;
+    investorPhone: string;
+    investorPassportNum: string;
+    campaignName: string;
+    campaignDescription: string;
+    businessName: string;
+}
+
+
 // GET api/investment/
 export interface InvestmentDashboard {
     campaign: {
@@ -96,3 +112,89 @@ export interface Slide {
 
 }
 
+// GET api/admin/investor
+export interface adminInvestor {
+    id: number;
+    first_name: string;
+    last_name: string;
+    nationality: string;
+    passport_num: string;
+    birth_date: Date;
+    address: string;
+    occupation: string;
+    income: number;
+    passport_img: string;
+    approvalStatus: string;
+    user: {
+        email: string;
+    };
+}
+
+// GET api/admin/investor/[id]
+export interface adminInvestorDetail {
+    id: number;
+    first_name: string;
+    last_name: string;
+    nationality: string;
+    passport_num: string;
+    phone_num: string;
+    birth_date: Date;
+    address: string;
+    occupation: string;
+    income: number;
+    passport_img: string;
+    approvalStatus: string;
+    user: {
+        id: number;
+        email: string;
+        clerkId: string;
+    };}
+
+// GET api/admin/campaign
+export interface adminCampaign {
+    id: number;
+    name: string;
+    description: string;
+    goal: number;
+    minInvest: number;
+    startDate: Date;
+    endDate: Date;
+    images: string[];
+    industry: string[];
+    approvalStatus: string;
+    businessName: string;
+    highlights: string;
+}
+
+// GET api/admin/business
+export interface adminBusiness {
+    id: number;
+    business_name: string;
+    founder_first_name: string;
+    founder_last_name: string;
+    market_cap: number;
+    company_address: string;
+    business_detail: string;
+    industry: string[];
+    logo: string;
+    license: string;
+    approvalStatus: string;
+    userEmail: string;
+}
+
+//  GET api/admin/business/[id]
+export interface adminBusinessDetail {
+    id: number;
+    business_name: string;
+    founder_first_name: string;
+    founder_last_name: string;
+    market_cap: number;
+    company_address: string;
+    business_detail: string;
+    industry: string[];
+    logo: string;
+    license: string;
+    approvalStatus: string;
+    userId: number;
+    userEmail: string;
+}

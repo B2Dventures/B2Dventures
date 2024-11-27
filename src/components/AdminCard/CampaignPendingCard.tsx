@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, Text, Group, Button} from '@mantine/core';
 import classes from './AdminCard.module.css';
 import {LuBriefcase, LuChevronRightCircle, LuUser, LuClipboardList} from "react-icons/lu";
+import {adminCampaign} from "types/api";
 
 interface CardProps {
 }
@@ -17,7 +18,7 @@ export const CampaignPendingCard: React.FC<CardProps> = () => {
                     throw new Error('Failed to fetch campaigns');
                 }
 
-                const campaigns = await response.json();
+                const campaigns: adminCampaign[] = await response.json();
                 const pendingCampaigns = campaigns.filter((campaign: { approvalStatus: string }) => campaign.approvalStatus === "PENDING");
 
                 setPendingCount(pendingCampaigns.length);

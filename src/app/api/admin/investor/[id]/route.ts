@@ -1,12 +1,13 @@
 import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
+import {adminInvestorDetail} from "types/api";
 
 export async function GET(request:Request, { params }: { params: { id: string } }) {
     const { id } = params;
 
     try {
         // Find investor by ID with associated user email
-        const investor = await prisma.investor.findUnique({
+        const investor: adminInvestorDetail | null = await prisma.investor.findUnique({
             where: {
                 id: parseInt(id),
             },

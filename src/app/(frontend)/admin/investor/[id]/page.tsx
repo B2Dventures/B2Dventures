@@ -7,6 +7,7 @@ import {baiSemiBold} from "@/app/(frontend)/styles/fonts";
 import classes from "@/app/(frontend)/admin/business/business_list.module.css";
 import React from "react";
 import {Loader, Stack} from "@mantine/core";
+import {adminInvestorDetail} from "types/api";
 
 export default function InvestorRequestPage({ params }: { params: { id: string } }) {
     const [investorData, setInvestorData] = useState<any>(null);
@@ -14,7 +15,7 @@ export default function InvestorRequestPage({ params }: { params: { id: string }
     useEffect(() => {
         const fetchInvestorData = async () => {
             const response = await fetch(`/api/admin/investor/${params.id}`);
-            const data = await response.json();
+            const data: adminInvestorDetail = await response.json();
             setInvestorData(data);
         };
 

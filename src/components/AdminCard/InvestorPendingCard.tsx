@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Card, Text, Group, Loader} from '@mantine/core';
 import classes from './AdminCard.module.css';
 import { LuUser } from "react-icons/lu";
+import {adminInvestor} from "types/api";
 
 interface CardProps {}
 
@@ -16,7 +17,7 @@ export const InvestorPendingCard: React.FC<CardProps> = () => {
                     throw new Error('Failed to fetch investors');
                 }
 
-                const investors = await response.json();
+                const investors: adminInvestor[] = await response.json();
                 const pendingInvestors = investors.filter((investor: { approvalStatus: string }) => investor.approvalStatus === "PENDING");
 
                 setPendingCount(pendingInvestors.length);

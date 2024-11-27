@@ -1,12 +1,15 @@
 'use client'
 
-import { AdminHeader } from "@/components/Header/AdminHeader";
 import { useState, useEffect } from 'react';
 import React from "react";
-import { baiSemiBold } from "@/app/(frontend)/styles/fonts";
-import classes from "@/app/(frontend)/admin/business/business_list.module.css";
-import { BusinessRequestDetail } from "@/components/RequestDetails/BusinessRequestDetail";
 import {Loader, Stack} from "@mantine/core";
+
+import { BusinessRequestDetail } from "@/components/RequestDetails/BusinessRequestDetail";
+import { AdminHeader } from "@/components/Header/AdminHeader";
+import { baiSemiBold } from "@/app/(frontend)/styles/fonts";
+import {adminBusinessDetail} from "types/api";
+import classes from "@/app/(frontend)/admin/business/business_list.module.css";
+
 
 export default function BusinessRequestPage({ params }: { params: { id: string } }) {
     const [businessData, setBusinessData] = useState<any>(null);
@@ -14,7 +17,7 @@ export default function BusinessRequestPage({ params }: { params: { id: string }
     useEffect(() => {
         const fetchBusinessData = async () => {
             const response = await fetch(`/api/admin/business/${params.id}`);
-            const data = await response.json();
+            const data: adminBusinessDetail = await response.json();
             setBusinessData(data);
         };
 

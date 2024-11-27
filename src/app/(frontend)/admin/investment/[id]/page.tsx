@@ -7,9 +7,10 @@ import { baiSemiBold } from "@/app/(frontend)/styles/fonts";
 import classes from "@/app/(frontend)/admin/investment/investment_list.module.css";
 import { InvestmentRequestDetail } from "@/components/RequestDetails/InvestmentRequestDetail";
 import {Loader, Stack} from "@mantine/core";
+import {adminInvestmentDetail} from "types/api";
 
 export default function InvestmentRequestPage({ params }: { params: { id: string } }) {
-    const [investmentData, setInvestmentData] = useState<any>(null);
+    const [investmentData, setInvestmentData] = useState<adminInvestmentDetail>();
 
     useEffect(() => {
         const fetchInvestmentData = async () => {

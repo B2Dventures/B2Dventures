@@ -6,8 +6,9 @@ import {useRouter} from "next/navigation";
 
 import classes from './RequestDetail.module.css';
 import {approvalsQuery, updateRoleQuery} from "types/models";
+import {adminInvestmentDetail} from "types/api";
 
-export function InvestmentRequestDetail({ investment }: { investment: any }) {
+export function InvestmentRequestDetail({ investment }: { investment: adminInvestmentDetail }) {
     const [approvalStatus, setApprovalStatus] = useState('PENDING');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -93,17 +94,17 @@ export function InvestmentRequestDetail({ investment }: { investment: any }) {
                 <div className={classes.box}>
                     <Text className={classes.topic}>Investor Information</Text>
                     <Text className={classes.normalText}><strong>Investor
-                        Name:</strong> {investment.investor.first_name} {investment.investor.last_name}</Text>
+                        Name:</strong> {investment.investorFirstName} {investment.investorLastName}</Text>
                     <Text className={classes.normalText}><strong>Passport
-                        Number:</strong> {investment.investor.passport_num}</Text>
-                    <Text className={classes.normalText}><strong>Phone Number:</strong> {investment.investor.phone_num}</Text>
+                        Number:</strong> {investment.investorPassportNum}</Text>
+                    <Text className={classes.normalText}><strong>Phone Number:</strong> {investment.investorPhone}</Text>
                 </div>
                 <Divider my="md"/>
                 <div className={classes.box}>
                     <Text className={classes.topic}>Campaign Information</Text>
-                    <Text className={classes.normalText}><strong>Campaign Name:</strong> {investment.campaign.name}</Text>
-                    <Text className={classes.normalText}><strong>Description:</strong> {investment.campaign.description}</Text>
-                    <Text className={classes.normalText}><strong>From Business:</strong> {investment.campaign.business.business_name}</Text>
+                    <Text className={classes.normalText}><strong>Campaign Name:</strong> {investment.campaignName}</Text>
+                    <Text className={classes.normalText}><strong>Description:</strong> {investment.campaignDescription}</Text>
+                    <Text className={classes.normalText}><strong>From Business:</strong> {investment.businessName}</Text>
                 </div>
                 <Divider my="md"/>
                 <div className={classes.box}>

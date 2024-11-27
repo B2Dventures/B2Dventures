@@ -5,9 +5,10 @@ import { Container, Text, Stack, Button, Divider, Image, Avatar } from '@mantine
 import {useRouter} from "next/navigation";
 
 import classes from './RequestDetail.module.css';
-import {approvalsQuery, updateRoleQuery} from "types/models";
+import { approvalsQuery } from "types/models";
+import {adminBusinessDetail} from "types/api";
 
-export function BusinessRequestDetail({ business }: { business: any }) {
+export function BusinessRequestDetail({ business }: { business: adminBusinessDetail }) {
     const [approvalStatus, setApprovalStatus] = useState('PENDING');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -16,19 +17,19 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     useEffect(() => {
         setApprovalStatus(business.approvalStatus);
     }, [business.approvalStatus]);
-    type roleCheck = 'admin' | 'investor' | 'business' | 'guest' | 'investor(pending)' | "business(pending)";
 
     const updateRole = async (role: string) => {
         try {
+            const payload = {
+                id: business.userId,
+                role: role,
+            }
             const response = await fetch(`/api/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    id: business.user.id,
-                    role: role,
-                }),
+                body: JSON.stringify(payload),
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Failed to update role');
@@ -50,11 +51,7 @@ export function BusinessRequestDetail({ business }: { business: any }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    id: business?.id,
-                    type: 'business',
-                    status: 'APPROVED',
-                }),
+                body: JSON.stringify(payload),
             });
             const data = await response.json();
             if (response.ok) {
@@ -74,16 +71,17 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     const handleReject = async () => {
         setLoading(true);
         try {
+            const payload : approvalsQuery = {
+                id: business.id,
+                type: 'business',
+                status: 'REJECTED',
+            }
             const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    id: business?.id,
-                    type: 'business',
-                    status: 'REJECTED',
-                }),
+                body: JSON.stringify(payload),
             });
             const data = await response.json();
             if (response.ok) {
@@ -128,7 +126,7 @@ export function BusinessRequestDetail({ business }: { business: any }) {
                 <div className={classes.box}>
                     <Text className={classes.topic}>Contact</Text>
                     <Text className={classes.normalText}><strong>Address:</strong> {business.company_address}</Text>
-                    <Text className={classes.normalText}><strong>Email:</strong> {business.user.email}</Text>
+                    <Text className={classes.normalText}><strong>Email:</strong> {business.userEmail}</Text>
                 </div>
                 <Divider my="md" />
                 <div className={classes.buttonContainer}>

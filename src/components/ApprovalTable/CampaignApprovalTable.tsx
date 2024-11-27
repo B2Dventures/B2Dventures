@@ -5,6 +5,7 @@ import {Text, Container, Paper, Stack, Flex, Loader} from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
+import {adminCampaign} from "types/api";
 
 type Campaign = {
     id: number;
@@ -27,7 +28,7 @@ type Campaign = {
 };
 
 export function CampaignApprovalTable() {
-    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [campaigns, setCampaigns] = useState<adminCampaign[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -38,7 +39,7 @@ export function CampaignApprovalTable() {
                 if (!response.ok) {
                     throw new Error('Failed to fetch campaigns');
                 }
-                const data: Campaign[] = await response.json();
+                const data: adminCampaign[] = await response.json();
                 setCampaigns(data);
             } catch (error: unknown) {
                 setError((error as Error).message);
@@ -84,7 +85,7 @@ export function CampaignApprovalTable() {
                         onClick={() => window.location.href = `/admin/campaign/${campaign.id}`}
                     >
                         <Text className={classes.topic}>Campaign: {campaign.name}</Text>
-                        <Text><strong>Business Name:</strong> {campaign.business.business_name}</Text>
+                        <Text><strong>Business Name:</strong> {campaign.businessName}</Text>
                         <Flex align="center" className={classes.descriptionGoal}>
                             <Text><strong>Description:</strong> {campaign.description}</Text>
                             <Text className={classes.goal}><strong>Goal:</strong> $ {campaign.goal}</Text>

@@ -1,10 +1,11 @@
 import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
+import {adminInvestor} from "types/api";
 
 export async function GET() {
     try {
         // Query to find all investors with approvalStatus = PENDING
-        const investors = await prisma.investor.findMany({
+        const investors: adminInvestor[] = await prisma.investor.findMany({
             where: {
                 approvalStatus: "PENDING",
             },
