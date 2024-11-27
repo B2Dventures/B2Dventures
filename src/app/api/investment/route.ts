@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { campaignId, amount } : InvestmentQuery = await req.json();
+        const { campaignId, amount, stockUnit } : InvestmentQuery = await req.json();
         const id = auth().sessionClaims?.metadata?.id;
 
         if (isNaN(campaignId) || isNaN(amount) || !id) {
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
                 campaignId: Number(campaignId),
                 investorId: investor.id,
                 amount: Number(amount),
+                stockUnit: stockUnit,
                 approvalStatus: "PENDING"
             }
         });

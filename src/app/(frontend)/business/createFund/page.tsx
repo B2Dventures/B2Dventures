@@ -1,24 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-    Container,
-    TextInput,
-    Textarea,
-    NumberInput,
-    Button,
-    Group,
-    Text,
-    TagsInput
-} from "@mantine/core";
-import { DateTimePicker } from "@mantine/dates";
+import React, {useState} from "react";
+import {Button, Container, Group, NumberInput, TagsInput, Text, Textarea, TextInput} from "@mantine/core";
+import {DateTimePicker} from "@mantine/dates";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-import { Header } from "@/components/Header/Header";
-import { notifications } from "@mantine/notifications";
+import {Header} from "@/components/Header/Header";
+import {notifications} from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
-import { useRouter } from "next/navigation";
-import { UploadMultiple } from "@/components/Upload/Upload";
+import {useRouter} from "next/navigation";
+import {UploadMultiple} from "@/components/Upload/Upload";
 import classes from "./campaignCreate.module.css"
 
 export default function CampaignForm() {
@@ -27,6 +18,7 @@ export default function CampaignForm() {
         description: "",
         goal: undefined as number | undefined,
         minimumInvest: undefined as number | undefined,
+        stockPrice: undefined as number | undefined,
         category: [] as string[],
         startDate: null as Date | null,
         endDate: null as Date | null,
@@ -34,6 +26,7 @@ export default function CampaignForm() {
         product: "",
         opportunity: "",
         images: [] as string[],
+        stockAmount: undefined as number | undefined,
     });
 
     const router = useRouter();
@@ -52,7 +45,15 @@ export default function CampaignForm() {
                     });
                     return prev; // Don't update the form
                 }
+            } else if (field === "goal" || field === "stockAmount") {
+                const { goal, stockAmount } = updatedForm;
+
+                // If both goal and stockAmount are set, dynamically calculate stockPrice
+                if (goal && stockAmount) {
+                    updatedForm.stockPrice = Number((goal / stockAmount).toFixed(2));
+                }
             }
+
             return updatedForm;
         });
     };
@@ -144,11 +145,28 @@ export default function CampaignForm() {
                 />
 
                 <NumberInput
-                    label="Minimum Investment"
-                    placeholder="Enter the minimum amount of your campaign"
+                    label="Stock amount"
+                    placeholder="Enter the total stock amount"
+                    value={form.stockAmount}
+                    onChange={(value) => handleInputChange("stockAmount", value)}
+                    required
+                    mt="md"
+                />
+
+                <NumberInput
+                    label="Minimum Stock Investment"
+                    placeholder="Enter the minimum amount of stock for investors to invest"
                     value={form.minimumInvest}
                     onChange={(value) => handleInputChange("minimumInvest", value)}
                     required
+                    mt="md"
+                />
+
+                <TextInput
+                    label="Stock Price (Unit)"
+                    placeholder="Enter the stock price of your fund in USD"
+                    value={form.stockPrice}
+                    disabled
                     mt="md"
                 />
 

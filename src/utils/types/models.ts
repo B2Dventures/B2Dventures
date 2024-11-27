@@ -2,6 +2,7 @@
 export interface InvestmentQuery {
     campaignId: number;  // Assuming these are received as strings
     amount: number;
+    stockUnit: number;
 }
 
 // Payload from POST api/enroll/investor
@@ -44,6 +45,7 @@ export interface createFundQuery {
     product: string;
     opportunity: string;
     images: string[];
+    stockPrice: number;
 }
 
 // Payload from POST api/user

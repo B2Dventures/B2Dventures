@@ -21,7 +21,8 @@ export async function POST(req: NextRequest) {
         highlight,
         product,
         opportunity,
-        images
+        images,
+        stockPrice
     } = body;
 
     const id = auth().sessionClaims?.metadata?.id;
@@ -54,6 +55,7 @@ export async function POST(req: NextRequest) {
             start_date: new Date(startDate),
             end_date: new Date(endDate),
             images: images,
+            stockPrice: stockPrice,
             approvalStatus: "PENDING",
             details: {
                 create: {
