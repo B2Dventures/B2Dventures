@@ -16,7 +16,7 @@ export interface enrollInvestorQuery {
     address: string;
     occupation: string;
     income: number;
-    passportImg: string;
+    passport_img: string;
 }
 
 // Payload from POST api/enroll/business

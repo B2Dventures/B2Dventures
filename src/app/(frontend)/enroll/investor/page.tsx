@@ -51,6 +51,23 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
+    const missingFields = Object.entries(form).filter(([key, value]) => {
+      if (Array.isArray(value)) return value.length === 0;
+      if (value instanceof Date) return value === null;
+      return !value;
+    });
+
+    if (missingFields.length > 0) {
+      notifications.show({
+        title: "Incomplete Form",
+        message: `Please fill out all required fields: ${missingFields
+            .map(([field]) => field)
+            .join(", ")}`,
+        color: "red",
+      });
+      return;
+    }
+
     try {
       const response = await fetch('/api/enroll/investor', {
         method: 'POST',
