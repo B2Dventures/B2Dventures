@@ -40,11 +40,16 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
     const handleApprove = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${investor.id}&type=investor&status=APPROVED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investor?.id,
+                    type: 'investor',
+                    status: 'APPROVED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -64,11 +69,16 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
     const handleReject = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${investor.id}&type=investor&status=REJECTED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investor?.id,
+                    type: 'investor',
+                    status: 'REJECTED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {

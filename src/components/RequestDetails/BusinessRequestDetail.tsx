@@ -46,11 +46,16 @@ export function BusinessRequestDetail({ business }: { business: any }) {
                 type: 'business',
                 status: 'APPROVED',
             }
-            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=APPROVED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: business?.id,
+                    type: 'business',
+                    status: 'APPROVED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -70,11 +75,16 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     const handleReject = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=REJECTED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: business?.id,
+                    type: 'business',
+                    status: 'REJECTED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {

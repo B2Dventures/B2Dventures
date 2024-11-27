@@ -27,12 +27,24 @@ export function InvestmentRequestDetail({ investment }: { investment: any }) {
                 type: 'investment',
                 status: 'APPROVED',
             }
-            const response = await fetch(`/api/approve?id=${investment.id}&type=investment&status=APPROVED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investment?.id,
+                    type: 'investment',
+                    status: 'APPROVED',
+                }),
             });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("API error:", errorData.error);
+                return;
+            }
+
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('APPROVED');
@@ -50,11 +62,16 @@ export function InvestmentRequestDetail({ investment }: { investment: any }) {
     const handleReject = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${investment.id}&type=investment&status=REJECTED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investment?.id,
+                    type: 'investment',
+                    status: 'REJECTED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {
