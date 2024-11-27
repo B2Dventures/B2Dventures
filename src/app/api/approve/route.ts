@@ -2,6 +2,7 @@ import {NextResponse} from 'next/server';
 
 import prisma from "@/utils/db";
 import {approvalsQuery} from "types/models";
+import {checkRole} from "@/utils/roles";
 
 type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
 
@@ -15,11 +16,18 @@ const modelMap: Record<ModelType, any> = {
 
 export async function POST(req: Request)
 {
+    if (!checkRole("admin") || !checkRole("business")) {
+        return NextResponse.json({error: "Not authorized to access this resource"})
+    }
 
     const payload: approvalsQuery = await req.json();
     const {id, type, status} = payload;
     if ( !id || !type || !status) {
         return NextResponse.json({ error: 'Missing required parameters' });
+    }
+
+    if (type != 'detailRequest' && checkRole("admin")) {
+        return NextResponse.json({ error: 'Not authorized to access this resource' });
     }
 
     const table = modelMap[type];

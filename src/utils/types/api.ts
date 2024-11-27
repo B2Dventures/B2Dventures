@@ -46,7 +46,7 @@ export interface Business {
     min_invest: number;
 }
 
-// GET api/campaign?id=_
+// GET api/campaign/[id]
 export interface Campaign {
     id: number; // Assuming ID is a string, adjust if it's a number
     name: string;
@@ -96,4 +96,3 @@ export interface Slide {
 
 }
 
-//
