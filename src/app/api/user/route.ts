@@ -6,17 +6,6 @@ import {Roles} from "@/utils/globals";
 import {updateRoleQuery} from "types/models";
 
 
-export async function GET() {
-    try {
-        const users = await prisma.user.findMany();
-
-        return NextResponse.json({users});
-    } catch (error) {
-        return NextResponse.json({error: "Error fetching users"}, {status: 500});
-    }
-}
-
-
 export async function POST(req: Request) {
     // Only allow if the user has the 'admin' role
     if (auth().sessionClaims?.metadata?.role !== 'admin') {
