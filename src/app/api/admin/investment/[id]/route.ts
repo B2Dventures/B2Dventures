@@ -29,6 +29,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
                         phone_num: true,
                     }
                 },
+                id: true,
                 amount: true,
                 timestamp: true,
                 approvalStatus: true,
