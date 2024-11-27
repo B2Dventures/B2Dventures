@@ -59,6 +59,7 @@ export interface approvalsQuery {
     status: 'APPROVED' | 'REJECTED';
 }
 
+// Payload from POST api/request
 export interface requestExtraDataQuery {
     id: number;
 }
