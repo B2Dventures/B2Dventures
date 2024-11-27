@@ -18,7 +18,7 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
     useEffect(() => {
         const fetchCampaign = async () => {
             try {
-                const response = await fetch(`/api/campaign?id=${id.toString()}`);
+                const response = await fetch(`/api/campaign/${id.toString()}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch campaign');
                 }
