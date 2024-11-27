@@ -7,31 +7,32 @@ import {checkRole} from "@/utils/roles";
 type ModelType = 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
 
 const modelMap: Record<ModelType, any> = {
-    investor: prisma.investor,
-    business: prisma.business,
-    investment: prisma.investment,
-    campaign: prisma.campaign,
-    detailRequest: prisma.detailRequest,
+    'investor': prisma.investor,
+    'business': prisma.business,
+    'investment': prisma.investment,
+    'campaign': prisma.campaign,
+    'detailRequest': prisma.detailRequest,
 };
 
 export async function POST(req: Request)
 {
-    if (!checkRole("admin") || !checkRole("business")) {
-        return NextResponse.json({error: "Not authorized to access this resource"})
+
+    if (!checkRole("admin") && !checkRole("business")) {
+        return NextResponse.json({error: "Not authorized to access this resource"}, {status: 401})
     }
 
     const payload: approvalsQuery = await req.json();
     const {id, type, status} = payload;
     if ( !id || !type || !status) {
-        return NextResponse.json({ error: 'Missing required parameters' });
+        return NextResponse.json({ error: 'Missing required parameters' }, {status: 400});
     }
 
-    if (type != 'detailRequest' && checkRole("admin")) {
-        return NextResponse.json({ error: 'Not authorized to access this resource' });
+    if (type != 'detailRequest' && !checkRole("admin")) {
+        return NextResponse.json({ error: 'Not authorized to access this resource' }, {status: 401});
     }
-
+    console.log(type + "Here");
     const table = modelMap[type];
-
+    console.log(`${table}`);
     if (!table) {
         return NextResponse.json({ error: `Invalid type: ${type} does not exist` }, { status: 404 });
     }
