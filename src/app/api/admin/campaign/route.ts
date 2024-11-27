@@ -23,6 +23,7 @@ export async function GET() {
                 end_date: true,
                 images: true,
                 approvalStatus: true,
+                industry: true,
                 business: {
                     select: {
                         business_name: true,
