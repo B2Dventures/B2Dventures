@@ -139,9 +139,8 @@ export default function BusinessPage() {
                                 Please login here
                             </Text>
                             <SignInButton>
-                                <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
-                                        onClick={() => window.location.href = "/enroll/business"}>
-                                    <NavItem label="Login" link="/enroll/business"/>
+                                <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}>
+                                    Login
                                 </Button>
                             </SignInButton>
                         </main>
@@ -172,8 +171,8 @@ export default function BusinessPage() {
                     </Group>
                     <Group gap={20} visibleFrom="xs">
                         <Button size='md' variant="gradient" gradient={{from: 'yellow', to: 'gold', deg: 90}}
-                                onClick={() => window.location.href = "/business/createFund"}>
-                            <NavItem label="Create Fundraising" link="/business/createFund"/>
+                                onClick={() => window.location.href = "http://localhost:3000/business/createFund"}>
+                            <NavItem label="Create Fundraising" link="http://localhost:3000/business/createFund"/>
                         </Button>
                     </Group>
                 </Container>
