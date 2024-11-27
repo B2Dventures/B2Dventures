@@ -71,13 +71,14 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
                     <Gallery images={campaign.images} />
                     <InvestmentInfo
                         campaignId={id}
-                        stockPrice={100} // initial for prisma update
+                        stockPrice={campaign.stockPrice} // initial for prisma update
                         raisedAmount={campaign.raisedAmount}
                         goalAmount={campaign.goal}
                         totalInvestors={campaign.investors}
                         daysLeft={campaign.daysLeft}
                         campaignName={campaign.name}
                         category={campaign.industry}
+                        minInvest={campaign.min_invest}
                     />
                 </Flex>
                 <Flex>

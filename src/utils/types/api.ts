@@ -64,6 +64,7 @@ export interface Campaign {
     opportunity: string;
     approvalStatus: string;
     industry: string[];
+    stockPrice: number;
 }
 
 // GET api/search

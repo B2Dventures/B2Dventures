@@ -107,6 +107,7 @@ model Campaign {
   images         String[]
   approvalStatus RequestStatus
   DetailRequest  DetailRequest[]
+  stockPrice     Decimal
 }
 
 model Investment {

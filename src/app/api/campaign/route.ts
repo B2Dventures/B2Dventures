@@ -10,6 +10,7 @@ export async function GET(request: Request) {
 
   try {
     if (id) {
+
       const campaign = await prisma.campaign.findUnique({
         where: { id: parseInt(id, 10) },
         include: {
@@ -49,7 +50,8 @@ export async function GET(request: Request) {
         product: campaign.details?.product || "",
         opportunity: campaign.details?.opportunity || "",
         approvalStatus: campaign.approvalStatus,
-          industry: campaign.industry,
+        industry: campaign.industry,//
+        stockPrice: campaign.stockPrice.toNumber()
       };
 
       return NextResponse.json(result);

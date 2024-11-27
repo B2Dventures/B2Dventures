@@ -16,6 +16,7 @@ interface InvestmentInfoProps {
     campaignName: string;
     stockPrice: number;
     category: string[];
+    minInvest: number;
 }
 
 export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
@@ -26,7 +27,8 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
                                                                   daysLeft,
                                                                   campaignName,
                                                                   stockPrice,
-                                                                  category
+                                                                  category,
+                                                                  minInvest
                                                               }) => {
     const { user } = useUser(); // Fetches user data from Clerk
 
@@ -69,6 +71,7 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
                             campaignId={campaignId}
                             stockPrice={stockPrice}
                             campaignName={campaignName}
+                            minInvest={minInvest}
                         />
                     ) : (
                         <Button
