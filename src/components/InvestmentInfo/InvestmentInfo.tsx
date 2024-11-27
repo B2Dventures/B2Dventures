@@ -15,6 +15,7 @@ interface InvestmentInfoProps {
     daysLeft: number;
     campaignName: string;
     stockPrice: number;
+    category: string[];
 }
 
 export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
@@ -25,6 +26,7 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
                                                                   daysLeft,
                                                                   campaignName,
                                                                   stockPrice,
+                                                                  category
                                                               }) => {
     const { user } = useUser(); // Fetches user data from Clerk
 
@@ -48,35 +50,39 @@ export const InvestmentInfo: React.FC<InvestmentInfoProps> = ({
                     value={progressPercentage}
                     animated
                 />
-                <Divider my="md" />
+                <Divider my="md"/>
                 <div className={classes.box}>
                     <Text className={classes.investors}>{totalInvestors.toLocaleString()}</Text>
                     <Text className={classes.normalText}>Investors</Text>
                 </div>
-                <Divider my="md" />
+                <Divider my="md"/>
+                <div className={classes.box}>
+                    <Text className={classes.normalText}>Tags: {category}</Text>
+                </div>
+                <Divider my="md"/>
                 <div className={classes.badge}>
                     <Badge color="yellow" size="24px">{daysLeft} days left</Badge>
                 </div>
 
-                {isInvestor || isBusiness ? (
-                    <InvestmentModal
-                        campaignId={campaignId}
-                        stockPrice={stockPrice}
-                        campaignName={campaignName}
-                    />
-                ) : (
-                    <Button
-                        size="lg"
-                        rightSection={<LuChevronRightCircle size={25} />}
-                        variant="outline"
-                        color="yellow"
-                        radius="20"
-                        onClick={() => (window.location.href = '/enroll/investor')}
-                    >
-                        Enroll as Investor
-                    </Button>
-                )}
+                    {isInvestor || isBusiness ? (
+                        <InvestmentModal
+                            campaignId={campaignId}
+                            stockPrice={stockPrice}
+                            campaignName={campaignName}
+                        />
+                    ) : (
+                        <Button
+                            size="lg"
+                            rightSection={<LuChevronRightCircle size={25}/>}
+                            variant="outline"
+                            color="yellow"
+                            radius="20"
+                            onClick={() => (window.location.href = '/enroll/investor')}
+                        >
+                            Enroll as Investor
+                        </Button>
+                    )}
             </Stack>
         </Container>
-    );
+);
 };
