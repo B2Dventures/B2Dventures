@@ -24,11 +24,15 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
 
     const updateRole = async (role: string) => {
         try {
-            const response = await fetch(`/api/user?id=${investor.user.id}&role=${role}`, {
+            const response = await fetch(`/api/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investor.user.id,
+                    role: role,
+                }),
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Failed to update role');

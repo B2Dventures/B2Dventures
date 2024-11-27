@@ -18,18 +18,17 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     }, [business.approvalStatus]);
     type roleCheck = 'admin' | 'investor' | 'business' | 'guest' | 'investor(pending)' | "business(pending)";
 
-    const updateRole = async (role: roleCheck) => {
+    const updateRole = async (role: string) => {
         try {
-            const payload: updateRoleQuery = {
-                id: business.user.id,
-                role: role,
-            }
             const response = await fetch(`/api/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({
+                    id: business.user.id,
+                    role: role,
+                }),
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Failed to update role');

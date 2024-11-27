@@ -25,7 +25,9 @@ export async function GET(request:Request, { params }: { params: { id: string } 
                 approvalStatus: true,
                 user: {
                     select: {
+                        id: true,
                         email: true,
+                        clerkId: true,
                     },
                 },
             },
