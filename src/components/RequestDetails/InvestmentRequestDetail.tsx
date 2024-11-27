@@ -7,46 +7,27 @@ import {useRouter} from "next/navigation";
 import classes from './RequestDetail.module.css';
 import {approvalsQuery, updateRoleQuery} from "types/models";
 
-export function BusinessRequestDetail({ business }: { business: any }) {
+export function InvestmentRequestDetail({ investment }: { investment: any }) {
     const [approvalStatus, setApprovalStatus] = useState('PENDING');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
 
     useEffect(() => {
-        setApprovalStatus(business.approvalStatus);
-    }, [business.approvalStatus]);
+        setApprovalStatus(investment.approvalStatus);
+    }, [investment.approvalStatus]);
     type roleCheck = 'admin' | 'investor' | 'business' | 'guest' | 'investor(pending)' | "business(pending)";
 
-    const updateRole = async (role: roleCheck) => {
-        try {
-            const payload: updateRoleQuery = {
-                id: business.user.id,
-                role: role,
-            }
-            const response = await fetch(`/api/user`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Failed to update role');
-        } catch (error) {
-            console.error('Error updating user role in Clerk:', error);
-        }
-    };
 
     const handleApprove = async () => {
         setLoading(true);
         try {
             const payload: approvalsQuery = {
-                id: business.id,
-                type: 'business',
+                id: investment.id,
+                type: 'investment',
                 status: 'APPROVED',
             }
-            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=APPROVED`, {
+            const response = await fetch(`/api/approve?id=${investment.id}&type=investment&status=APPROVED`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,13 +36,12 @@ export function BusinessRequestDetail({ business }: { business: any }) {
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('APPROVED');
-                await updateRole('business');
-                router.push('/admin/business');
+                router.push('/admin/investment');
             } else {
                 console.error('Failed to approve:', data.error);
             }
         } catch (error) {
-            console.error('Error approving business:', error);
+            console.error('Error approving investment:', error);
         } finally {
             setLoading(false);
         }
@@ -70,7 +50,7 @@ export function BusinessRequestDetail({ business }: { business: any }) {
     const handleReject = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${business.id}&type=business&status=REJECTED`, {
+            const response = await fetch(`/api/approve?id=${investment.id}&type=investment&status=REJECTED`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,13 +59,12 @@ export function BusinessRequestDetail({ business }: { business: any }) {
             const data = await response.json();
             if (response.ok) {
                 setApprovalStatus('REJECTED');
-                await updateRole('guest');
-                router.push('/admin/business');
+                router.push('/admin/investment');
             } else {
                 console.error('Failed to reject:', data.error);
             }
         } catch (error) {
-            console.error('Error rejecting business:', error);
+            console.error('Error rejecting investment:', error);
         } finally {
             setLoading(false);
         }
@@ -93,35 +72,29 @@ export function BusinessRequestDetail({ business }: { business: any }) {
 
     return (
         <Container className={classes.container}>
-            <Image
-                radius="md"
-                height="auto"
-                width="50%"
-                fit="cover"
-                src={business.license || "/business-certificate-ex.png"}
-                className={classes.image}
-            />
             <Stack gap="md" align="stretch" className={classes.stack}>
-                <div className={classes.logo}>
-                    <Avatar src="/logo.ico" radius="sm" size='120px'/>
-                </div>
                 <div className={classes.box}>
-                    <Text className={classes.topic}>Business Information</Text>
-                    <Text className={classes.normalText}><strong>Business Name:</strong> {business.business_name}</Text>
-                    <Text className={classes.normalText}><strong>Founder Name:</strong> {business.founder_first_name} {business.founder_last_name}</Text>
-                    <Text className={classes.normalText}>
-                        <strong>Category:</strong> {Array.isArray(business.industry) ? business.industry.join(', ') : 'Not specified'}
-                    </Text>
-                    <Text className={classes.normalText}><strong>Description:</strong> {business.business_detail}</Text>
-                    <Text className={classes.normalText}><strong>Market Cap:</strong> $ {business.market_cap}</Text>
+                    <Text className={classes.topic}>Investor Information</Text>
+                    <Text className={classes.normalText}><strong>Investor
+                        Name:</strong> {investment.investor.first_name} {investment.investor.last_name}</Text>
+                    <Text className={classes.normalText}><strong>Passport
+                        Number:</strong> {investment.investor.passport_num}</Text>
+                    <Text className={classes.normalText}><strong>Phone Number:</strong> {investment.investor.phone_num}</Text>
                 </div>
-                <Divider my="md" />
+                <Divider my="md"/>
                 <div className={classes.box}>
-                    <Text className={classes.topic}>Contact</Text>
-                    <Text className={classes.normalText}><strong>Address:</strong> {business.company_address}</Text>
-                    <Text className={classes.normalText}><strong>Email:</strong> {business.user.email}</Text>
+                    <Text className={classes.topic}>Campaign Information</Text>
+                    <Text className={classes.normalText}><strong>Campaign Name:</strong> {investment.campaign.name}</Text>
+                    <Text className={classes.normalText}><strong>Description:</strong> {investment.campaign.description}</Text>
+                    <Text className={classes.normalText}><strong>From Business:</strong> {investment.campaign.business.business_name}</Text>
                 </div>
-                <Divider my="md" />
+                <Divider my="md"/>
+                <div className={classes.box}>
+                    <Text className={classes.topic}>Investment Information</Text>
+                    <Text className={classes.normalText}><strong>Market Cap:</strong> $ {investment.amount}</Text>
+                    <Text><strong>Time:</strong> {new Date(investment.timestamp).toLocaleString()}</Text>
+                </div>
+                <Divider my="md"/>
                 <div className={classes.buttonContainer}>
                     <Button
                         size="lg"

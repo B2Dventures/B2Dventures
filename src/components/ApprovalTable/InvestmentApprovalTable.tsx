@@ -62,7 +62,7 @@ export function InvestmentApprovalTable() {
                         radius="md"
                         p="xl"
                         className={`${classes.paper} ${arimoRegular.className}`}
-                        onClick={() => window.location.href = `/admin/campaign/${investment.id}`}
+                        onClick={() => window.location.href = `/admin/investment/${investment.id}`}
                     >
                         <Text className={classes.topic}>Investment: {investment.id}</Text>
                         <Text><strong>Investor Name:</strong> {investment.investorFirstName} {investment.investorLastName}</Text>
