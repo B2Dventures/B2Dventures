@@ -120,6 +120,8 @@ describe("successful fundraising creation", () => {
         .and('contain', 'Campaign Created!')
         .and('contain', 'Your campaign has been submitted and is awaiting approval.');
 
+    cy.wait(3500);
+
   });
 });
 
