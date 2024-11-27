@@ -110,7 +110,7 @@ export function BusinessRequestDetail({ business }: { business: adminBusinessDet
             />
             <Stack gap="md" align="stretch" className={classes.stack}>
                 <div className={classes.logo}>
-                    <Avatar src="/logo.ico" radius="sm" size='120px'/>
+                    <Avatar src={business.logo} radius="120px" size='120px'/>
                 </div>
                 <div className={classes.box}>
                     <Text className={classes.topic}>Business Information</Text>
