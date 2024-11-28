@@ -8,7 +8,7 @@ import { Container, Flex, Text, Loader } from '@mantine/core';
 import Description from '@/components/Description/Description';
 import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 import classes from './id.module.css';
-import {Campaign} from "@/utils/types";
+import {Campaign} from "types/api";
 
 const CampaignPage = ({ params }: { params: { id: number } }) => {
     const { id } = params;
@@ -18,7 +18,7 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
     useEffect(() => {
         const fetchCampaign = async () => {
             try {
-                const response = await fetch(`/api/campaign?id=${id.toString()}`);
+                const response = await fetch(`/api/campaign/${id.toString()}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch campaign');
                 }
@@ -71,13 +71,14 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
                     <Gallery images={campaign.images} />
                     <InvestmentInfo
                         campaignId={id}
-                        stockPrice={100} // initial for prisma update
+                        stockPrice={campaign.stockPrice} // initial for prisma update
                         raisedAmount={campaign.raisedAmount}
                         goalAmount={campaign.goal}
                         totalInvestors={campaign.investors}
                         daysLeft={campaign.daysLeft}
                         campaignName={campaign.name}
                         category={campaign.industry}
+                        minInvest={campaign.min_invest}
                     />
                 </Flex>
                 <Flex>

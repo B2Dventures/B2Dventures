@@ -24,11 +24,15 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
 
     const updateRole = async (role: string) => {
         try {
-            const response = await fetch(`/api/user?id=${investor.user.id}&role=${role}`, {
+            const response = await fetch(`/api/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investor.user.id,
+                    role: role,
+                }),
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Failed to update role');
@@ -40,11 +44,16 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
     const handleApprove = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${investor.id}&type=investor&status=APPROVED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investor?.id,
+                    type: 'investor',
+                    status: 'APPROVED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -64,11 +73,16 @@ export function InvestorRequestDetail({ investor }: { investor: any }) {
     const handleReject = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/approve?id=${investor.id}&type=investor&status=REJECTED`, {
+            const response = await fetch(`/api/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    id: investor?.id,
+                    type: 'investor',
+                    status: 'REJECTED',
+                }),
             });
             const data = await response.json();
             if (response.ok) {

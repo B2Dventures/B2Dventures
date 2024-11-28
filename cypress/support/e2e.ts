@@ -15,6 +15,8 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+/// <reference types="cypress" />
+import { addClerkCommands } from '@clerk/testing/cypress'
+addClerkCommands({ Cypress, cy })
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+export {}

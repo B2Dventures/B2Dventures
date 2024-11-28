@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/db";
+import {Slide} from "types/api";
 
 export async function GET() {
     try {
@@ -29,7 +30,7 @@ export async function GET() {
             .sort((a, b) => b.totalInvestors - a.totalInvestors)
             .slice(0, 5);
 
-        const formattedCampaigns = sortedCampaigns.map((campaign) => ({
+        const formattedCampaigns : Slide[] = sortedCampaigns.map((campaign) => ({
             id: campaign.id,
             name: campaign.name,
             image: campaign.images[0] || "",

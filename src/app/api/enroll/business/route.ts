@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/utils/db';
 import { auth, createClerkClient } from '@clerk/nextjs/server';
+import {enrollBusinessQuery} from "types/models";
 
 export async function POST(req: Request) {
     const session = auth();
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Already have a role or not logged in yet." });
     }
 
-    const body = await req.json();
+    const body: enrollBusinessQuery = await req.json();
 
     const {
         businessName,
@@ -62,6 +63,15 @@ export async function POST(req: Request) {
 
     if (!business) {
         return NextResponse.json({ error: 'Create Not Successfully' }, { status: 401 });
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { role: 'Business' },
+    });
+
+    if (!updatedUser) {
+        return NextResponse.json({ error: 'Failed to update user role' }, { status: 400 });
     }
 
     try {

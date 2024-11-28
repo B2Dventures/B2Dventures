@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Text, Group, Button} from '@mantine/core';
+import {Card, Text, Group} from '@mantine/core';
+import {LuCoins} from "react-icons/lu";
+
 import classes from './AdminCard.module.css';
-import {LuBriefcase, LuChevronRightCircle, LuUser, LuClipboardList, LuCoins} from "react-icons/lu";
-import {adminInvestment} from "@/utils/types";
+import {adminInvestment} from "types/api";
 
 interface CardProps {
 }

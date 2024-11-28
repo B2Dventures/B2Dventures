@@ -5,26 +5,11 @@ import { Text, Container, Paper, Stack, Loader } from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from "react-icons/lu";
+import {adminInvestor} from "types/api";
 
-type Investor = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    nationality: string;
-    passport_num: string;
-    birth_date: string;
-    address: string;
-    occupation: string;
-    income: number;
-    passport_img: string;
-    approvalStatus: string;
-    user: {
-        email: string;
-    },
-};
 
 export function InvestorApprovalTable() {
-    const [investors, setInvestors] = useState<Investor[]>([]);
+    const [investors, setInvestors] = useState<adminInvestor[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +20,7 @@ export function InvestorApprovalTable() {
                 if (!response.ok) {
                     throw new Error('Failed to fetch investors');
                 }
-                const data: Investor[] = await response.json();
+                const data: adminInvestor[] = await response.json();
                 setInvestors(data);
             } catch (error: unknown) {
                 setError((error as Error).message);

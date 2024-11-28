@@ -1,7 +1,9 @@
 import prisma from "@/utils/db";
 import { NextResponse } from 'next/server';
 import { auth } from "@clerk/nextjs/server";
-import {InvestmentQuery} from "@/utils/types";
+
+import {InvestmentQuery} from "types/models";
+import {InvestmentDashboard} from "types/api";
 
 
 export async function POST(req: Request) {
@@ -11,7 +13,8 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { campaignId, amount } : InvestmentQuery = await req.json();
+        const { campaignId, amount, stockUnit } : InvestmentQuery = await req.json();
+        console.log(campaignId, amount, stockUnit);
         const id = auth().sessionClaims?.metadata?.id;
 
         if (isNaN(campaignId) || isNaN(amount) || !id) {
@@ -35,6 +38,7 @@ export async function POST(req: Request) {
                 campaignId: Number(campaignId),
                 investorId: investor.id,
                 amount: Number(amount),
+                stockUnit: stockUnit,
                 approvalStatus: "PENDING"
             }
         });
@@ -79,7 +83,15 @@ export async function GET() {
             }
         });
 
-        return NextResponse.json({ success: true, investments });
+        const result: InvestmentDashboard[] = investments.map(investment => ({
+            amount: (investment.amount).toNumber(), // Convert Decimal to number
+            timestamp: investment.timestamp,
+            approvalStatus: investment.approvalStatus,
+            campaign: investment.campaign
+        }));
+
+
+        return NextResponse.json({ success: true, result });
 
     } catch (error) {
         console.error("Error retrieving investments:", error);

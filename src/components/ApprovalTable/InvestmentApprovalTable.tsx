@@ -5,7 +5,7 @@ import {Text, Container, Paper, Stack, Flex, Loader} from '@mantine/core';
 import classes from './ApprovalTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
-import { adminInvestment } from "@/utils/types";
+import { adminInvestment } from "types/api";
 
 export function InvestmentApprovalTable() {
     const [investments, setInvestments] = useState<adminInvestment[]>([]);
@@ -62,7 +62,7 @@ export function InvestmentApprovalTable() {
                         radius="md"
                         p="xl"
                         className={`${classes.paper} ${arimoRegular.className}`}
-                        onClick={() => window.location.href = `/admin/campaign/${investment.id}`}
+                        onClick={() => window.location.href = `/admin/investment/${investment.id}`}
                     >
                         <Text className={classes.topic}>Investment: {investment.id}</Text>
                         <Text><strong>Investor Name:</strong> {investment.investorFirstName} {investment.investorLastName}</Text>

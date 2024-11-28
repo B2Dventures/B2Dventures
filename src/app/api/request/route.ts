@@ -1,12 +1,12 @@
-import type {NextApiRequest, NextApiResponse} from "next";
-import { createClerkClient , auth } from '@clerk/nextjs/server';
-import prisma from "@/utils/db";
-import {RequestData} from "@/utils/types";
-import {NextResponse} from "next/server";
+import type { NextApiRequest } from "next";
+import { auth } from '@clerk/nextjs/server';
+import { NextResponse } from "next/server";
 
-interface RequestQuery {
-    id : number
-}
+import prisma from "@/utils/db";
+import {RequestData} from "types/api";
+import {checkRole} from "@/utils/roles";
+import {requestExtraDataQuery} from "types/models";
+
 
 export async function GET(req: NextApiRequest) {
     // security part
@@ -71,28 +71,29 @@ export async function POST(req: Request) {
     const user = auth().sessionClaims?.metadata;
     const Uid  = user?.id;
     const role = user?.role;
+
     // check user exist and role valid
     if (!Uid || role != "investor") {
         return NextResponse.json({ error: 'Not authenticated' }, {status: 401})
     }
 
-    // params must have id campaign
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+    const payload: requestExtraDataQuery = await req.json();
+    const { id } = payload;
+
     if (!id) {
-        return NextResponse.json({error: 'Missing required query parameters'}, {status: 400})
+        return NextResponse.json({error: 'Missing required parameters'}, {status: 400})
     }
 
     // Adding to DB if pass though all guard clause
     const result = await prisma.detailRequest.create({
         data: {
-            campaignId: Number(id),
+            campaignId: id,
             investorId: Uid,
             approvalStatus: "PENDING",
         }
     })
     if (!result) {
-        return NextResponse.json({ error: 'Create Not Successfully' }, {status: 401})
+        return NextResponse.json({ error: `Create Not Successfully ${id}` }, {status: 401})
     }
 
     return NextResponse.json({success: "Successfully"}, {status: 200})

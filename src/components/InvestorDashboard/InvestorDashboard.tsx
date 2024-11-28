@@ -1,19 +1,11 @@
 import React from 'react';
 import { Table, Container, LoadingOverlay } from '@mantine/core';
-import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
+import { arimoRegular } from '@/app/(frontend)/styles/fonts';
 import classes from './InvestorDashboard.module.css';
-
-interface Investment {
-    campaign: {
-        name: string;
-    };
-    amount: string;
-    timestamp: string;
-    approvalStatus: string;
-}
+import {InvestmentDashboard} from "types/api";
 
 interface InvestmentProps {
-    data: Investment[] | null;
+    data: InvestmentDashboard[] | null;
     loading: boolean;
 }
 
@@ -41,7 +33,7 @@ export function InvestorDashboard({ data, loading }: InvestmentProps) {
                             <Table.Tr key={index} className={classes.info}>
                                 <Table.Td className={classes.name}>{element.campaign.name}</Table.Td>
                                 <Table.Td className={classes.body}>{element.amount}</Table.Td>
-                                <Table.Td className={classes.body}>{new Date(element.timestamp).toLocaleString()}</Table.Td>
+                                <Table.Td className={classes.body}>{element.timestamp.toLocaleString()}</Table.Td>
                                 <Table.Td className={classes.body}>{element.approvalStatus}</Table.Td>
                             </Table.Tr>
                         ))

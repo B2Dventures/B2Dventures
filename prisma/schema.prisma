@@ -107,6 +107,7 @@ model Campaign {
   images         String[]
   approvalStatus RequestStatus
   DetailRequest  DetailRequest[]
+  stockPrice     Decimal
 }
 
 model Investment {
@@ -117,6 +118,7 @@ model Investment {
   investor       Investor      @relation(fields: [investorId], references: [id], onDelete: Cascade) //  investorId is a FK from investor.id
   // Investments-specific fields
   amount         Decimal
+  stockUnit      Decimal
   timestamp      DateTime      @default(now()) @db.Timestamptz(2)
   approvalStatus RequestStatus
 }

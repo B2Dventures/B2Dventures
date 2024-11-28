@@ -1,38 +1,53 @@
 import React, { useState } from 'react';
 import { Modal, Button, TextInput, Group, Box } from '@mantine/core';
-import {InvestmentQuery} from "@/utils/types";
 import {notifications} from "@mantine/notifications";
 import {LuChevronRightCircle} from "react-icons/lu";
+
+
+import {InvestmentQuery} from "types/models";
 
 interface InvestmentModalProps {
     stockPrice: number;
     campaignId: number;
     campaignName: string;
+    minInvest: number;
 }
 
-export default function InvestmentModal({ stockPrice, campaignId, campaignName }: InvestmentModalProps) {
+export default function InvestmentModal({ stockPrice, campaignId, campaignName, minInvest }: InvestmentModalProps) {
     const [opened, setOpened] = useState(false);
     const [formData, setFormData] = useState({
         money: '',
         stocks: '',
     });
+    const minPrice = minInvest * stockPrice;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-
+        const { value } = event.target;
         // Update money and stocks dynamically based on the input field
-        if (name === 'money') {
-            setFormData({
-                ...formData,
-                money: value,
-                stocks: (parseFloat(value) / stockPrice || 0).toFixed(2),
-            });
-        } else if (name === 'stocks') {
+        if (!/^\d+$/.test(value)) {
             setFormData({
                 ...formData,
                 stocks: value,
-                money: (parseFloat(value) * stockPrice || 0).toFixed(2),
+                money: "stock value must be a number",
             });
+        } else {
+            const result = (Number(value) * stockPrice || 0)
+            if (result < minPrice) {
+                setFormData({
+                    ...formData,
+                    stocks: minInvest.toFixed(0),
+                    money: minPrice.toFixed(2),
+                });
+
+            }
+            else {
+                setFormData({
+                    ...formData,
+                    stocks: value,
+                    money: result.toFixed(2),
+                });
+            }
+
         }
     };
 
@@ -42,6 +57,7 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName }
             const payload: InvestmentQuery = {
                 campaignId: campaignId,
                 amount: Number(formData.money),
+                stockUnit: Number(formData.money)/stockPrice,
             }
             const response = await fetch('/api/investment', {
                 method: 'POST',
@@ -80,25 +96,23 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName }
             >
                 <form onSubmit={handleSubmit}>
                     <Box>
-                        {/* Money Input */}
-                        <TextInput
-                            label="Investment Amount (in $)"
-                            name="money"
-                            placeholder="Enter amount of money"
-                            value={formData.money}
-                            onChange={handleInputChange}
-                            required
-                        />
-
                         {/* Stock Input */}
                         <TextInput
-                            label="Number of Stocks"
+                            label={`Number of Stocks (Min Investment: ${minInvest})`}
                             name="stocks"
                             placeholder="Enter number of stocks"
                             value={formData.stocks}
                             onChange={handleInputChange}
                             required
                             mt="sm"
+                        />
+
+                        {/* Money Input */}
+                        <TextInput
+                            label="Investment Amount (in $)"
+                            name="money"
+                            value={formData.money}
+                            disabled
                         />
 
                         {/* Stock Price Display */}

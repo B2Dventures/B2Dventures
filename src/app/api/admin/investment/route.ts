@@ -1,6 +1,6 @@
 import {NextResponse} from "next/server";
 import prisma from "@/utils/db";
-import {adminInvestment} from "@/utils/types";
+import {adminInvestment} from "types/api";
 
 export async function GET() {
     try {
@@ -72,32 +72,3 @@ export async function GET() {
 
 }
 
-export async function POST(req: Request) {
-    try {
-        const payload = await req.json();
-        const {id, status} = payload;
-        if (!id || !status || status != "APPROVED" || status != "REJECTED") {
-            console.error("Missing required query parameters");
-            return NextResponse.json({ error: "Missing required query parameters" }, { status: 500 });
-        }
-
-        const updatedInvestment = await prisma.investment.update({
-            where: {
-                id: id,
-            },
-            data: {
-                approvalStatus: status,
-            },
-        });
-
-        if (!updatedInvestment) {
-            return NextResponse.json({ error: "investment not found" });
-        }
-
-        return NextResponse.json({ message: 'Success update investment status' }, { status: 200 });
-
-    } catch (error) {
-        console.error("Error doesn't have Payload :", error);
-        return NextResponse.json({ error: "Error doesn't have Payload" }, { status: 500 });
-    }
-}
