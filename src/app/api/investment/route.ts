@@ -14,6 +14,7 @@ export async function POST(req: Request) {
 
     try {
         const { campaignId, amount, stockUnit } : InvestmentQuery = await req.json();
+        console.log(campaignId, amount, stockUnit);
         const id = auth().sessionClaims?.metadata?.id;
 
         if (isNaN(campaignId) || isNaN(amount) || !id) {

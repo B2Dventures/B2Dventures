@@ -57,6 +57,7 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName, 
             const payload: InvestmentQuery = {
                 campaignId: campaignId,
                 amount: Number(formData.money),
+                stockUnit: Number(formData.money)/stockPrice,
             }
             const response = await fetch('/api/investment', {
                 method: 'POST',
