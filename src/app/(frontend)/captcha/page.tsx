@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useRouter } from 'next/navigation';
+import classes from './captcha.module.css';
 
 export default function CaptchaPage() {
     const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -28,7 +29,7 @@ export default function CaptchaPage() {
     };
 
     return (
-        <div>
+        <div className={classes.div}>
             <h2>Please complete CAPTCHA to continue</h2>
             <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
