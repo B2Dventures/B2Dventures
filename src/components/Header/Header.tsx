@@ -18,12 +18,12 @@ export function Header() {
 
     const userRole = user?.publicMetadata?.role || "Role not set";
 
-    const investorPage= () => {
-        window.location.href = '/investor'; // Redirect to the new URL
+    const investorPage = () => {
+        window.location.href = '/investor';
     };
 
-    const businessPage= () => {
-        window.location.href = '/business'; // Redirect to the new URL
+    const businessPage = () => {
+        window.location.href = '/business';
     };
 
     const enrollInvestor = () => {
@@ -32,6 +32,11 @@ export function Header() {
 
     const enrollBusiness = () => {
         window.location.href = '/enroll/business';
+    };
+
+    // Redirect to the CAPTCHA page for login/signup
+    const redirectToCaptcha = () => {
+        window.location.href = '/captcha';
     };
 
     return (
@@ -58,12 +63,10 @@ export function Header() {
                 </Group>
                 <Group gap={20} visibleFrom="xs">
                     <SignedOut>
-                        <SignInButton>
-                            <Button size='md' variant="outline" color="white">
-                                <LuLogIn style={{ marginRight: 8 }} size={15} color='black' />
-                                <div className={classes.access}>Login</div>
-                            </Button>
-                        </SignInButton>
+                        <Button size='md' variant="outline" color="white" onClick={redirectToCaptcha}>
+                            <LuLogIn style={{ marginRight: 8 }} size={15} color='black' />
+                            <div className={classes.access}>Login</div>
+                        </Button>
                     </SignedOut>
                     <SignedIn>
                         <UserButton>
