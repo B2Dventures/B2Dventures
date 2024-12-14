@@ -1,15 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Container, Group, TextInput, NumberInput, Textarea, Button, Text, Box } from '@mantine/core';
+import { Container, Group, TextInput, NumberInput, Textarea, Button, Text } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { Header } from '@/components/Header/Header';
 import { notifications } from "@mantine/notifications";
 import '@mantine/notifications/styles.css';
 import "@mantine/dates/styles.css";
-import { useRouter } from 'next/navigation';
 import { UploadSingle } from "@/components/Upload/Upload";
-import classes from "@/app/(frontend)/enroll/enroll.module.css";
 import ImagePreview from "@/components/Upload/ImageDisplay";
 
 interface FormState {
@@ -25,6 +23,11 @@ interface FormState {
   income: string | number;
   passport_img: string | null;
 }
+
+const isValidText = (value: string) => /^[A-Za-z]+$/.test(value);
+const isValidPassport = (value: string) => /^[A-Za-z0-9]+$/.test(value);
+const isValidNumber = (value: string) => /^[0-9]+$/.test(value);
+const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 export default function Home() {
   const [form, setForm] = useState<FormState>({
@@ -42,27 +45,60 @@ export default function Home() {
   });
 
   const [passportImagePreview, setPassportImagePreview] = useState<string | null>(null);
-
-  const router = useRouter();
+  const [errors, setErrors] = useState<any>({});
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.currentTarget;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    const missingFields = Object.entries(form).filter(([key, value]) => {
-      if (Array.isArray(value)) return value.length === 0;
-      if (value instanceof Date) return value === null;
-      return !value;
-    });
+  const validateForm = () => {
+    const error: any = {};
 
-    if (missingFields.length > 0) {
+    if (!form.firstName || !isValidText(form.firstName)) {
+      error.firstName = 'First name is required and should contain only letters.';
+    }
+    if (!form.lastName || !isValidText(form.lastName)) {
+      error.lastName = 'Last name is required and should contain only letters.';
+    }
+    if (!form.email || !isValidEmail(form.email)) {
+      error.email = 'Email is required and should be a proper format ( example@example.com ).';
+    }
+    if (!form.nationality || !isValidText(form.nationality)) {
+      error.nationality = 'Nationality is required should contain only letters.';
+    }
+    if (!form.passportNumber || !isValidPassport(form.passportNumber)) {
+      error.passportNumber = 'Passport number is required and should contain only alphanumeric characters.';
+    }
+    if (!form.phoneNumber || !isValidNumber(form.phoneNumber)) {
+      error.phoneNumber = 'Phone number is required and should contain only numbers.';
+    }
+    if (!form.birthDate) {
+      error.birthDate = 'Birthday is required.';
+    }
+    if (!form.address) {
+      error.address = 'Address is required.';
+    }
+    if (!form.occupation || !isValidText(form.occupation)) {
+      error.occupation = 'Occupation is required and should contain only letters.';
+    }
+    if (typeof form.income !== 'number' || form.income <= 0) {
+      error.income = 'Income is required and should contain only a positive number.';
+    }
+    if (!form.passport_img) {
+      error.passport_img = 'Passport image is required.';
+    }
+
+    setErrors(error);
+    return Object.keys(error).length === 0;
+  };
+
+  const handleSubmit = async () => {
+
+    if (!validateForm()) {
       notifications.show({
         title: "Incomplete Form",
-        message: `Please fill out all required fields: ${missingFields
-            .map(([field]) => field)
-            .join(", ")}`,
+        message: `Please fill out all required fields.`,
         color: "red",
       });
       return;
@@ -100,6 +136,7 @@ export default function Home() {
         message: 'An unexpected error occurred. Please try again.',
         color: 'red',
       });
+      window.location.href = '/error';
     }
   };
 
@@ -122,6 +159,7 @@ export default function Home() {
               name="firstName"
               value={form.firstName}
               onChange={handleInputChange}
+              error={errors.firstName}
           />
           <TextInput
               label="Lastname"
@@ -131,6 +169,7 @@ export default function Home() {
               name="lastName"
               value={form.lastName}
               onChange={handleInputChange}
+              error={errors.lastName}
           />
           <TextInput
               label="Email"
@@ -140,6 +179,7 @@ export default function Home() {
               name="email"
               value={form.email}
               onChange={handleInputChange}
+              error={errors.email}
           />
           <TextInput
               label="Nationality"
@@ -149,6 +189,7 @@ export default function Home() {
               name="nationality"
               value={form.nationality}
               onChange={handleInputChange}
+              error={errors.nationality}
           />
           <TextInput
               label="Passport number"
@@ -158,6 +199,7 @@ export default function Home() {
               name="passportNumber"
               value={form.passportNumber}
               onChange={handleInputChange}
+              error={errors.passportNumber}
           />
           <TextInput
               label="Phone number"
@@ -167,6 +209,7 @@ export default function Home() {
               name="phoneNumber"
               value={form.phoneNumber}
               onChange={handleInputChange}
+              error={errors.phoneNumber}
           />
 
           {/* Use DateTimePicker instead of DateInput */}
@@ -178,6 +221,7 @@ export default function Home() {
               mt="md"
               value={form.birthDate}
               onChange={(value) => setForm((prev) => ({ ...prev, birthDate: value }))}
+              error={errors.birthDate}
           />
 
           <Textarea
@@ -189,6 +233,7 @@ export default function Home() {
               name="address"
               value={form.address}
               onChange={handleInputChange}
+              error={errors.address}
           />
           <TextInput
               label="Occupation"
@@ -198,6 +243,7 @@ export default function Home() {
               name="occupation"
               value={form.occupation}
               onChange={handleInputChange}
+              error={errors.occupation}
           />
           <NumberInput
               label="Income"
@@ -207,6 +253,7 @@ export default function Home() {
               name="income"
               value={form.income}
               onChange={(value) => setForm((prev) => ({ ...prev, income: value }))}
+              error={errors.income}
           />
 
           {/* Upload Passport Image */}
@@ -218,10 +265,10 @@ export default function Home() {
                   imageSrc={passportImagePreview}
                   onRemove={() => setPassportImagePreview(null)} // Custom behavior for removing the license preview
               />
-            ) : (
+          ) : (
               <UploadSingle onUploadComplete={handlePassportImageUpload} />
-            )
-          }
+          )}
+          {errors.passport_img && <Text c="red">{errors.passport_img}</Text>}
 
           <Group align={"center"} mt="xl">
             <Button color="green" onClick={handleSubmit}>

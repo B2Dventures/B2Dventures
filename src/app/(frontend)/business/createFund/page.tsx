@@ -29,6 +29,7 @@ export default function CampaignForm() {
         stockAmount: undefined as number | undefined,
     });
 
+    const [errors, setErrors] = useState<any>({});
     const router = useRouter();
 
     const handleInputChange = (field: string, value: any) => {
@@ -45,7 +46,11 @@ export default function CampaignForm() {
                     });
                     return prev; // Don't update the form
                 }
-            } else if (field === "stockAmount" || field === "goal" || field === "minimumInvest") {
+            } else if (
+                field === "stockAmount" ||
+                field === "goal" ||
+                field === "minimumInvest"
+            ) {
                 const { goal, stockAmount, minimumInvest } = updatedForm;
 
                 if (stockAmount && !/^\d+$/.test(stockAmount.toString())) {
@@ -54,12 +59,10 @@ export default function CampaignForm() {
                 if (minimumInvest && !/^\d+$/.test(minimumInvest.toString())) {
                     updatedForm.minimumInvest = 0;
                 }
-                if (goal && stockAmount){
+                if (goal && stockAmount) {
                     const stockPrice = goal / stockAmount;
                     updatedForm.stockPrice = Number(stockPrice.toFixed(2)); // Ensure 2 decimal places
                 }
-
-
             }
             return updatedForm;
         });
@@ -79,20 +82,56 @@ export default function CampaignForm() {
         }));
     };
 
-    const handleSubmit = async () => {
-        // Frontend validation
-        const missingFields = Object.entries(form).filter(([key, value]) => {
-            if (Array.isArray(value)) return value.length === 0;
-            if (value instanceof Date) return value === null;
-            return !value;
-        });
+    const validateForm = () => {
+        const error: any = {};
 
-        if (missingFields.length > 0) {
+        if (!form.title) {
+            error.title = "Title is required.";
+        }
+        if (!form.description) {
+            error.description = "Description is required.";
+        }
+        if (typeof form.goal !== "number" || form.goal <= 0) {
+            error.goal = "Goal is required and should contain only a positive number.";
+        }
+        if (typeof form.stockAmount !== "number" || form.stockAmount <= 0) {
+            error.stockAmount = "Stock amount is required and should contain only a positive number.";
+        }
+        if (typeof form.minimumInvest !== "number" || form.minimumInvest <= 0) {
+            error.minimumInvest = "Minimum stock investment is required and should contain only a positive number.";
+        }
+        if (form.category.length === 0) {
+            error.category = "At least one category is required.";
+        }
+        if (!form.startDate) {
+            error.startDate = "Start date is required.";
+        }
+        if (!form.endDate) {
+            error.endDate = "End date is required.";
+        }
+        if (!form.images.length) {
+            error.images = "Images are required.";
+        }
+        if (!form.highlight) {
+            error.highlight = "Highlight is required.";
+        }
+        if (!form.product) {
+            error.product = "Product is required.";
+        }
+        if (!form.opportunity) {
+            error.opportunity = "Opportunity is required.";
+        }
+
+        setErrors(error);
+        return Object.keys(error).length === 0;
+    };
+
+    const handleSubmit = async () => {
+
+        if (!validateForm()) {
             notifications.show({
                 title: "Incomplete Form",
-                message: `Please fill out all required fields: ${missingFields
-                    .map(([field]) => field)
-                    .join(", ")}`,
+                message: `Please fill out all required fields.`,
                 color: "red",
             });
             return;
@@ -131,6 +170,7 @@ export default function CampaignForm() {
                 message: "Failed to submit campaign.",
                 color: "red",
             });
+            window.location.href = "/error";
         }
     };
 
@@ -148,6 +188,7 @@ export default function CampaignForm() {
                     value={form.title}
                     onChange={(event) => handleInputChange("title", event.currentTarget.value)}
                     required
+                    error={errors.title}
                 />
 
                 <Textarea
@@ -158,6 +199,7 @@ export default function CampaignForm() {
                     minRows={4}
                     required
                     mt="md"
+                    error={errors.description}
                 />
 
                 <NumberInput
@@ -167,6 +209,7 @@ export default function CampaignForm() {
                     onChange={(value) => handleInputChange("goal", value)}
                     required
                     mt="md"
+                    error={errors.goal}
                 />
 
                 <NumberInput
@@ -176,6 +219,7 @@ export default function CampaignForm() {
                     onChange={(value) => handleInputChange("stockAmount", value)}
                     required
                     mt="md"
+                    error={errors.stockAmount}
                 />
 
                 <NumberInput
@@ -185,6 +229,7 @@ export default function CampaignForm() {
                     onChange={(value) => handleInputChange("minimumInvest", value)}
                     required
                     mt="md"
+                    error={errors.minimumInvest}
                 />
 
                 <TextInput
@@ -204,6 +249,7 @@ export default function CampaignForm() {
                     required
                     mt="md"
                     acceptValueOnBlur
+                    error={errors.category}
                 />
 
                 <Group mt="md" grow>
@@ -215,6 +261,7 @@ export default function CampaignForm() {
                         label="Start date"
                         placeholder="Enter your start date"
                         minDate={new Date()}
+                        error={errors.startDate}
                     />
                     <DateTimePicker
                         clearable
@@ -224,6 +271,7 @@ export default function CampaignForm() {
                         label="End date"
                         placeholder="Enter your end date"
                         minDate={form.startDate || new Date()} // Ensure endDate is after startDate
+                        error={errors.endDate}
                     />
                 </Group>
 
@@ -236,11 +284,7 @@ export default function CampaignForm() {
                         <>
                             {form.images.map((url, index) => (
                                 <div className={classes.imageWrapper} key={index}>
-                                    <img
-                                        className={classes.uploadedImage}
-                                        src={url}
-                                        alt={`Uploaded ${index + 1}`}
-                                    />
+                                    <img className={classes.uploadedImage} src={url} alt={`Uploaded ${index + 1}`} />
                                     <button
                                         className={classes.deleteButton}
                                         onClick={() => handleRemoveImage(index)}
@@ -263,6 +307,7 @@ export default function CampaignForm() {
                     styles={{ input: { height: 150 } }}
                     required
                     mt="md"
+                    error={errors.highlight}
                 />
 
                 <Textarea
@@ -273,6 +318,7 @@ export default function CampaignForm() {
                     styles={{ input: { height: 150 } }}
                     required
                     mt="md"
+                    error={errors.product}
                 />
 
                 <Textarea
@@ -283,6 +329,7 @@ export default function CampaignForm() {
                     styles={{ input: { height: 150 } }}
                     required
                     mt="md"
+                    error={errors.opportunity}
                 />
 
                 <Group mt="xl">

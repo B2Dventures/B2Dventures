@@ -24,6 +24,7 @@ export const ImageSlide: React.FC = () => {
             setCampaigns(data);
         } catch (error) {
             console.error("Error fetching campaigns:", error);
+            window.location.href = '/error';
         }
     };
 

@@ -23,6 +23,7 @@ export default function InvestorDashboardPage() {
                 setData(result.investments);
             } catch (error) {
                 console.error(error);
+                window.location.href = '/error';
             } finally {
                 setLoading(false);
             }

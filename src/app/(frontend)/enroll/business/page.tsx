@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from 'react';
 import {
@@ -10,8 +10,6 @@ import {
   Group,
   Text,
   TagsInput,
-  Image,
-  Box
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
@@ -35,6 +33,10 @@ interface FormData {
   license: string | null;
 }
 
+const isValidText = (value: string) => /^[A-Za-z]+$/.test(value);
+const isValidPhone = (value: string) => /^\d+$/.test(value);
+const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
 export default function Home() {
   const [formData, setFormData] = useState<FormData>({
     businessName: '',
@@ -50,7 +52,7 @@ export default function Home() {
     license: null,
   });
 
-  // Image preview state
+  const [errors, setErrors] = useState<any>({});
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [licensePreview, setLicensePreview] = useState<string | null>(null);
 
@@ -65,23 +67,58 @@ export default function Home() {
     setFormData((prev) => ({ ...prev, industry: value }));
   };
 
-  const handleSubmit = async () => {
-    const missingFields = Object.entries(formData).filter(([key, value]) => {
-      if (Array.isArray(value)) return value.length === 0;
-      if (value instanceof Date) return value === null;
-      return !value;
-    });
+  const validateForm = () => {
+    const error: any = {};
 
-    if (missingFields.length > 0) {
+    if (!formData.businessName) {
+      error.businessName = 'Business name is required.';
+    }
+    if (!formData.founderFirstName || !isValidText(formData.founderFirstName)) {
+      error.founderFirstName = 'Founder Firstname is required and should contain only letters.';
+    }
+    if (!formData.founderLastName || !isValidText(formData.founderLastName)) {
+      error.founderLastName = 'Founder Lastname is required and should contain only letters.';
+    }
+    if (!formData.email || !isValidEmail(formData.email)) {
+      error.email = 'Email is required and should be in a proper format (example@example.com).';
+    }
+    if (!formData.phoneNumber || !isValidPhone(formData.phoneNumber)) {
+      error.phoneNumber = 'Phone number is required and should contain only numbers.';
+    }
+    if (typeof formData.marketCap !== 'number' || formData.marketCap <= 0) {
+      error.marketCap = 'Market capitalization is required and should contain only a positive number.';
+    }
+    if (!formData.companyAddress) {
+      error.companyAddress = 'Company address is required.';
+    }
+    if (!formData.businessDetail) {
+      error.businessDetail = 'Business detail is required.';
+    }
+    if (formData.industry.length === 0) {
+      error.industry = 'At least one category is required.';
+    }
+    if (!formData.logo) {
+      error.logo = 'Business logo is required.';
+    }
+    if (!formData.license) {
+      error.license = 'Business license is required.';
+    }
+
+    setErrors(error);
+    return Object.keys(error).length === 0;
+  };
+
+  const handleSubmit = async () => {
+
+    if (!validateForm()) {
       notifications.show({
         title: "Incomplete Form",
-        message: `Please fill out all required fields: ${missingFields
-            .map(([field]) => field)
-            .join(", ")}`,
+        message: `Please fill out all required fields.`,
         color: "red",
       });
       return;
     }
+
     try {
       const response = await fetch('/api/enroll/business', {
         method: 'POST',
@@ -115,6 +152,7 @@ export default function Home() {
         message: 'There was an error submitting your registration.',
         color: 'red',
       });
+      window.location.href = '/error';
     }
   };
 
@@ -142,6 +180,7 @@ export default function Home() {
               name="businessName"
               value={formData.businessName}
               onChange={handleInputChange}
+              error={errors.businessName}
           />
           <TextInput
               label="Founder Firstname"
@@ -151,6 +190,7 @@ export default function Home() {
               name="founderFirstName"
               value={formData.founderFirstName}
               onChange={handleInputChange}
+              error={errors.founderFirstName}
           />
           <TextInput
               label="Founder Lastname"
@@ -160,6 +200,7 @@ export default function Home() {
               name="founderLastName"
               value={formData.founderLastName}
               onChange={handleInputChange}
+              error={errors.founderLastName}
           />
           <TextInput
               label="Email"
@@ -169,6 +210,7 @@ export default function Home() {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
+              error={errors.email}
           />
           <TextInput
               label="Phone number"
@@ -178,6 +220,7 @@ export default function Home() {
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleInputChange}
+              error={errors.phoneNumber}
           />
           <NumberInput
               label="Market capitalization"
@@ -186,7 +229,11 @@ export default function Home() {
               mt="md"
               name="marketCap"
               value={formData.marketCap}
-              onChange={(value) => setFormData((prev) => ({ ...prev, marketCap: value }))}
+              onChange={(value) => setFormData((prev) => ({
+                ...prev,
+                marketCap: value
+              }))}
+              error={errors.marketCap}
           />
           <Textarea
               label="Company address"
@@ -197,6 +244,7 @@ export default function Home() {
               name="companyAddress"
               value={formData.companyAddress}
               onChange={handleInputChange}
+              error={errors.companyAddress}
           />
           <Textarea
               label="Business detail"
@@ -207,6 +255,7 @@ export default function Home() {
               name="businessDetail"
               value={formData.businessDetail}
               onChange={handleInputChange}
+              error={errors.businessDetail}
           />
           <TagsInput
               label="Category"
@@ -217,7 +266,9 @@ export default function Home() {
               required
               mt="md"
               acceptValueOnBlur
+              error={errors.industry}
           />
+
           <div className={classes.container}>
             {/* Business Logo Section */}
             <div className={classes.section}>
@@ -231,6 +282,8 @@ export default function Home() {
               ) : (
                   <UploadSingle onUploadComplete={handleLogoUploadComplete}/>
               )}
+              {errors.logo && <Text c="red"
+                                    mt="xs">{errors.logo}</Text>} {/* Error below logo section */}
             </div>
 
             {/* Business License Section */}
@@ -243,8 +296,11 @@ export default function Home() {
                       onRemove={() => setLicensePreview(null)} // Custom behavior for removing the license preview
                   />
               ) : (
-                  <UploadSingle onUploadComplete={handleLicenseUploadComplete}/>
+                  <UploadSingle
+                      onUploadComplete={handleLicenseUploadComplete}/>
               )}
+              {errors.license && <Text c="red"
+                                       mt="xs">{errors.license}</Text>} {/* Error below license section */}
             </div>
           </div>
 

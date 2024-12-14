@@ -26,6 +26,7 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
                 setCampaign(data);
             } catch (error) {
                 console.error('Error fetching campaign:', error);
+                window.location.href = '/error';
             } finally {
                 setLoading(false);
             }
