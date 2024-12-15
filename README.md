@@ -1,9 +1,43 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Getting Started
 
-First, run the development server:
+## Needed Environment Variable (.env)
+```bash
+DATABASE_URL=<your_database_url>
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your_clerk_public_key>
+CLERK_SECRET_KEY=<your_clerk_secret_key>
+WEBHOOK_SECRET=<your_webhook_secret_key>
+UPLOADTHING_TOKEN=<your_uploadthing_token>
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=<your_recaptcha_site_key>
+RECAPTCHA_SECRET_KEY=<your_recaptcha_secret_key>
+```
 
+## Installation Guide
+- Clone the repository
+```bash
+git clone <github_repository_url>
+```
+- Change directory
+```bash
+cd <your_project_directory>
+```
+- Install dependencies
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+- Create `.env` file
+- Initialize database
+```bash
+npx db push
+```
+- Run the development server
 ```bash
 npm run dev
 # or
@@ -13,8 +47,7 @@ pnpm dev
 # or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
