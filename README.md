@@ -2,7 +2,7 @@
 
 ## Needed Environment Variable (.env)
 ```bash
-DATABASE_URL=<your_database_url>
+DATABASE_URL=<your_neon_database_url>
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your_clerk_public_key>
 CLERK_SECRET_KEY=<your_clerk_secret_key>
 WEBHOOK_SECRET=<your_webhook_secret_key>
