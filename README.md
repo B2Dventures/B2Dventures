@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 # Getting Started
 
 ## Needed Environment Variable (.env)
@@ -17,10 +15,6 @@ RECAPTCHA_SECRET_KEY=<your_recaptcha_secret_key>
 - Clone the repository
 ```bash
 git clone https://github.com/B2Dventures/B2Dventures.git
-```
-- Change directory
-```bash
-cd <your_project_directory>
 ```
 - Install dependencies
 ```bash
@@ -48,8 +42,6 @@ pnpm dev
 bun dev
 ```
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
