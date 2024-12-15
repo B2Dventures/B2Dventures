@@ -4,7 +4,7 @@ import classes from './CampaignTable.module.css';
 import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 
 interface Campaign {
-    id: number;
+    id: string;
     name: string;
     goal: number;
     raised: number;

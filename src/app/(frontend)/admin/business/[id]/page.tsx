@@ -21,7 +21,7 @@ export default function BusinessRequestPage({ params }: { params: { id: string }
             setBusinessData(data);
         };
 
-        fetchBusinessData();
+        void fetchBusinessData();
     }, [params.id]);
 
     if (!businessData) {

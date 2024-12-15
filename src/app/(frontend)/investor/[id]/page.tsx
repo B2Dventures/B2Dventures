@@ -10,7 +10,7 @@ import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 import classes from './id.module.css';
 import {Campaign} from "types/api";
 
-const CampaignPage = ({ params }: { params: { id: number } }) => {
+const CampaignPage = ({ params }: { params: { id: string } }) => {
     const { id } = params;
     const [campaign, setCampaign] = useState<Campaign>();
     const [loading, setLoading] = useState(true);
@@ -26,12 +26,13 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
                 setCampaign(data);
             } catch (error) {
                 console.error('Error fetching campaign:', error);
+                window.location.href = '/error';
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchCampaign();
+        void fetchCampaign();
     }, [id]);
 
     if (loading) {

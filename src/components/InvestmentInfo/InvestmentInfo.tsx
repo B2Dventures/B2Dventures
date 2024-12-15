@@ -8,7 +8,7 @@ import InvestmentModal from "@/components/InvestmentInfo/InvestmentModal";
 import { useUser } from '@clerk/nextjs';
 
 interface InvestmentInfoProps {
-    campaignId: number;
+    campaignId: string;
     raisedAmount: number;
     goalAmount: number;
     totalInvestors: number;

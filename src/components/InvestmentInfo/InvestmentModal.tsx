@@ -8,7 +8,7 @@ import {InvestmentQuery} from "types/models";
 
 interface InvestmentModalProps {
     stockPrice: number;
-    campaignId: number;
+    campaignId: string;
     campaignName: string;
     minInvest: number;
 }
@@ -90,7 +90,7 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName, 
             </Button>
             <Modal
                 opened={opened}
-                onClose={() => setOpened(false)}
+                onClose={() => { setOpened(false); }}
                 title="Investment Form"
                 centered
             >

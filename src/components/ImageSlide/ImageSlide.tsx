@@ -7,7 +7,7 @@ import { ImageHolder } from '@/components/ImageSlide/ImageHolder/ImageHolder';
 import classes from './ImageSlide.module.css';
 
 interface Campaign {
-    id: number;
+    id: string;
     name: string;
     image: string;
 }
@@ -24,6 +24,7 @@ export const ImageSlide: React.FC = () => {
             setCampaigns(data);
         } catch (error) {
             console.error("Error fetching campaigns:", error);
+            window.location.href = '/error';
         }
     };
 

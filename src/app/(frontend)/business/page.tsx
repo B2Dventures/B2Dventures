@@ -58,12 +58,13 @@ export default function BusinessPage() {
                 } catch (error) {
                     console.error("Error fetching data:", error);
                     // Optionally, you can set an error state here to show an error message to the user
+                    window.location.href = '/error';
                 } finally {
                     setLoading(false); // Set loading to false after fetching
                 }
             }
         };
-        fetchData(); // Call the function to fetch data
+        void fetchData(); // Call the function to fetch data
     }, [isSignedIn, role, id]); // Dependency array should include relevant dependencies
 
     if (!isLoaded) {

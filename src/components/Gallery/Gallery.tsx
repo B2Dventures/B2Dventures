@@ -26,13 +26,13 @@ export const Gallery: React.FC<GalleryProps> = ({ images }) => {
                 slideGap="xs"
                 loop
                 align="center"
-                onSlideChange={index => setSelectedImage(images[index])}
+                onSlideChange={index => { setSelectedImage(images[index]); }}
                 classNames={classes}
             >
                 {images.map((img, idx) => (
                     <Carousel.Slide key={idx}>
                         <Card
-                            onClick={() => setSelectedImage(img)}
+                            onClick={() => { setSelectedImage(img); }}
                             shadow={img === selectedImage ? 'xl' : 'sm'}
                             withBorder
                             radius="md"

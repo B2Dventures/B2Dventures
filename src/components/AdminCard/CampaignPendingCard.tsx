@@ -28,7 +28,7 @@ export const CampaignPendingCard: React.FC<CardProps> = () => {
             }
         };
 
-        fetchPendingCampaigns();
+        void fetchPendingCampaigns();
     }, []);
 
     return (

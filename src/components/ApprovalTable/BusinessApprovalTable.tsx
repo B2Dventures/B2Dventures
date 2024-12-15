@@ -29,7 +29,7 @@ export function BusinessApprovalTable() {
             }
         };
 
-        fetchBusinesses();
+        void fetchBusinesses();
     }, []);
 
     if (loading) {

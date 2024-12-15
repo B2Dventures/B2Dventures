@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 const isAdminRoute = createRouteMatcher(['/admin(.*)', '/api/admin(.*)']);
 const isBusinessRoute = createRouteMatcher(['/business/(.*)']);
 const isInvestorEnrollRoute = createRouteMatcher(['/enroll/investor']);
-const isEnrollRoute = createRouteMatcher(['/enroll/(.*)'])
+const isBusinessEnrollRoute = createRouteMatcher(['/enroll/business'])
 
 // Middleware to handle access and redirection
 export default clerkMiddleware(async (auth, req) => {
@@ -21,7 +21,7 @@ export default clerkMiddleware(async (auth, req) => {
         return NextResponse.redirect(url);
     }
 
-    if (isEnrollRoute(req) && auth().sessionClaims?.metadata?.role === 'business') {
+    if (isBusinessEnrollRoute(req) && auth().sessionClaims?.metadata?.role === 'business') {
         const url = new URL('/business', req.url);
         return NextResponse.redirect(url)
     }
