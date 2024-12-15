@@ -9,7 +9,7 @@ export async function GET(request:Request, { params }: { params: { id: string } 
         // Find investor by ID with associated user email
         const investor: adminInvestorDetail | null = await prisma.investor.findUnique({
             where: {
-                id: parseInt(id),
+                id: id,
             },
             select: {
                 id: true,

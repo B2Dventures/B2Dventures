@@ -7,7 +7,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     const { id } = params;
 
     const campaign = await prisma.campaign.findUnique({
-        where: { id: parseInt(id, 10) },
+        where: { id: id },
         include: {
             investment: true,
             details: true,

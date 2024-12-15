@@ -6,7 +6,7 @@ export type Roles = 'admin' | 'investor' | 'business' | 'guest' | 'investor(pend
 declare global {
     interface CustomJwtSessionClaims {
         metadata: {
-            id?: number
+            id?: string,
             role?: Roles
         }
     }

@@ -14,10 +14,10 @@ export async function POST(req: Request) {
 
     try {
         const { campaignId, amount, stockUnit } : InvestmentQuery = await req.json();
-        console.log(campaignId, amount, stockUnit);
+        // console.log(campaignId, amount, stockUnit);
         const id = auth().sessionClaims?.metadata?.id;
 
-        if (isNaN(campaignId) || isNaN(amount) || !id) {
+        if (!campaignId || isNaN(amount) || !id) {
             return NextResponse.json({ error: 'Invalid query parameters. Must be numbers or can not find userId .' }, {status: 400});
         }
         const investor = await prisma.investor.findUnique({
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
 
         const investment = await prisma.investment.create({
             data:{
-                campaignId: Number(campaignId),
+                campaignId: campaignId,
                 investorId: investor.id,
                 amount: Number(amount),
                 stockUnit: stockUnit,

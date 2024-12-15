@@ -13,7 +13,7 @@ export interface CampaignData {
 // GET api/request
 export interface RequestData {
     id: string;
-    campaignId : number;
+    campaignId : string;
     firstName: string;
     lastName: string;
     income: number;

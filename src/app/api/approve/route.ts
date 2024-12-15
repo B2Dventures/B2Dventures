@@ -30,9 +30,9 @@ export async function POST(req: Request)
     if (type != 'detailRequest' && !checkRole("admin")) {
         return NextResponse.json({ error: 'Not authorized to access this resource' }, {status: 401});
     }
-    console.log(type + "Here");
+    // console.log(type + "Here");
     const table = modelMap[type];
-    console.log(`${table}`);
+    // console.log(`${table}`);
     if (!table) {
         return NextResponse.json({ error: `Invalid type: ${type} does not exist` }, { status: 404 });
     }
