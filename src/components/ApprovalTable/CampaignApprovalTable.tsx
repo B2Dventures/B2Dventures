@@ -7,25 +7,6 @@ import { baiSemiBold, arimoRegular } from '@/app/(frontend)/styles/fonts';
 import { LuChevronRightCircle } from 'react-icons/lu';
 import {adminCampaign} from "types/api";
 
-type Campaign = {
-    id: number;
-    name: string;
-    description: string;
-    goal: number;
-    min_invest: number;
-    start_date: string;
-    end_date: string;
-    status: string;
-    images: string;
-    industry: string[];
-    approvalStatus: string;
-    details: {
-        highlight: string;
-    };
-    business: {
-        business_name: string;
-    };
-};
 
 export function CampaignApprovalTable() {
     const [campaigns, setCampaigns] = useState<adminCampaign[]>([]);
