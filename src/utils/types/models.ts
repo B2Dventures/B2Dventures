@@ -1,6 +1,6 @@
 // Payload from POST api/investment
 export interface InvestmentQuery {
-    campaignId: string;
+    campaignId: number;  // Assuming these are received as strings
     amount: number;
     stockUnit: number;
 }
@@ -50,18 +50,18 @@ export interface createFundQuery {
 
 // Payload from POST api/user
 export interface updateRoleQuery {
-    id: string;
+    id: number;
     role: 'admin' | 'investor' | 'business' | 'guest' | 'investor(pending)' | "business(pending)";
 }
 
 // Payload from POST api/approve
 export interface approvalsQuery {
-    id: string;
+    id: number;
     type: 'investor' | 'business' | 'investment' | 'campaign' | 'detailRequest';
     status: 'APPROVED' | 'REJECTED';
 }
 
 // Payload from POST api/request
 export interface requestExtraDataQuery {
-    id: string;
+    id: number;
 }

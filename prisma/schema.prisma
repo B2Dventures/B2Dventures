@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
+  id       Int       @id @default(autoincrement())
   clerkId  String    @unique
   role     Role? // discriminator
   email    String    @unique
@@ -31,8 +31,8 @@ enum Role {
 }
 
 model Investor {
-  id             String          @id @default(uuid())
-  userId         String          @unique
+  id             Int             @id @default(autoincrement())
+  userId         Int             @unique
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
   // Investor-specific fields
   first_name     String
@@ -57,8 +57,8 @@ enum RequestStatus {
 }
 
 model Business {
-  id                 String        @id @default(uuid())
-  userId             String        @unique
+  id                 Int           @id @default(autoincrement())
+  userId             Int           @unique
   user               User          @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
   // Business-specific fields
   business_name      String        @unique
@@ -75,15 +75,15 @@ model Business {
 }
 
 model Admin {
-  id     String @id @default(uuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade) //  userId is a FK from user.id
   // Admin-specific fields
 }
 
 model Detail {
-  id          String   @id @default(uuid())
-  campaignId  String   @unique
+  id          Int      @id @default(autoincrement())
+  campaignId  Int      @unique
   highlight   String
   product     String
   opportunity String
@@ -91,8 +91,8 @@ model Detail {
 }
 
 model Campaign {
-  id             String          @id @default(uuid())
-  businessId     String //  1 business can have multiple fundrasing
+  id             Int             @id @default(autoincrement())
+  businessId     Int //  1 business can have multiple fundrasing
   investment     Investment[] //  can have multiple Investments
   business       Business        @relation(fields: [businessId], references: [id], onDelete: Cascade) //  businessId is a FK from business.id
   details        Detail?
@@ -111,9 +111,9 @@ model Campaign {
 }
 
 model Investment {
-  id             String        @id @default(uuid())
-  campaignId     String
-  investorId     String
+  id             Int           @id @default(autoincrement())
+  campaignId     Int
+  investorId     Int
   campaign       Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade) //  campaignId is a FK from campaogn.id
   investor       Investor      @relation(fields: [investorId], references: [id], onDelete: Cascade) //  investorId is a FK from investor.id
   // Investments-specific fields
@@ -124,9 +124,9 @@ model Investment {
 }
 
 model DetailRequest {
-  id             String        @id @default(uuid())
-  campaignId     String
-  investorId     String
+  id             Int           @id @default(autoincrement())
+  campaignId     Int
+  investorId     Int
   campaign       Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade) //  campaignId is a FK from campaogn.id
   investor       Investor      @relation(fields: [investorId], references: [id], onDelete: Cascade) //  investorId is a FK from investor.id
   // Specific fields
@@ -136,7 +136,7 @@ model DetailRequest {
 // re design schema.prisma (old version)
 
 // model Request {
-//   id               Int              @id @default(uuid())
+//   id               Int              @id @default(autoincrement())
 //   userId           Int // The user making the request
 //   user             User             @relation(fields: [userId], references: [id])
 //   investor_request InvestorRequest? // model-specific 1-1 relation
@@ -159,7 +159,7 @@ model DetailRequest {
 // }
 //
 // model InvestorRequest {
-//   id        Int     @id @default(uuid())
+//   id        Int     @id @default(autoincrement())
 //   requestId Int     @unique
 //   request   Request @relation(fields: [requestId], references: [id])
 //
@@ -175,7 +175,7 @@ model DetailRequest {
 // }
 //
 // model BusinessRequest {
-//   id        Int     @id @default(uuid())
+//   id        Int     @id @default(autoincrement())
 //   requestId Int     @unique
 //   request   Request @relation(fields: [requestId], references: [id])
 //

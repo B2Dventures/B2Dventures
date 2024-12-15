@@ -13,15 +13,10 @@ export default function InvestorRequestPage({ params }: { params: { id: string }
     const [investorData, setInvestorData] = useState<any>(null);
 
     useEffect(() => {
-
         const fetchInvestorData = async () => {
-            try {
-                const response = await fetch(`/api/admin/investor/${params.id}`);
-                const data: adminInvestorDetail = await response.json();
-                setInvestorData(data);
-            } catch (error) {
-                window.location.href = '/error';
-            }
+            const response = await fetch(`/api/admin/investor/${params.id}`);
+            const data: adminInvestorDetail = await response.json();
+            setInvestorData(data);
         };
 
         fetchInvestorData()

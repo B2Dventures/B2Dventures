@@ -10,7 +10,7 @@ import { arimoRegular, baiBold } from "@/app/(frontend)/styles/fonts";
 import classes from './id.module.css';
 import {Campaign} from "types/api";
 
-const CampaignPage = ({ params }: { params: { id: string } }) => {
+const CampaignPage = ({ params }: { params: { id: number } }) => {
     const { id } = params;
     const [campaign, setCampaign] = useState<Campaign>();
     const [loading, setLoading] = useState(true);

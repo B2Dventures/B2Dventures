@@ -8,7 +8,7 @@ import {InvestmentQuery} from "types/models";
 
 interface InvestmentModalProps {
     stockPrice: number;
-    campaignId: string;
+    campaignId: number;
     campaignName: string;
     minInvest: number;
 }
