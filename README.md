@@ -16,7 +16,7 @@ RECAPTCHA_SECRET_KEY=<your_recaptcha_secret_key>
 ## Installation Guide
 - Clone the repository
 ```bash
-git clone <github_repository_url>
+git clone https://github.com/B2Dventures/B2Dventures.git
 ```
 - Change directory
 ```bash
@@ -35,7 +35,7 @@ bun install
 - Create `.env` file
 - Initialize database
 ```bash
-npx db push
+npx prisma db push
 ```
 - Run the development server
 ```bash
