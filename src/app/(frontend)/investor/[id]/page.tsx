@@ -32,7 +32,7 @@ const CampaignPage = ({ params }: { params: { id: string } }) => {
             }
         };
 
-        fetchCampaign();
+        void fetchCampaign();
     }, [id]);
 
     if (loading) {

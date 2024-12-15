@@ -29,7 +29,7 @@ export function InvestorApprovalTable() {
             }
         };
 
-        fetchInvestors();
+        void fetchInvestors();
     }, []);
 
     if (loading) {

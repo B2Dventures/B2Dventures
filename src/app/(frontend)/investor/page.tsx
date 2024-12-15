@@ -47,13 +47,13 @@ export default function InvestorPage() {
       await fetchBusinesses('', sortOption);
     };
 
-    fetchData();
+    void fetchData();
   }, [sortOption]);
 
   useEffect(() => {
     if (searchQuery.length >= 3) {
       const handler = setTimeout(() => {
-        fetchBusinesses(searchQuery, sortOption);
+        void fetchBusinesses(searchQuery, sortOption);
       }, 1000);
 
       return () => {

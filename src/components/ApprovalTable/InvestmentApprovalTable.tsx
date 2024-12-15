@@ -28,7 +28,7 @@ export function InvestmentApprovalTable() {
             }
         };
 
-        fetchInvestments()
+        void fetchInvestments()
     }, []);
 
     if (loading) {

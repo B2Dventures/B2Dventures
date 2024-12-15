@@ -186,7 +186,7 @@ export default function CampaignForm() {
                     label="Title"
                     placeholder="Enter the title of your campaign"
                     value={form.title}
-                    onChange={(event) => handleInputChange("title", event.currentTarget.value)}
+                    onChange={(event) => { handleInputChange("title", event.currentTarget.value); }}
                     required
                     error={errors.title}
                 />
@@ -195,7 +195,7 @@ export default function CampaignForm() {
                     label="Description"
                     placeholder="Short detail to describe your campaign this section will show in the browsing page!"
                     value={form.description}
-                    onChange={(event) => handleInputChange("description", event.currentTarget.value)}
+                    onChange={(event) => { handleInputChange("description", event.currentTarget.value); }}
                     minRows={4}
                     required
                     mt="md"
@@ -206,7 +206,7 @@ export default function CampaignForm() {
                     label="Goal"
                     placeholder="Enter the goal amount of your fund in USD"
                     value={form.goal}
-                    onChange={(value) => handleInputChange("goal", value)}
+                    onChange={(value) => { handleInputChange("goal", value); }}
                     required
                     mt="md"
                     error={errors.goal}
@@ -216,7 +216,7 @@ export default function CampaignForm() {
                     label="Stock Amount"
                     placeholder="Enter the Stock Amount of your fund"
                     value={form.stockAmount}
-                    onChange={(value) => handleInputChange("stockAmount", value)}
+                    onChange={(value) => { handleInputChange("stockAmount", value); }}
                     required
                     mt="md"
                     error={errors.stockAmount}
@@ -226,7 +226,7 @@ export default function CampaignForm() {
                     label="Minimum Stock Investment"
                     placeholder="Enter the minimum amount of stock that you want investor to invest"
                     value={form.minimumInvest}
-                    onChange={(value) => handleInputChange("minimumInvest", value)}
+                    onChange={(value) => { handleInputChange("minimumInvest", value); }}
                     required
                     mt="md"
                     error={errors.minimumInvest}
@@ -257,7 +257,7 @@ export default function CampaignForm() {
                         clearable
                         defaultValue={new Date()}
                         value={form.startDate}
-                        onChange={(value) => handleInputChange("startDate", value)}
+                        onChange={(value) => { handleInputChange("startDate", value); }}
                         label="Start date"
                         placeholder="Enter your start date"
                         minDate={new Date()}
@@ -267,7 +267,7 @@ export default function CampaignForm() {
                         clearable
                         defaultValue={new Date()}
                         value={form.endDate}
-                        onChange={(value) => handleInputChange("endDate", value)}
+                        onChange={(value) => { handleInputChange("endDate", value); }}
                         label="End date"
                         placeholder="Enter your end date"
                         minDate={form.startDate || new Date()} // Ensure endDate is after startDate
@@ -287,7 +287,7 @@ export default function CampaignForm() {
                                     <img className={classes.uploadedImage} src={url} alt={`Uploaded ${index + 1}`} />
                                     <button
                                         className={classes.deleteButton}
-                                        onClick={() => handleRemoveImage(index)}
+                                        onClick={() => { handleRemoveImage(index); }}
                                     >
                                         ✕
                                     </button>
@@ -303,7 +303,7 @@ export default function CampaignForm() {
                     label="Highlight"
                     placeholder="Describe the highlights of your campaign"
                     value={form.highlight}
-                    onChange={(event) => handleInputChange("highlight", event.currentTarget.value)}
+                    onChange={(event) => { handleInputChange("highlight", event.currentTarget.value); }}
                     styles={{ input: { height: 150 } }}
                     required
                     mt="md"
@@ -314,7 +314,7 @@ export default function CampaignForm() {
                     label="Product"
                     placeholder="Describe your product"
                     value={form.product}
-                    onChange={(event) => handleInputChange("product", event.currentTarget.value)}
+                    onChange={(event) => { handleInputChange("product", event.currentTarget.value); }}
                     styles={{ input: { height: 150 } }}
                     required
                     mt="md"
@@ -325,7 +325,7 @@ export default function CampaignForm() {
                     label="Opportunity"
                     placeholder="Describe the opportunity"
                     value={form.opportunity}
-                    onChange={(event) => handleInputChange("opportunity", event.currentTarget.value)}
+                    onChange={(event) => { handleInputChange("opportunity", event.currentTarget.value); }}
                     styles={{ input: { height: 150 } }}
                     required
                     mt="md"

@@ -263,7 +263,7 @@ export default function Home() {
               <ImagePreview
                   title="License Image Preview"
                   imageSrc={passportImagePreview}
-                  onRemove={() => setPassportImagePreview(null)} // Custom behavior for removing the license preview
+                  onRemove={() => { setPassportImagePreview(null); }} // Custom behavior for removing the license preview
               />
           ) : (
               <UploadSingle onUploadComplete={handlePassportImageUpload} />

@@ -29,7 +29,7 @@ export function CampaignApprovalTable() {
             }
         };
 
-        fetchCampaigns();
+        void fetchCampaigns();
     }, []);
 
     if (loading) {

@@ -90,7 +90,7 @@ export default function InvestmentModal({ stockPrice, campaignId, campaignName, 
             </Button>
             <Modal
                 opened={opened}
-                onClose={() => setOpened(false)}
+                onClose={() => { setOpened(false); }}
                 title="Investment Form"
                 centered
             >

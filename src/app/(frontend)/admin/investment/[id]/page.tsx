@@ -19,7 +19,7 @@ export default function InvestmentRequestPage({ params }: { params: { id: string
             setInvestmentData(data);
         };
 
-        fetchInvestmentData();
+        void fetchInvestmentData();
     }, [params.id]);
 
     if (!investmentData) {

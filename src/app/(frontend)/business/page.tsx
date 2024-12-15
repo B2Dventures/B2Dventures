@@ -64,7 +64,7 @@ export default function BusinessPage() {
                 }
             }
         };
-        fetchData(); // Call the function to fetch data
+        void fetchData(); // Call the function to fetch data
     }, [isSignedIn, role, id]); // Dependency array should include relevant dependencies
 
     if (!isLoaded) {

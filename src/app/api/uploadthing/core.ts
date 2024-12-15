@@ -15,7 +15,7 @@ export const ourFileRouter = {
             if (!user) throw new UploadThingError("Unauthorized");
             return { userId: auth().sessionClaims?.metadata?.id };
         })
-        .onUploadComplete((data) => console.log("file", data)),
+        .onUploadComplete((data) => { console.log("file", data); }),
     ImageSingle: f({ image: { maxFileSize: "4MB" , maxFileCount: 1, minFileCount: 1} })
         // Set permissions and file types for this FileRoute
         .middleware(async ({ req }) => {
@@ -23,7 +23,7 @@ export const ourFileRouter = {
             if (!user) throw new UploadThingError("Unauthorized");
             return { userId: auth().sessionClaims?.metadata?.id };
         })
-        .onUploadComplete((data) => console.log("file", data)),
+        .onUploadComplete((data) => { console.log("file", data); }),
 
 } satisfies FileRouter;
 

@@ -36,7 +36,7 @@ const CampaignPage = ({ params }: { params: { id: number } }) => {
             }
         };
 
-        fetchCampaign();
+        void fetchCampaign();
     }, [id]);
 
 
