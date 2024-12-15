@@ -23,7 +23,10 @@ const nextConfig = {
                     {
                         key: "Content-Security-Policy",
                         value:  `
-                                img-src 'self' https://utfs.io;
+                                img-src 'self' https://utfs.io https://img.clerk.com/;
+                                connect-src 'self' https://endless-dory-50.clerk.accounts.dev/ https://apparent-bass-solely.ngrok-free.app;
+                                worker-src 'self' blob:;
+                                report-uri /api/csp-violation-report-endpoint/;
                               `.replace(/\s{2,}/g, " "), // Minify the CSP value
                     },
                     {
