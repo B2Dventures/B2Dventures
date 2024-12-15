@@ -2,7 +2,7 @@
 
 // POST api/business
 export interface CampaignData {
-    id: number;
+    id: string;
     name: string;
     goal: number;
     raised: number;
@@ -12,7 +12,7 @@ export interface CampaignData {
 
 // GET api/request
 export interface RequestData {
-    id: number;
+    id: string;
     campaignId : number;
     firstName: string;
     lastName: string;
@@ -22,7 +22,7 @@ export interface RequestData {
 
 // GET api/admin/investment
 export interface adminInvestment {
-    id: number;
+    id: string;
     amount: number;
     timestamp: Date;
     investorFirstName: string;
@@ -37,7 +37,7 @@ export interface adminInvestment {
 
 // GET  api/campaign?sort=_&campaignName=_
 export interface Business {
-    id: number;
+    id: string;
     name: string;
     description: string;
     images: string[] | string;
@@ -48,7 +48,7 @@ export interface Business {
 
 // GET api/campaign/[id]
 export interface Campaign {
-    id: number; // Assuming ID is a string, adjust if it's a number
+    id: string; // Assuming ID is a string, adjust if it's a number
     name: string;
     description: string;
     images: string[]; // Assuming images is an array of strings (URLs or file paths)
@@ -69,7 +69,7 @@ export interface Campaign {
 
 // GET api/search
 export interface Investment {
-    id: number;
+    id: string;
     name: string;
     description: string;
     images: string[];
@@ -79,7 +79,7 @@ export interface Investment {
 
 //  GET api/admin/investment/[id]
 export interface adminInvestmentDetail {
-    id: number;
+    id: string;
     amount: number;
     timestamp: Date;
     approvalStatus: string;
@@ -105,7 +105,7 @@ export interface InvestmentDashboard {
 
 // GET api/campaigns/slide
 export interface Slide {
-    id: number;
+    id: string;
     name: string;
     image: string;
     totalInvestors: number;
@@ -114,7 +114,7 @@ export interface Slide {
 
 // GET api/admin/investor
 export interface adminInvestor {
-    id: number;
+    id: string;
     first_name: string;
     last_name: string;
     nationality: string;
@@ -132,7 +132,7 @@ export interface adminInvestor {
 
 // GET api/admin/investor/[id]
 export interface adminInvestorDetail {
-    id: number;
+    id: string;
     first_name: string;
     last_name: string;
     nationality: string;
@@ -145,14 +145,14 @@ export interface adminInvestorDetail {
     passport_img: string;
     approvalStatus: string;
     user: {
-        id: number;
+        id: string;
         email: string;
         clerkId: string;
     };}
 
 // GET api/admin/campaign
 export interface adminCampaign {
-    id: number;
+    id: string;
     name: string;
     description: string;
     goal: number;
@@ -168,7 +168,7 @@ export interface adminCampaign {
 
 // GET api/admin/business
 export interface adminBusiness {
-    id: number;
+    id: string;
     business_name: string;
     founder_first_name: string;
     founder_last_name: string;
@@ -184,7 +184,7 @@ export interface adminBusiness {
 
 //  GET api/admin/business/[id]
 export interface adminBusinessDetail {
-    id: number;
+    id: string;
     business_name: string;
     founder_first_name: string;
     founder_last_name: string;
@@ -195,6 +195,6 @@ export interface adminBusinessDetail {
     logo: string;
     license: string;
     approvalStatus: string;
-    userId: number;
+    userId: string;
     userEmail: string;
 }

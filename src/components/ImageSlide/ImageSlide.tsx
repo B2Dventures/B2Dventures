@@ -7,7 +7,7 @@ import { ImageHolder } from '@/components/ImageSlide/ImageHolder/ImageHolder';
 import classes from './ImageSlide.module.css';
 
 interface Campaign {
-    id: number;
+    id: string;
     name: string;
     image: string;
 }

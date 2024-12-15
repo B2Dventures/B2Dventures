@@ -11,7 +11,7 @@ interface CardProps {
     imageUrl: string;
     totalInvestment: number;
     investors: number;
-    id : number;
+    id : string;
 }
 
 export const FundraisingCard: React.FC<CardProps> = ({ title, description, imageUrl, totalInvestment, investors, id }) => {
